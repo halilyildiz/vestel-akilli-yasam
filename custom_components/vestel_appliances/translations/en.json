@@ -1,0 +1,49 @@
+{
+  "title": "Vestel Akıllı Yaşam",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Sign in to Vestel Smart Life",
+        "description": "Use the email and password from your Smart Life app, then select your existing home.",
+        "data": {
+          "email": "Email",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Sign in again",
+        "data": {
+          "email": "Email",
+          "password": "Password"
+        }
+      },
+      "home": {
+        "title": "Select your home",
+        "description": "Supported appliances in this home will be discovered automatically.",
+        "data": {
+          "home_id": "Home"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Unable to sign in. Check your email and password.",
+      "cannot_connect": "Unable to connect to Vestel.",
+      "invalid_home": "Select a home from the list."
+    },
+    "abort": {
+      "already_configured": "This home is already configured.",
+      "reauth_successful": "Authentication updated.",
+      "no_homes": "No homes found. Add your appliances in the Smart Life app first."
+    }
+  },
+  "issues": {
+    "unsupported_devices": {
+      "title": "Unsupported Vestel device types",
+      "description": "This home contains {count} unsupported devices. Types: {device_types}. No controls were created for them; supported devices continue to work. Currently supported: AC, WD, DW and RF."
+    },
+    "incompatible_devices": {
+      "title": "Incompatible Vestel model description",
+      "description": "{count} device or control descriptions are incompatible with this release. Affected controls were skipped; other devices continue to work. Download redacted diagnostics from the integration menu to help add model support."
+    }
+  }
+}

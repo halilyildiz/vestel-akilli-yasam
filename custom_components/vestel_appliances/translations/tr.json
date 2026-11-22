@@ -1,0 +1,49 @@
+{
+  "title": "Vestel Akıllı Yaşam",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Vestel Akıllı Yaşam hesabıyla giriş yap",
+        "description": "Akıllı Yaşam uygulamasında kullandığınız e-posta ve şifreyle giriş yapın. Sonraki adımda mevcut evinizi seçin.",
+        "data": {
+          "email": "E-posta",
+          "password": "Şifre"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Vestel hesabıyla yeniden giriş yap",
+        "data": {
+          "email": "E-posta",
+          "password": "Şifre"
+        }
+      },
+      "home": {
+        "title": "Evinizi seçin",
+        "description": "Bu evdeki desteklenen cihazlar otomatik eklenir.",
+        "data": {
+          "home_id": "Ev"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Vestel hesabıyla giriş yapılamadı.",
+      "cannot_connect": "Vestel sunucusuna ulaşılamadı.",
+      "invalid_home": "Listeden bir ev seçin."
+    },
+    "abort": {
+      "already_configured": "Bu ev zaten eklenmiş.",
+      "reauth_successful": "Vestel oturumu yenilendi.",
+      "no_homes": "Bu hesapta kayıtlı ev bulunamadı. Önce Akıllı Yaşam uygulamasından cihazlarınızı ekleyin."
+    }
+  },
+  "issues": {
+    "unsupported_devices": {
+      "title": "Desteklenmeyen Vestel cihaz türleri",
+      "description": "Seçilen evde henüz desteklenmeyen {count} cihaz var. Türler: {device_types}. Bu cihazlar için kontrol oluşturulmadı; desteklenen cihazlar çalışmaya devam eder. Şu anda AC (klima), WD (kurutmalı çamaşır), DW (bulaşık) ve RF (buzdolabı) desteklenir."
+    },
+    "incompatible_devices": {
+      "title": "Vestel model tanımıyla uyumluluk sorunu",
+      "description": "{count} cihaz veya kontrol tanımı bu sürümle uyumlu değil. Etkilenen kontroller güvenli şekilde eklenmedi; diğer cihazlar çalışmaya devam eder. Entegrasyon menüsünden maskelenmiş tanılama indirerek model desteği geliştirmede kullanabilirsiniz."
+    }
+  }
+}
