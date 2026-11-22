@@ -1,20 +1,20 @@
 {
   "domain": "vestel_appliances",
   "name": "Vestel Akıllı Yaşam",
-  "version": "0.2.1",
-  "config_flow": true,
-  "integration_type": "hub",
-  "iot_class": "cloud_push",
-  "requirements": [
-    "aiomqtt==2.5.1"
+  "categories": [
+    "appliances_cleaning",
+    "climate.heat_pumps_air_conditioning"
   ],
   "codeowners": [
     "@halilyildiz"
   ],
+  "config_flow": true,
   "documentation": "https://github.com/halilyildiz/vestel-akilli-yasam",
+  "integration_type": "hub",
+  "iot_class": "cloud_push",
   "issue_tracker": "https://github.com/halilyildiz/vestel-akilli-yasam/issues",
-  "categories": [
-    "appliances_cleaning",
-    "climate.heat_pumps_air_conditioning"
-  ]
+  "requirements": [
+    "aiomqtt==2.5.1"
+  ],
+  "version": "0.2.1"
 }
