@@ -69,7 +69,7 @@ class Coordinator(DataUpdateCoordinator):
                 expected = self.pending.get(uuid)
                 cancelling = self.last_commands.get(uuid, {}).get("operation") == "cancelling"
                 stopped = str(registers.get("DWPROST")) in {"0", "00000", "3", "00003"}
-                if expected and (not cancelling or stopped) and all(str(registers.get(k, "")).isdecimal() and int(registers[k]) == value for k, value in expected.items()):
+                if expected and (not cancelling or stopped) and expected.matches(registers):
                     self.last_commands[uuid].update(readback_confirmed=True, operation="confirmed")
                     self.pending.pop(uuid, None)
             except AuthError as err:
@@ -125,7 +125,7 @@ class Coordinator(DataUpdateCoordinator):
                 codes = [fresh.command(command)] if command else fresh.build(updates or [])
                 if not codes:
                     raise SchemaError("Gönderilecek değişiklik bulunamadı.")
-                expected = fresh.expected_registers(codes, command=command)
+                expected = fresh.expected_readback(codes, updates=updates, command=command)
                 cancelling = bool(command and fresh.family == "DW" and command.endswith(".Command.Cancel"))
                 for code in codes:
                     await self.api.send(metadata, code)
@@ -143,8 +143,7 @@ class Coordinator(DataUpdateCoordinator):
                         self.async_set_updated_data({**self.data, uuid: fresh})
                         return {"accepted": True, "readback_confirmed": False, "operation": "cancelling"}
                     stopped = str(fresh.registers.get("DWPROST")) in {"0", "00000", "3", "00003"}
-                    if (not cancelling or stopped) and all(str(fresh.registers.get(k, "")).isdecimal()
-                           and int(fresh.registers[k]) == value for k, value in expected.items()):
+                    if (not cancelling or stopped) and expected.matches(fresh.registers):
                         self.last_commands[uuid]["readback_confirmed"] = True
                         self.last_commands[uuid]["operation"] = "confirmed"
                         self.pending.pop(uuid, None)

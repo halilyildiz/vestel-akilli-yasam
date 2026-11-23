@@ -6,6 +6,25 @@ from typing import Any
 from .fields import Field, SchemaError, integer
 
 
+@dataclass(frozen=True)
+class Readback:
+    """Expected register values and the bits actually targeted by a write."""
+
+    values: dict[str, int]
+    masks: dict[str, int]
+
+    def matches(self, registers: dict) -> bool:
+        if not self.values or not isinstance(registers, dict):
+            return False
+        try:
+            return all(
+                integer(registers.get(key)) & self.masks[key] == value & self.masks[key]
+                for key, value in self.values.items()
+            )
+        except SchemaError:
+            return False
+
+
 @dataclass
 class Device:
     metadata: dict
@@ -187,6 +206,14 @@ class Device:
             value -= definition["commandValue"]
         return Field(definition).replace_bits(self.registers, value)
 
+    def incompatible_booleans(self, definition, value):
+        """Fields automatically cleared when enabling an incompatible toggle."""
+        if definition.get("valueType") == "Boolean" and value == 1:
+            for incompatible in definition.get("incompatibleSettings", []) + definition.get("incompatibleOptions", []):
+                other = self.find(incompatible.get("key"))
+                if other and other.get("valueType") == "Boolean":
+                    yield other
+
     def build(self, updates):
         """Merge fields sharing one register into a single command."""
         working = dict(self.registers)
@@ -198,14 +225,11 @@ class Device:
             temporary = Device(self.metadata, self.discovery, working, self.read_ok)
             # Apply discovery's incompatible-setting/option rules before
             # enabling the toggle. Preserve every unrelated register bit.
-            if definition.get("valueType") == "Boolean" and value == 1:
-                for incompatible in definition.get("incompatibleSettings", []) + definition.get("incompatibleOptions", []):
-                    other = self.find(incompatible.get("key"))
-                    if other and other.get("valueType") == "Boolean":
-                        code = Field(other).replace_bits(working, 0)
-                        working[code[:7]] = code[7:]
-                        if code[:7] not in touched:
-                            touched.append(code[:7])
+            for other in self.incompatible_booleans(definition, value):
+                code = Field(other).replace_bits(working, 0)
+                working[code[:7]] = code[7:]
+                if code[:7] not in touched:
+                    touched.append(code[:7])
             code = temporary.encode(definition, value)
             working[code[:7]] = code[7:]
             if code[:7] not in touched:
@@ -245,3 +269,36 @@ class Device:
             code = Field(status).replace_bits(self.registers, value)
             result = {code[:7]: int(code[7:])}
         return result
+
+    def expected_readback(self, codes, *, updates=None, command=None) -> Readback:
+        """Verify targeted fields, including automatic incompatible resets.
+
+        Use the final merged values for fields sharing a register. Commands
+        without a bit layout still require a full register match, and UV
+        commands retain their explicit result-state mapping.
+        """
+        values = self.expected_registers(codes, command=command)
+        definitions = []
+        if command:
+            definition = (self.find_suffix(".Status.SettingIndex", "status")
+                          if command.endswith((".Command.UvonOn", ".Command.UvonOff"))
+                          else self.find(command))
+            definitions.append(definition)
+        else:
+            for key, value in updates or []:
+                definition = self.find(key)
+                if definition is None:
+                    raise SchemaError("Doğrulanacak alan tanımı bulunamadı.")
+                definitions.append(definition)
+                definitions.extend(self.incompatible_booleans(definition, value))
+        masks = {}
+        for definition in definitions:
+            if definition is None:
+                raise SchemaError("Doğrulanacak alan tanımı bulunamadı.")
+            field = Field(definition)
+            layout = field.layout()
+            mask = ((1 << layout[1]) - 1) << layout[0] if layout else 65535
+            masks[field.command] = masks.get(field.command, 0) | mask
+        if set(masks) != set(values):
+            raise SchemaError("Komutun doğrulama alanları eksik.")
+        return Readback(values, masks)
