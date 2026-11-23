@@ -21,6 +21,6 @@
 python -m unittest discover -s tests -v
 ```
 
-Güncel çevrimdışı test kümesi 155 test içerir. Protokol sınırları, oturum hataları, yanıt doğrulama, komut geri okuması, arka plan başlangıcı, enerji hatalarının ayrılması ve tanılama maskelemesi test edilir. Verilerde sentetik cihaz bilgileri kullanılır; gerçek cihaza veya buluta çağrı yapılmaz. Home Assistant sınıflarının çoğu taklittir; bu testler gerçek Home Assistant veya tüm fiziksel modellerin doğrulaması değildir.
+Çevrimdışı test kümesi protokol sınırları, oturum hataları, yanıt doğrulama, komut geri okuması, cihaz aileleri, yalnızca izlenen cihazlarda komut engelleme, arka plan başlangıcı, enerji hatalarının ayrılması ve tanılama maskelemesini denetler. Verilerde sentetik cihaz bilgileri kullanılır; gerçek cihaza veya buluta çağrı yapılmaz. Home Assistant sınıflarının çoğu taklittir; bu testler gerçek Home Assistant veya tüm fiziksel modellerin doğrulaması değildir. Yeni WM/FD kontrolleri ile TD/OV izleme kapsamı henüz yayımlanmamıştır; ayrıntılar [cihaz aileleri ve APK bulguları](device-families.md) belgesindedir.
 
 GitHub Actions çevrimdışı testleri, hassfest ve HACS doğrulamasını çalıştırır. Kontrollerin geçmesi, HACS genel kataloğuna kabul edildiği anlamına gelmez.

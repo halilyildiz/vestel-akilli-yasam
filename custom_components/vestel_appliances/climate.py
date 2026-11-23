@@ -15,6 +15,8 @@ async def async_setup_entry(hass, entry, add):
 
 
 def _entities(c, uuid, state):
+    if not state.writable:
+        return []
     if state.family != "AC":
         return []
     if not state.find_suffix(".Setting.Mode", "settings") or not state.find_suffix(".Setting.Temperature", "settings"):

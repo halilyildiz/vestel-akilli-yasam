@@ -3,11 +3,43 @@ from __future__ import annotations
 
 from typing import Any
 import math
+from copy import deepcopy
 
 from .fields import Field, SchemaError
+from .families import FAMILY_PROFILES
 
 GROUPS = ("settings", "options", "commands", "status", "errors", "programs")
 TYPES = {"Enum", "Boolean", "Integer", "Number", "BinaryInteger"}
+
+
+def prepare_discovery(schema: Any, family: str) -> dict[str, Any]:
+    """Project monitoring-only families onto validated read-only fields.
+
+    APK demo_ov has ambiguous duplicate command keys; demo_td has conflicting
+    start semantics. Neither is allowed to create or send write controls.
+    Keep the original object untouched for callers caching raw responses.
+    """
+    if not isinstance(schema, dict) or schema.get("deviceType") != family:
+        raise SchemaError("device_type_mismatch")
+    profile = FAMILY_PROFILES[family]
+    if profile.writable:
+        return validate_discovery(schema, family)
+    projected = {key: deepcopy(value) for key, value in schema.items()
+                 if key not in GROUPS + ("settingRelations", "optionRelations")}
+    for group in ("status", "errors"):
+        projected[group] = deepcopy(schema.get(group, []))
+    if family == "TD" and isinstance(projected["status"], list):
+        for definition in projected["status"]:
+            if (isinstance(definition, dict)
+                    and definition.get("key") in {
+                        "LaundryCare.TumbleDryer.Status.RemoteControl",
+                        "LaundryCare.TumbleDryer.Status.PowerStatus.Failure",
+                    }
+                    and definition.get("valueType") == "Boolean"
+                    and "commandValue" not in definition):
+                # TDCloudEntityToCloudDomain explicitly compares both to 1.
+                definition["commandValue"] = 1
+    return validate_discovery(projected, family)
 
 
 def validate_discovery(schema: Any, family: str) -> dict[str, Any]:

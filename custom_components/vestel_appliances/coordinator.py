@@ -12,7 +12,7 @@ from .api import ApiError, AuthError
 from .const import DOMAIN, SCAN_SECONDS, SUPPORTED_TYPES
 from .fields import SchemaError
 from .protocol import Device
-from .discovery import validate_discovery
+from .discovery import prepare_discovery
 from .issues import update_issues
 
 
@@ -60,7 +60,7 @@ class Coordinator(DataUpdateCoordinator):
                 if not isinstance(item.get("wifiCardType"), str) or not item["wifiCardType"]:
                     raise SchemaError("missing_transport_type")
                 if uuid not in self.schemas or self.schema_versions.get(uuid, revision) != revision:
-                    schema = validate_discovery(await self.api.discovery(uuid), family)
+                    schema = prepare_discovery(await self.api.discovery(uuid), family)
                     self.schemas[uuid] = schema
                     self.schema_versions[uuid] = revision
                 registers = await self.api.status(uuid) if item.get("connected", True) else {}
@@ -113,6 +113,8 @@ class Coordinator(DataUpdateCoordinator):
             state = (self.data or {}).get(uuid)
             if state is None:
                 raise user_error('device_not_found')
+            if not state.writable:
+                raise user_error('monitoring_only')
             try:
                 items = await self.api.devices(self.entry.data["home_id"])
                 metadata = next((d for d in items if d.get("deviceId") == uuid), None)

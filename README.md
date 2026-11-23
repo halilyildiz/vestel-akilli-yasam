@@ -21,8 +21,12 @@ This page describes `main`; check the [release notes](https://github.com/halilyi
 | Washer-dryer | Program selection, wash/dry options, start/pause and progress |
 | Dishwasher | Program selection, options, start/pause/cancel and progress |
 | Refrigerator | Compartment temperature targets, supported modes, child lock and screen saver |
+| Standalone washing machine (`WM`, experimental) | Discovery-defined programs/options, start/pause, remote-control and phase restrictions |
+| French-door refrigerator (`FD`, experimental) | Discovery-defined zone temperature/mode controls and status |
+| Standalone tumble dryer (`TD`, monitoring only) | Cloud-reported state, phase, remaining time and faults; no controls |
+| Oven (`OV`, monitoring only) | Cloud-reported program, state, temperature, remaining time and faults; no controls |
 
-The appliance must already be paired with your account in the supported Vestel app. Standalone washers, standalone dryers, ovens and other device families are not supported. A Vestel-manufactured product sold under another brand or in another region is not automatically compatible.
+The appliance must already be paired with your account in the supported Vestel app and expose a compatible legacy-register discovery schema. The new WM/FD/TD/OV coverage is **unreleased and verified offline against APK demo descriptions, not physical appliances**. JSON/HCA variants, third-party/Tuya/Dreame devices, TVs, chargers and other families are not yet controlled by this integration. A Vestel-manufactured product sold under another brand or in another region is not automatically compatible. See the [protocol evidence and remaining work](docs/device-families.md).
 
 Support is based on the appliance's cloud capability description. A model/firmware compatibility list is not yet published, so support for every model is not guaranteed. This integration **needs internet access**; it does not provide local-only control.
 

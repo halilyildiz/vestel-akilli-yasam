@@ -38,7 +38,7 @@
   "issues": {
     "unsupported_devices": {
       "title": "Desteklenmeyen Vestel cihaz türleri",
-      "description": "Seçilen evde henüz desteklenmeyen {count} cihaz var. Türler: {device_types}. Bu cihazlar için kontrol oluşturulmadı; desteklenen cihazlar çalışmaya devam eder. Şu anda AC (klima), WD (kurutmalı çamaşır), DW (bulaşık) ve RF (buzdolabı) desteklenir."
+      "description": "Bu evde desteklenmeyen {count} cihaz var. Türler: {device_types}. Bu cihazlar için kontrol oluşturulmadı; desteklenen cihazlar çalışmaya devam eder. Legacy kontrol: AC, WD, DW, RF; deneysel kontrol: WM, FD; yalnızca izleme: TD, OV."
     },
     "incompatible_devices": {
       "title": "Vestel model tanımıyla uyumluluk sorunu",
@@ -323,6 +323,100 @@
       },
       "consumption_month_water": {
         "name": "Aylık tahmini su tüketimi"
+      },
+      "laundry_care_washing_machine_status_selected_program": {
+        "name": "Seçili program",
+        "state": {
+          "eco4060": "Eko 40–60",
+          "cotton": "Pamuklu",
+          "cotton20": "Pamuklu hızlı 20 °C",
+          "synthetics": "Sentetikler",
+          "wool_silk": "Yünlü",
+          "duvet": "Yorgan",
+          "rinse": "Durulama",
+          "allergy_safe": "Alerji uzmanı",
+          "spin_drain": "Sıkma / tahliye",
+          "rapid1512": "Hızlı",
+          "fast60": "Hızlı 60 dk",
+          "dry_delicate": "Hassas kurutma",
+          "dry_cotton": "Pamuklu kurutma",
+          "dry_jet_wash": "Hızlı yıka ve kurut",
+          "dry_cotton6_wash": "Pamuklu yıka ve kurut"
+        }
+      },
+      "laundry_care_washing_machine_status_step_info": {
+        "name": "Program aşaması",
+        "state": {
+          "pre_wash": "Ön yıkama",
+          "main_wash": "Ana yıkama",
+          "program_heat": "Program ısıtması",
+          "program_wash": "Program yıkaması",
+          "cool": "Soğutma",
+          "drain": "Tahliye",
+          "first_rinse": "Birinci durulama",
+          "second_rinse": "İkinci durulama",
+          "extra_rinse": "Ekstra durulama",
+          "third_rinse": "Üçüncü durulama",
+          "fourth_rinse": "Dördüncü durulama",
+          "spin": "Sıkma",
+          "end_mode": "Bitiş",
+          "dryer_info": "Kurutucu bilgisi",
+          "drain_before_spin": "Sıkma öncesi tahliye"
+        }
+      },
+      "laundry_care_washing_machine_status_execution_state": {
+        "name": "Çalışma durumu",
+        "state": {
+          "selection": "Program seçimi",
+          "program": "Çalışıyor",
+          "in_delay": "Gecikme",
+          "pause": "Duraklatıldı",
+          "end_mode": "Bitiş",
+          "in_delay_pause": "Gecikme duraklatıldı",
+          "service_auto_test": "Servis otomatik testi",
+          "auto_test": "Otomatik test"
+        }
+      },
+      "laundry_care_washing_machine_status_temperature": {
+        "name": "Sıcaklık",
+        "state": {
+          "cold_degree": "Soğuk",
+          "20_degree": "20 °C",
+          "30_degree": "30 °C",
+          "40_degree": "40 °C",
+          "50_degree": "50 °C",
+          "60_degree": "60 °C",
+          "70_degree": "70 °C",
+          "80_degree": "80 °C",
+          "90_degree": "90 °C"
+        }
+      },
+      "laundry_care_washing_machine_status_spin_speed": {
+        "name": "Sıkma hızı",
+        "state": {
+          "no_spin": "Sıkma yok",
+          "400_rpm": "400 dev/dk",
+          "600_rpm": "600 dev/dk",
+          "800_rpm": "800 dev/dk",
+          "1000_rpm": "1000 dev/dk",
+          "1200_rpm": "1200 dev/dk",
+          "1400_rpm": "1400 dev/dk"
+        }
+      },
+      "laundry_care_washing_machine_status_delay": {
+        "name": "Gecikmeli başlatma"
+      },
+      "laundry_care_washing_machine_status_remaining_delay_duration": {
+        "name": "Kalan gecikme"
+      },
+      "laundry_care_washing_machine_status_duration": {
+        "name": "Program süresi"
+      },
+      "laundry_care_washing_machine_status_remaining_duration": {
+        "name": "Kalan süre"
+      },
+      "laundry_care_washing_machine_status_max_machine_spin": {
+        "name": "Azami sıkma hızı"
       }
     },
     "binary_sensor": {
@@ -586,6 +680,87 @@
       },
       "problem": {
         "name": "Arıza"
+      },
+      "laundry_care_washing_machine_status_energy_off": {
+        "name": "Güç kapalı"
+      },
+      "laundry_care_washing_machine_status_energy_on": {
+        "name": "Güç açık"
+      },
+      "laundry_care_washing_machine_status_door_open": {
+        "name": "Kapak açık"
+      },
+      "laundry_care_washing_machine_status_door_closed": {
+        "name": "Kapak kapalı"
+      },
+      "laundry_care_washing_machine_status_remote_control_off": {
+        "name": "Uzaktan kontrol kapalı"
+      },
+      "laundry_care_washing_machine_status_remote_control_on": {
+        "name": "Uzaktan kontrol"
+      },
+      "laundry_care_washing_machine_status_child_lock_off": {
+        "name": "Çocuk kilidi kapalı"
+      },
+      "laundry_care_washing_machine_status_child_lock_on": {
+        "name": "Çocuk kilidi"
+      },
+      "laundry_care_washing_machine_status_standby": {
+        "name": "Bekleme"
+      },
+      "laundry_care_washing_machine_error_no_error": {
+        "name": "Hata yok"
+      },
+      "laundry_care_washing_machine_error_door_error": {
+        "name": "Kapak hatası"
+      },
+      "laundry_care_washing_machine_error_lack_of_water": {
+        "name": "Su yetersiz"
+      },
+      "laundry_care_washing_machine_error_drain_pump_error": {
+        "name": "Tahliye pompası hatası"
+      },
+      "laundry_care_washing_machine_error_overflow_error": {
+        "name": "Taşma hatası"
+      },
+      "laundry_care_washing_machine_error_ntc_error": {
+        "name": "NTC hatası"
+      },
+      "laundry_care_washing_machine_error_motor_error": {
+        "name": "Motor hatası"
+      },
+      "laundry_care_washing_machine_error_motor_triac_error": {
+        "name": "Motor triyak hatası"
+      },
+      "laundry_care_washing_machine_error_low_voltage_error": {
+        "name": "Düşük gerilim hatası"
+      },
+      "laundry_care_washing_machine_error_eps_socket_not_connected": {
+        "name": "EPS bağlantısı yok"
+      },
+      "laundry_care_washing_machine_error_dryer_communication_error": {
+        "name": "Kurutucu iletişim hatası"
+      },
+      "laundry_care_washing_machine_error_dryer_heater_error_in_service_autotest": {
+        "name": "Servis testinde kurutucu ısıtıcı hatası"
+      },
+      "laundry_care_washing_machine_error_dryer_high_temp_error": {
+        "name": "Kurutucu yüksek sıcaklık hatası"
+      },
+      "laundry_care_washing_machine_error_flowmeter_not_connected_error": {
+        "name": "Akış ölçer bağlı değil"
+      },
+      "laundry_care_washing_machine_error_dryer_ntc_error": {
+        "name": "Kurutucu NTC hatası"
+      },
+      "laundry_care_washing_machine_error_bldc_motor_error": {
+        "name": "BLDC motor hatası"
+      },
+      "laundry_care_washing_machine_error_pyrojet_error": {
+        "name": "Pyrojet hatası"
+      },
+      "laundry_care_washing_machine_error_high_voltage_error": {
+        "name": "Yüksek gerilim hatası"
       }
     },
     "switch": {
@@ -757,6 +932,150 @@
           "holiday": "Tatil",
           "eco": "Ekonomi"
         }
+      },
+      "laundry_care_washing_machine_option_spin_speed": {
+        "name": "Sıkma hızı",
+        "state": {
+          "no_spin": "Sıkma yok",
+          "400_rpm": "400 dev/dk",
+          "600_rpm": "600 dev/dk",
+          "800_rpm": "800 dev/dk",
+          "1000_rpm": "1000 dev/dk",
+          "1200_rpm": "1200 dev/dk",
+          "1400_rpm": "1400 dev/dk"
+        }
+      },
+      "laundry_care_washing_machine_option_dry": {
+        "name": "Kurutma seviyesi",
+        "state": {
+          "no_level": "Kurutma yok",
+          "level1": "Seviye 1",
+          "level2": "Seviye 2",
+          "level3": "Seviye 3"
+        }
+      },
+      "laundry_care_washing_machine_option_time_dry": {
+        "name": "Kurutma süresi",
+        "state": {
+          "no_time": "Süreli kurutma yok",
+          "time30min": "30 dk",
+          "time60min": "60 dk",
+          "time90min": "90 dk",
+          "time120min": "120 dk"
+        }
+      },
+      "laundry_care_washing_machine_option_temperature": {
+        "name": "Sıcaklık",
+        "state": {
+          "cold_degree": "Soğuk",
+          "20_degree": "20 °C",
+          "30_degree": "30 °C",
+          "40_degree": "40 °C",
+          "50_degree": "50 °C",
+          "60_degree": "60 °C",
+          "70_degree": "70 °C",
+          "80_degree": "80 °C",
+          "90_degree": "90 °C"
+        }
+      },
+      "refrigeration_fridge_cooler_setting_main_temperature": {
+        "name": "Ana soğutucu hedef sıcaklığı",
+        "state": {
+          "off": "Kapalı",
+          "1_c": "1 °C",
+          "2_c": "2 °C",
+          "3_c": "3 °C",
+          "4_c": "4 °C",
+          "5_c": "5 °C",
+          "6_c": "6 °C",
+          "7_c": "7 °C",
+          "8_c": "8 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Hızlı soğutma",
+          "super_freeze": "Hızlı dondurma"
+        }
+      },
+      "refrigeration_fridge_cooler_setting_zone1_temperature": {
+        "name": "Bölme 1 soğutucu hedef sıcaklığı",
+        "state": {
+          "off": "Kapalı",
+          "1_c": "1 °C",
+          "2_c": "2 °C",
+          "3_c": "3 °C",
+          "4_c": "4 °C",
+          "5_c": "5 °C",
+          "6_c": "6 °C",
+          "7_c": "7 °C",
+          "8_c": "8 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Hızlı soğutma",
+          "super_freeze": "Hızlı dondurma"
+        }
+      },
+      "refrigeration_fridge_cooler_setting_zone2_temperature": {
+        "name": "Bölme 2 soğutucu hedef sıcaklığı",
+        "state": {
+          "off": "Kapalı",
+          "1_c": "1 °C",
+          "2_c": "2 °C",
+          "3_c": "3 °C",
+          "4_c": "4 °C",
+          "5_c": "5 °C",
+          "6_c": "6 °C",
+          "7_c": "7 °C",
+          "8_c": "8 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Hızlı soğutma",
+          "super_freeze": "Hızlı dondurma"
+        }
+      },
+      "refrigeration_fridge_freezer_setting_zone1_temperature": {
+        "name": "Bölme 1 dondurucu hedef sıcaklığı",
+        "state": {
+          "off": "Kapalı",
+          "m14": "−14 °C",
+          "m15": "−15 °C",
+          "m16": "−16 °C",
+          "m17": "−17 °C",
+          "m18": "−18 °C",
+          "m19": "−19 °C",
+          "m20": "−20 °C",
+          "m21": "−21 °C",
+          "m22": "−22 °C",
+          "m23": "−23 °C",
+          "m24": "−24 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Hızlı soğutma",
+          "super_freeze": "Hızlı dondurma"
+        }
+      },
+      "refrigeration_fridge_freezer_setting_zone2_temperature": {
+        "name": "Bölme 2 dondurucu hedef sıcaklığı",
+        "state": {
+          "off": "Kapalı",
+          "m14": "−14 °C",
+          "m15": "−15 °C",
+          "m16": "−16 °C",
+          "m17": "−17 °C",
+          "m18": "−18 °C",
+          "m19": "−19 °C",
+          "m20": "−20 °C",
+          "m21": "−21 °C",
+          "m22": "−22 °C",
+          "m23": "−23 °C",
+          "m24": "−24 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Hızlı soğutma",
+          "super_freeze": "Hızlı dondurma"
+        }
+      },
+      "refrigeration_fridge_cooler_setting_mode": {
+        "name": "Çalışma modu",
+        "state": {
+          "none": "Normal",
+          "eco": "Ekonomi",
+          "holiday": "Tatil"
+        }
       }
     },
     "button": {
@@ -804,6 +1123,18 @@
       },
       "dishcare_dish_washer_command_uvon_off": {
         "name": "UV kapat"
+      },
+      "laundry_care_washing_machine_command_start": {
+        "name": "Başlat"
+      },
+      "laundry_care_washing_machine_command_pause": {
+        "name": "Duraklat"
+      },
+      "laundry_care_washing_machine_command_in_delay": {
+        "name": "Gecikmeyi başlat"
+      },
+      "laundry_care_washing_machine_command_selection": {
+        "name": "Tamam / program seçimine dön"
       }
     },
     "time": {
@@ -822,6 +1153,9 @@
         "name": "Gecikmeli başlatma"
       },
       "dishcare_dish_washer_option_delay_timer": {
+        "name": "Gecikmeli başlatma"
+      },
+      "laundry_care_washing_machine_option_delay": {
         "name": "Gecikmeli başlatma"
       }
     },
@@ -1112,6 +1446,9 @@
     },
     "identity_http": {
       "message": "Canlı veri kimliği alınamadı (HTTP {http_status})."
+    },
+    "monitoring_only": {
+      "message": "Bu cihaz ailesi şu anda yalnızca izlemeyi destekliyor; komut gönderilmedi."
     }
   },
   "services": {

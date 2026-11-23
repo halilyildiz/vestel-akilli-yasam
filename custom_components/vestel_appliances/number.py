@@ -9,6 +9,8 @@ async def async_setup_entry(hass, entry, add):
 
 
 def _entities(c, uuid, state):
+    if not state.writable:
+        return []
     entities = [SettingNumber(c, uuid, d) for d in state.definitions("options") if d.get("valueType") in {"Integer", "Number"}]
     if state.family == "AC":
         d = state.find_suffix(".Setting.QuickOffTime.Hour", "settings")

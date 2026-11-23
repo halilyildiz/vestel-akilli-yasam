@@ -7,6 +7,7 @@ async def async_get_config_entry_diagnostics(hass, entry):
     devices = coordinator.data or {}
     payload = {
         "compatibility": {
+            "device_collections": getattr(coordinator.api, "inventory_summary", {}),
             "unsupported_types": coordinator.unsupported_types,
             "incompatible_devices": coordinator.compatibility_errors,
             "platform_errors": sorted(coordinator.platform_errors),
@@ -14,6 +15,7 @@ async def async_get_config_entry_diagnostics(hass, entry):
         "live_updates": dict(coordinator.live.stats),
         "devices": [{
             "metadata": metadata_view(state.metadata),
+            "support_level": state.support_level,
             "discovery": state.discovery,
             "registers": state.registers,
             "read_ok": state.read_ok,

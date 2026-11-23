@@ -41,6 +41,7 @@ class Api:
         self.credentials = dict(credentials)
         self.token_callback = token_callback
         self._token = None
+        self.inventory_summary: dict[str, int] = {}
         self._expires = 0
         self._auth_lock = asyncio.Lock()
         self._billing_lock = asyncio.Lock()
@@ -177,6 +178,15 @@ class Api:
         items = container.get("homeappliances")
         if not isinstance(items, list):
             raise ApiError('devices_invalid')
+        # APK GetDevicesResponseNetworkDTO.Items separates these backends.
+        # Counts aid compatibility reports; third-party records never enter
+        # the legacy register transport and no IDs/credentials are retained.
+        self.inventory_summary = {
+            key: len(container[key]) for key in (
+                "homeappliances", "nonSmartDevices", "televisions", "pairedDevices",
+                "partnerDevices", "chargers", "thirdpartyDevices",
+            ) if isinstance(container.get(key), list)
+        }
         return items
 
     async def discovery(self, device_id):

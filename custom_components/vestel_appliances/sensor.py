@@ -68,7 +68,7 @@ class Status(Base, SensorEntity):
     def extra_state_attributes(self) -> dict[str, Any]:
         attrs = super().extra_state_attributes
         attrs["register"] = self.definition.get("commandName")
-        if self.key.endswith(".Status.Door"):
+        if self.state_data.family == "RF" and self.key.endswith(".Status.Door"):
             attrs["interpretation"] = "3=closed; 0/1/2=at least one door open"
         return attrs
 
