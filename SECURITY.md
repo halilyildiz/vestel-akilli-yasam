@@ -4,7 +4,7 @@
 
 Do not post vulnerability details, credentials, tokens, signed URLs, device identifiers or unredacted diagnostics in public issues.
 
-If private vulnerability reporting is enabled, use [GitHub's private report form](https://github.com/halilyildiz/vestel-akilli-yasam/security/advisories/new). If the form is unavailable, open a non-sensitive issue titled **Private security contact requested** asking the maintainer for a private channel. Do not include the vulnerability details or attachments until a private channel is established.
+If private vulnerability reporting is enabled, use [GitHub's private report form](https://github.com/halilyildiz/vestel-smart-life-home-assistant/security/advisories/new). If the form is unavailable, open a non-sensitive issue titled **Private security contact requested** asking the maintainer for a private channel. Do not include the vulnerability details or attachments until a private channel is established.
 
 In the private report, include:
 
@@ -20,7 +20,7 @@ This community project has no published guaranteed response or remediation time.
 
 Report the exact installed release and, if relevant, whether the issue also affects `main`. The current README describes `main`, which can contain changes not yet released. No security backport policy for older releases is currently published.
 
-Check [releases](https://github.com/halilyildiz/vestel-akilli-yasam/releases), [CHANGELOG.md](CHANGELOG.md) and published [security advisories](https://github.com/halilyildiz/vestel-akilli-yasam/security/advisories) for available fixes. A passing HACS or hassfest check is not a security certification. This document is a reporting policy, not an audit report.
+Check [releases](https://github.com/halilyildiz/vestel-smart-life-home-assistant/releases), [CHANGELOG.md](CHANGELOG.md) and published [security advisories](https://github.com/halilyildiz/vestel-smart-life-home-assistant/security/advisories) for available fixes. A passing HACS or hassfest check is not a security certification. This document is a reporting policy, not an audit report.
 
 ## Credentials and cloud access
 

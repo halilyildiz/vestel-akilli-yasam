@@ -17,7 +17,7 @@ Diagnostics retain selected technical metadata (model, firmware, device type and
 
 Email, password and refresh tokens are stored through Home Assistant's config-entry mechanism; the password is retained for login when refresh-token renewal is rejected. They are not protected by a separate integration-specific encryption layer. Protect your configuration files and backups as credentials. Diagnostics use known credential values for masking but do not export the config entry itself.
 
-The integration does not send credentials to this repository or its maintainer. Authentication goes to the cloud provider; there is no direct local-only control mode. Cloud API changes can break the integration. See [SECURITY.md](../SECURITY.md) for vulnerability reporting; ordinary, non-sensitive bugs belong in [Issues](https://github.com/halilyildiz/vestel-akilli-yasam/issues).
+The integration does not send credentials to this repository or its maintainer. Authentication goes to the cloud provider; there is no direct local-only control mode. Cloud API changes can break the integration. See [SECURITY.md](../SECURITY.md) for vulnerability reporting; ordinary, non-sensitive bugs belong in [Issues](https://github.com/halilyildiz/vestel-smart-life-home-assistant/issues).
 
 ## Uninstall
 

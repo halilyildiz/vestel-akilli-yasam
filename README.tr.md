@@ -4,14 +4,14 @@ Desteklenen **klima, kurutmalı çamaşır makinesi, bulaşık makinesi ve buzdo
 
 [**English**](README.md) · [Kurulum](#kurulum) · [Sorun giderme](docs/troubleshooting.tr.md) · [Güncelleme](docs/upgrading.tr.md)
 
-[![Doğrulama](https://github.com/halilyildiz/vestel-akilli-yasam/actions/workflows/validate.yaml/badge.svg)](https://github.com/halilyildiz/vestel-akilli-yasam/actions/workflows/validate.yaml)
-[![Marketplace'te aç](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=halilyildiz&repository=vestel-akilli-yasam&category=integration)
+[![Doğrulama](https://github.com/halilyildiz/vestel-smart-life-home-assistant/actions/workflows/validate.yaml/badge.svg)](https://github.com/halilyildiz/vestel-smart-life-home-assistant/actions/workflows/validate.yaml)
+[![Marketplace'te aç](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=halilyildiz&repository=vestel-smart-life-home-assistant&category=integration)
 
 Resmî olmayan topluluk entegrasyonudur; Vestel tarafından geliştirilmez veya desteklenmez. **Vestel Akıllı Yaşam / Smart Life (homevsmart)** hesabına bağlanır; Tuya Smart Life için değildir.
 
 [Mehmet Aktaş'ın MIT lisanslı Vestel Smart Home projesi](https://github.com/mehmetaktas/ha-vestel-smarthome) temel alınarak geliştirilmiştir. Kimlik doğrulama ve bulut iletişimi orijinal projeden uyarlanmış, ek cihaz aileleriyle genişletilmiştir. [Kaynak bildirimleri](NOTICE.md).
 
-Bu sayfa `main` dalını anlatır; kurulu sürümünüz için [sürüm notlarını](https://github.com/halilyildiz/vestel-akilli-yasam/releases) kontrol edin. **Eski sürümü kullanıyorsanız yükseltmeden önce [geçiş rehberini](docs/upgrading.tr.md) okuyun**; özellikle seçenek adı veya fan modu kullanan otomasyonları gözden geçirin.
+Bu sayfa `main` dalını anlatır; kurulu sürümünüz için [sürüm notlarını](https://github.com/halilyildiz/vestel-smart-life-home-assistant/releases) kontrol edin. **Eski sürümü kullanıyorsanız yükseltmeden önce [geçiş rehberini](docs/upgrading.tr.md) okuyun**; özellikle seçenek adı veya fan modu kullanan otomasyonları gözden geçirin.
 
 ## Cihazım destekleniyor mu?
 
@@ -33,7 +33,7 @@ Başlamadan önce **Home Assistant 2026.11.0 veya sonrası**, HACS ve Vestel uyg
 1. **HACS**'ı (bazı kurulumlarda Marketplace) açın; menüsünden **Özel depolar** bölümüne girin.
 2. Aşağıdaki adresi **Integration** türünde ekleyin:
 
-   `https://github.com/halilyildiz/vestel-akilli-yasam`
+   `https://github.com/halilyildiz/vestel-smart-life-home-assistant`
 
 3. **Vestel Smart Life** paketini bulup yükleyin; istenirse yeniden başlatın.
 4. **Ayarlar → Cihazlar ve hizmetler → Entegrasyon ekle → Vestel Smart Life** yolunu izleyin.
@@ -64,7 +64,7 @@ Seçilen uygulama evine eklenen desteklenen cihazlar, normalde yaklaşık 45 san
 - **Cihaz veya kontrol kullanılamıyor:** seçilen evi, panelin uzaktan kontrol iznini ve **Ayarlar → Sistem → Onarımlar** bölümünü kontrol edin.
 - **Komut kabul edildi ancak doğrulanmadı:** yeniden denemeden önce cihazın gerçek durumuna ve resmî uygulamaya bakın; entegrasyon doğrulanmayan komutu otomatik tekrar göndermez.
 
-Ayrıntılar [sorun giderme rehberinde](docs/troubleshooting.tr.md). Normal hataları [Issues](https://github.com/halilyildiz/vestel-akilli-yasam/issues) bölümüne kurulu entegrasyon/HA sürümü, cihaz modeli ve tekrar adımlarıyla bildirin. Entegrasyon menüsünden tanılama indirip **paylaşmadan önce inceleyin**.
+Ayrıntılar [sorun giderme rehberinde](docs/troubleshooting.tr.md). Normal hataları [Issues](https://github.com/halilyildiz/vestel-smart-life-home-assistant/issues) bölümüne kurulu entegrasyon/HA sürümü, cihaz modeli ve tekrar adımlarıyla bildirin. Entegrasyon menüsünden tanılama indirip **paylaşmadan önce inceleyin**.
 
 ## Gizlilik
 

@@ -6,7 +6,7 @@ Entegrasyonun görünen adı **Vestel Smart Life** oldu. Bağlanılan uygulama/h
 
 Kaynak dil İngilizcedir. Kurulum, varlık adları, seçenek/durum etiketleri, servis açıklamaları ve kullanıcıya gösterilen hatalar için Türkçe çeviriler bulunur. Görünen dil Home Assistant dil ayarlarına göre belirlenir. Yeni model alanları gerektiğinde okunabilir teknik adlarla gösterilir.
 
-`vestel_appliances` alanı, benzersiz kimlikler ve mevcut varlık kayıtları korunur. Varsayılan entegrasyon kayıt adı güncellenir; kullanıcının verdiği özel kayıt adı korunur. Mevcut varlık kimlikleri yeniden adlandırılmaz. Mevcut depo adresi `halilyildiz/vestel-akilli-yasam` olarak kalır. Depo adının değiştirilmesi planlanıyor; işlem tamamlanana kadar kurulum rehberindeki çalışan adresi kullanın.
+`vestel_appliances` alanı, benzersiz kimlikler ve mevcut varlık kayıtları korunur. Varsayılan entegrasyon kayıt adı güncellenir; kullanıcının verdiği özel kayıt adı korunur. Mevcut varlık kimlikleri yeniden adlandırılmaz. Yeni depo adresi `halilyildiz/vestel-smart-life-home-assistant` oldu. GitHub eski `halilyildiz/vestel-akilli-yasam` adresini yönlendirir. Yeni kurulumlarda yeni adresi kullanın; mevcut HACS kurulumu güncellenemiyorsa yeniden kurmadan önce depo kaynağını kontrol edin. Yalnızca depo adresi değişti diye entegrasyon yapılandırma kaydını silmeyin.
 
 **Otomasyon geçişi:** seçim seçenekleri, enum sensör durumları ve klima fan modları artık çevrilmiş metin yerine sabit makine anahtarları kullanır. Arayüz bu anahtarları seçili dilde gösterir. Yükseltmeden önce düz metin durum karşılaştıran veya seçenek/fan modu metni gönderen otomasyon, betik, şablon ve panelleri kontrol edin. Gerçek değeri Geliştirici Araçları → Durumlar bölümünden alın; çevrilmiş ekran etiketini kopyalamayın.
 

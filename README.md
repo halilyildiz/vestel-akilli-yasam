@@ -4,14 +4,14 @@ Control supported **air conditioners, washer-dryers, dishwashers and refrigerato
 
 [**Türkçe**](README.tr.md) · [Installation](#installation) · [Troubleshooting](docs/troubleshooting.md) · [Updating](docs/upgrading.md)
 
-[![Validation](https://github.com/halilyildiz/vestel-akilli-yasam/actions/workflows/validate.yaml/badge.svg)](https://github.com/halilyildiz/vestel-akilli-yasam/actions/workflows/validate.yaml)
-[![Open in Marketplace](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=halilyildiz&repository=vestel-akilli-yasam&category=integration)
+[![Validation](https://github.com/halilyildiz/vestel-smart-life-home-assistant/actions/workflows/validate.yaml/badge.svg)](https://github.com/halilyildiz/vestel-smart-life-home-assistant/actions/workflows/validate.yaml)
+[![Open in Marketplace](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=halilyildiz&repository=vestel-smart-life-home-assistant&category=integration)
 
 Unofficial community integration; not affiliated with or supported by Vestel. It connects to **Vestel Akıllı Yaşam / Smart Life (homevsmart)**, not Tuya Smart Life.
 
 Built on [Mehmet Aktaş's MIT-licensed Vestel Smart Home integration](https://github.com/mehmetaktas/ha-vestel-smarthome), with authentication and cloud communication adapted and extended for additional appliance families. [Source acknowledgements](NOTICE.md).
 
-This page describes `main`; check the [release notes](https://github.com/halilyildiz/vestel-akilli-yasam/releases) for your installed version. **Already using an older version? Read the [migration guide](docs/upgrading.md) before updating**, especially if automations use option names or fan modes.
+This page describes `main`; check the [release notes](https://github.com/halilyildiz/vestel-smart-life-home-assistant/releases) for your installed version. **Already using an older version? Read the [migration guide](docs/upgrading.md) before updating**, especially if automations use option names or fan modes.
 
 ## Will it work with my appliance?
 
@@ -33,7 +33,7 @@ Before you start, you need **Home Assistant 2026.11.0 or newer**, HACS, and the 
 1. Open **HACS** (Marketplace in some installations), then its menu → **Custom repositories**.
 2. Add the address below with category **Integration**:
 
-   `https://github.com/halilyildiz/vestel-akilli-yasam`
+   `https://github.com/halilyildiz/vestel-smart-life-home-assistant`
 
 3. Find and install **Vestel Smart Life**, then follow any restart prompt.
 4. Open **Settings → Devices & services → Add integration → Vestel Smart Life**.
@@ -64,7 +64,7 @@ New supported appliances added to the selected app home normally appear after th
 - **Appliance or control unavailable:** check the selected home, panel remote-control permission and **Settings → System → Repairs**.
 - **Command accepted but not confirmed:** check the actual appliance and official app before retrying; the integration does not automatically resend an unconfirmed command.
 
-See the [full troubleshooting guide](docs/troubleshooting.md). For ordinary bugs, include the installed integration/HA versions, device model and steps in an [issue](https://github.com/halilyildiz/vestel-akilli-yasam/issues). Download diagnostics from the integration menu and **inspect them before sharing**.
+See the [full troubleshooting guide](docs/troubleshooting.md). For ordinary bugs, include the installed integration/HA versions, device model and steps in an [issue](https://github.com/halilyildiz/vestel-smart-life-home-assistant/issues). Download diagnostics from the integration menu and **inspect them before sharing**.
 
 ## Privacy
 

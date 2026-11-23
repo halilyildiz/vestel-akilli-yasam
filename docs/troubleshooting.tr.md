@@ -21,7 +21,7 @@ Tanılama yalnızca seçilen teknik metadata alanlarını (model, firmware, ciha
 
 E-posta, parola ve refresh token Home Assistant'ın yapılandırma kaydında saklanır. Token yenilemesi reddedildiğinde giriş yapılabilmesi için parola tutulur; entegrasyona özel ek bir şifreleme katmanı yoktur. Yapılandırma dosyalarını ve yedekleri kimlik bilgisi içeriyor gibi koruyun. Tanılama, bilinen kimlik bilgilerini maskeleme için kullanır; yapılandırma kaydını dışarı aktarmaz.
 
-Kimlik bilgileri bu depoya veya geliştiriciye gönderilmez; giriş işlemi bulut sağlayıcısına yapılır. Güvenlik açığı bildirim yöntemi için [SECURITY.md](../SECURITY.md) dosyasına bakın. Hassas bilgi içermeyen normal hatalar [Issues](https://github.com/halilyildiz/vestel-akilli-yasam/issues) bölümünden bildirilebilir.
+Kimlik bilgileri bu depoya veya geliştiriciye gönderilmez; giriş işlemi bulut sağlayıcısına yapılır. Güvenlik açığı bildirim yöntemi için [SECURITY.md](../SECURITY.md) dosyasına bakın. Hassas bilgi içermeyen normal hatalar [Issues](https://github.com/halilyildiz/vestel-smart-life-home-assistant/issues) bölümünden bildirilebilir.
 
 ## Kaldırma
 
