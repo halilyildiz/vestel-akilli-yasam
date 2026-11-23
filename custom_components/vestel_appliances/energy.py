@@ -1,6 +1,7 @@
 """Slow, isolated energy history polling; appliance control never depends on it."""
 from __future__ import annotations
 import asyncio
+from contextlib import suppress
 import logging
 import math
 from datetime import timedelta
@@ -27,6 +28,21 @@ class EnergyCoordinator(DataUpdateCoordinator):
         self.api = appliances.api
         self.entry = entry
         self.billing = None
+        self._initial_refresh_task = None
+
+    def start(self, hass):
+        """Fetch optional history without blocking entry setup or HA startup."""
+        if self._initial_refresh_task is None:
+            self._initial_refresh_task = self.entry.async_create_background_task(
+                hass, self.async_refresh(), "Vestel initial energy history")
+
+    async def stop(self):
+        """Cancel an initial history fetch when its config entry is unloaded."""
+        if self._initial_refresh_task is not None:
+            self._initial_refresh_task.cancel()
+            with suppress(asyncio.CancelledError):
+                await self._initial_refresh_task
+            self._initial_refresh_task = None
 
     async def async_refresh_billing(self):
         try:

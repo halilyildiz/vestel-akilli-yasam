@@ -132,15 +132,16 @@ async def async_setup_entry(hass, entry):
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = coordinator
     coordinator.energy = EnergyCoordinator(hass, entry, coordinator)
     coordinator.live = LiveUpdates(hass, entry, coordinator)
-    # An unavailable history endpoint must not prevent appliance controls.
-    await coordinator.energy.async_refresh()
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     coordinator.live.start()
+    # Optional history must not delay controls or live status subscriptions.
+    coordinator.energy.start(hass)
     return True
 
 
 async def async_unload_entry(hass, entry):
     if await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
+        await hass.data[DOMAIN][entry.entry_id].energy.stop()
         await hass.data[DOMAIN][entry.entry_id].live.stop()
         hass.data[DOMAIN].pop(entry.entry_id, None)
         return True
