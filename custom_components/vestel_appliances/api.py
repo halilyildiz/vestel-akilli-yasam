@@ -49,7 +49,22 @@ class Api:
                 "Content-Type": "application/x-amz-json-1.1",
                 "X-Amz-Target": "AWSCognitoIdentityProviderService." + flow,
             }, timeout=aiohttp.ClientTimeout(total=30)) as response:
+                if response.status == 429 or 500 <= response.status < 600:
+                    raise ApiError(f"Vestel kimlik sunucusu geçici olarak kullanılamıyor (HTTP {response.status}).")
                 if response.status != 200:
+                    # Cognito can report throttling as HTTP 400 rather than 429.
+                    # Keep transient failures out of the password fallback and
+                    # Home Assistant's reauthentication flow.
+                    if response.status == 400:
+                        try:
+                            error = await response.json(content_type=None)
+                        except ValueError:
+                            error = {}
+                        error_type = error.get("__type", "") if isinstance(error, dict) else ""
+                        if isinstance(error_type, str) and error_type.rsplit("#", 1)[-1] in {
+                            "TooManyRequestsException", "InternalErrorException",
+                        }:
+                            raise ApiError("Vestel kimlik sunucusu geçici olarak kullanılamıyor.")
                     raise AuthError(f"Vestel oturumu yenilenemedi (HTTP {response.status}).")
                 body = await response.json(content_type=None)
         except (aiohttp.ClientError, asyncio.TimeoutError):
