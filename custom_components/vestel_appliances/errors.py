@@ -3,6 +3,7 @@ from .const import DOMAIN
 
 
 DEFAULT_MESSAGES = {'amount_invalid': 'Enter a finite amount of zero or greater.',
+ 'monitoring_only': 'This appliance family currently supports monitoring only; no command was sent.',
  'auth_connection_failed': 'Could not reach the Vestel authentication server.',
  'auth_expiry_invalid': 'Invalid Vestel session lifetime.',
  'auth_rejected_http': 'The Vestel session could not be renewed (HTTP {http_status}).',

@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .fields import Field, SchemaError, integer
+from .families import FAMILY_PROFILES
 
 
 @dataclass(frozen=True)
@@ -36,11 +37,21 @@ class Device:
     def family(self):
         return self.metadata["deviceType"]
 
+    @property
+    def support_level(self) -> str:
+        profile = FAMILY_PROFILES.get(self.family)
+        return profile.support_level if profile else "unsupported"
+
+    @property
+    def writable(self) -> bool:
+        profile = FAMILY_PROFILES.get(self.family)
+        return profile is not None and profile.writable
+
     def definitions(self, *groups):
         return [item for group in groups for item in self.discovery.get(group, [])]
 
     def find(self, key):
-        return next((d for d in self.definitions("settings", "options", "commands", "status", "programs") if d.get("key") == key), None)
+        return next((d for d in self.definitions("settings", "options", "commands", "status", "programs", "errors") if d.get("key") == key), None)
 
     def find_suffix(self, suffix, *groups):
         return next((d for d in self.definitions(*(groups or ("settings", "options", "commands", "status"))) if d.get("key", "").endswith(suffix)), None)
@@ -49,7 +60,14 @@ class Device:
         if not definition:
             return None
         try:
-            return Field(definition).decode(self.registers)
+            value = Field(definition).decode(self.registers)
+            if self.family in {"WM", "FD", "TD", "OV"} and definition.get("valueType") in {"Integer", "Number"}:
+                limits = definition.get("valueLimits") or {}
+                # Do not present an unsigned/sentinel code as a measured
+                # temperature. Signed/offset formats need evidence of encoding.
+                if type(value) in (int, float) and (value < limits.get("min", value) or value > limits.get("max", value)):
+                    return None
+            return value
         except SchemaError:
             return None
 
@@ -80,7 +98,7 @@ class Device:
             mode_choice = next((v for v in (mode or {}).get("values", []) if v.get("value") == current), None)
             if mode_choice and key != mode["key"]:
                 included = next((v for v in mode_choice.get("includedSettings", []) if v.get("key") == key), {})
-        elif self.family in {"DW", "WD"} and ".Option." in key:
+        elif self.family in {"DW", "WD", "WM"} and ".Option." in key:
             selected = self.status(".SelectedProgram")
             program_name = selected.replace(".Status.SelectedProgram.", ".Program.") if selected else None
             program = next((p for p in self.discovery.get("programs", []) if p.get("key") == program_name), None)
@@ -145,12 +163,14 @@ class Device:
 
     def validate(self, definition, value=None):
         key = definition["key"]
+        if not self.writable:
+            raise SchemaError('monitoring_only')
         if not self.read_ok or self.metadata.get("connected") is False:
             raise SchemaError('status_unavailable')
         if key.endswith((".Command.UvonOn", ".Command.UvonOff")):
             self.expected_registers([], command=key)
-        if self.family in {"DW", "WD"}:
-            remote = (self.status(".RemoteControlOn") if self.family == "WD"
+        if self.family in {"DW", "WD", "WM"}:
+            remote = (self.status(".RemoteControlOn") if self.family in {"WD", "WM"}
                       else str(self.status(".RemoteControl") or "").endswith(".Open"))
             if not remote:
                 raise SchemaError('remote_required')

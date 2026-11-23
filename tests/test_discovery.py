@@ -50,9 +50,9 @@ class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(result['new'].read_ok)
 
     async def test_unsupported_only_account_remains_loaded_and_recovers(self):
-        self.api.devices.return_value=[{'deviceType':'OV','deviceId':'oven'}]
+        self.api.devices.return_value=[{'deviceType':'UNKNOWN','deviceId':'unknown'}]
         self.assertEqual(await self.c._async_update_data(),{})
-        self.assertEqual(self.c.unsupported_types,{'OV':1})
+        self.assertEqual(self.c.unsupported_types,{'UNKNOWN':1})
         self.api.discovery.assert_not_called()
         self.api.devices.return_value=[self.meta]
         self.assertIn('healthy',await self.c._async_update_data())

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — device-family expansion
+
+- Add experimental legacy-register controls for standalone washers (`WM`) and French-door refrigerators (`FD`), based on APK capability descriptions. These models have not been physically verified.
+- Add monitoring-only support for legacy tumble dryers (`TD`) and ovens (`OV`). Exclude write definitions and reject generic service writes for these families while their lifecycle semantics remain unresolved.
+- Report per-device coverage levels and counts of other backend collections in diagnostics, without importing their records into the legacy command pipeline.
+- Preserve WM remote-control, program and option constraints. Keep RF-specific door interpretations separate from FD data, and recognize fault definitions when checking entity availability.
+- Document extracted API families, APK evidence and remaining transport work. No new release or automatic Home Assistant deployment accompanies this branch.
+
 ## 0.3.0 — 2026-11-23
 
 [English / Türkçe release notes](docs/releases/0.3.0.md)

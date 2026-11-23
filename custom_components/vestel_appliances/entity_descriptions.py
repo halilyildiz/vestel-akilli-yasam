@@ -113,14 +113,19 @@ def sensor_description(definition: Mapping[str, Any]) -> SensorEntityDescription
     policy = entity_policy(key)
     unit: str | None = None
     device_class: SensorDeviceClass | None = None
+    limits = definition.get("valueLimits") or {}
+    declared_unit = limits.get("unit")
     if key.endswith((".RemainingDuration", ".Duration", ".ProgramDuration")):
         unit = "min"
     elif key.endswith(".RoomTemperature"):
         unit, device_class = UnitOfTemperature.CELSIUS, SensorDeviceClass.TEMPERATURE
+    elif definition.get("valueType") in {"Integer", "Number"} and limits.get("scale", 0) == 0 and declared_unit in {"celsius", "celcius"}:
+        unit, device_class = UnitOfTemperature.CELSIUS, SensorDeviceClass.TEMPERATURE
+    elif definition.get("valueType") in {"Integer", "Number"} and limits.get("scale", 0) == 0 and declared_unit in {"minute", "minutes"}:
+        unit, device_class = "min", SensorDeviceClass.DURATION
     elif policy.category == EntityCategory.DIAGNOSTIC:
         # SignalRSS values on current devices are positive raw codes, not dBm.
         # Assign a signal unit/class only when discovery explicitly supplies it.
-        declared_unit = (definition.get("valueLimits") or {}).get("unit")
         if declared_unit == "dBm":
             unit, device_class = "dBm", SensorDeviceClass.SIGNAL_STRENGTH
         elif "uptime" in key.casefold() and declared_unit in {"second", "seconds", "s"}:

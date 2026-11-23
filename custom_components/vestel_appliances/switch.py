@@ -8,6 +8,8 @@ async def async_setup_entry(hass, entry, add):
 
 
 def _entities(c, uuid, state):
+    if not state.writable:
+        return []
     entities = [Toggle(c, uuid, d) for d in state.definitions("settings", "options") if d.get("valueType") == "Boolean"]
     if state.family == "DW" and (d := state.find_suffix(".Command.UvonOn", "commands")) and state.find_suffix(".Command.UvonOff", "commands"):
         entities.append(Ultraviolet(c, uuid, d))

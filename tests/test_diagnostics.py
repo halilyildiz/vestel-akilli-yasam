@@ -66,6 +66,7 @@ class DiagnosticsTests(unittest.IsolatedAsyncioTestCase):
             "encoded": json.dumps({"deviceId": self.uuid, "password": "private-password"}),
         }, {"ACTEMOT": "00008"})
         self.coordinator = SimpleNamespace(
+            api=SimpleNamespace(inventory_summary={"homeappliances": 1}),
             data={self.uuid: self.state}, unsupported_types={"OV": 1},
             compatibility_errors={self.uuid: "SchemaError"},
             platform_errors={("climate", self.uuid)},

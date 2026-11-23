@@ -8,6 +8,8 @@ async def async_setup_entry(hass, entry, add):
 
 
 def _entities(c, uuid, state):
+    if not state.writable:
+        return []
     entities = []
     for d in state.definitions("commands"):
         button = Action(c, uuid, d)

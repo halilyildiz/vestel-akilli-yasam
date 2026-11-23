@@ -21,8 +21,12 @@ Bu sayfa `main` dalını anlatır; kurulu sürümünüz için [sürüm notların
 | Kurutmalı çamaşır makinesi | Program seçimi, yıkama/kurutma seçenekleri, başlatma/duraklatma ve ilerleme |
 | Bulaşık makinesi | Program seçimi, seçenekler, başlatma/duraklatma/iptal ve ilerleme |
 | Buzdolabı | Bölme sıcaklık hedefleri, desteklenen modlar, çocuk kilidi ve ekran koruyucu |
+| Çamaşır makinesi (`WM`, deneysel) | Keşifte sunulan programlar/seçenekler, başlatma/duraklatma, uzaktan kontrol ve çalışma aşaması kısıtları |
+| Çok bölmeli buzdolabı (`FD`, deneysel) | Keşifte sunulan bölme sıcaklık/mod kontrolleri ve durum bilgileri |
+| Ayrı kurutucu (`TD`, yalnızca izleme) | Buluttaki durum, aşama, kalan süre ve hata bilgileri; kontrol yok |
+| Fırın (`OV`, yalnızca izleme) | Buluttaki program, durum, sıcaklık, kalan süre ve hata bilgileri; kontrol yok |
 
-Cihazınız desteklenen Vestel uygulamasındaki hesabınızla önceden eşleştirilmiş olmalıdır. Yalnız yıkama yapan makineler, ayrı kurutucular, fırınlar ve diğer cihaz aileleri desteklenmez. Başka marka veya bölgede satılan Vestel üretimi bir ürün otomatik olarak uyumlu sayılmaz.
+Cihazınız uygulamadaki hesabınızla eşleştirilmiş ve uyumlu legacy register keşif şeması sunuyor olmalıdır. Yeni WM/FD/TD/OV kapsamı **henüz yayımlanmamıştır; fiziksel cihazlarda değil, APK örnek şemalarıyla çevrimdışı doğrulanmıştır**. JSON/HCA modelleri, üçüncü taraf/Tuya/Dreame cihazları, televizyonlar, şarj istasyonları ve diğer aileler henüz kontrol edilmez. Başka marka veya bölgede satılan Vestel üretimi bir ürün otomatik olarak uyumlu sayılmaz. [Protokol bulguları ve kalan işler](docs/device-families.md).
 
 Kontroller cihazın buluttaki özellik tanımından oluşturulur. Model/firmware uyumluluk listesi henüz yayımlanmadığından tüm modeller için destek garantisi yoktur. Entegrasyon **internet bağlantısı gerektirir**; yalnızca yerel ağ üzerinden çalışmaz.
 

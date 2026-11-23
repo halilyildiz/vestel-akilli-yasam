@@ -38,7 +38,7 @@
   "issues": {
     "unsupported_devices": {
       "title": "Unsupported Vestel device types",
-      "description": "This home contains {count} unsupported devices. Types: {device_types}. No controls were created for them; supported devices continue to work. Currently supported: AC, WD, DW and RF."
+      "description": "This home contains {count} unsupported devices. Types: {device_types}. No controls were created for them; supported devices continue to work. Legacy controls: AC, WD, DW, RF; experimental controls: WM, FD; monitoring only: TD, OV."
     },
     "incompatible_devices": {
       "title": "Incompatible Vestel model description",
@@ -323,6 +323,100 @@
       },
       "consumption_month_water": {
         "name": "Monthly estimated water consumption"
+      },
+      "laundry_care_washing_machine_status_selected_program": {
+        "name": "Selected program",
+        "state": {
+          "eco4060": "Eco 40–60",
+          "cotton": "Cotton",
+          "cotton20": "Quick cotton 20 °C",
+          "synthetics": "Synthetics",
+          "wool_silk": "Wool",
+          "duvet": "Duvet",
+          "rinse": "Rinse",
+          "allergy_safe": "Allergy safe",
+          "spin_drain": "Spin / drain",
+          "rapid1512": "Rapid",
+          "fast60": "Fast 60 min",
+          "dry_delicate": "Delicate dry",
+          "dry_cotton": "Cotton dry",
+          "dry_jet_wash": "Quick wash and dry",
+          "dry_cotton6_wash": "Cotton wash and dry"
+        }
+      },
+      "laundry_care_washing_machine_status_step_info": {
+        "name": "Program phase",
+        "state": {
+          "pre_wash": "Pre wash",
+          "main_wash": "Main wash",
+          "program_heat": "Program heat",
+          "program_wash": "Program wash",
+          "cool": "Cool",
+          "drain": "Drain",
+          "first_rinse": "First rinse",
+          "second_rinse": "Second rinse",
+          "extra_rinse": "Extra rinse",
+          "third_rinse": "Third rinse",
+          "fourth_rinse": "Fourth rinse",
+          "spin": "Spin",
+          "end_mode": "End mode",
+          "dryer_info": "Dryer info",
+          "drain_before_spin": "Drain before spin"
+        }
+      },
+      "laundry_care_washing_machine_status_execution_state": {
+        "name": "Operating state",
+        "state": {
+          "selection": "Selection",
+          "program": "Program",
+          "in_delay": "In delay",
+          "pause": "Pause",
+          "end_mode": "End mode",
+          "in_delay_pause": "In delay pause",
+          "service_auto_test": "Service auto test",
+          "auto_test": "Auto test"
+        }
+      },
+      "laundry_care_washing_machine_status_temperature": {
+        "name": "Temperature",
+        "state": {
+          "cold_degree": "Cold",
+          "20_degree": "20 °C",
+          "30_degree": "30 °C",
+          "40_degree": "40 °C",
+          "50_degree": "50 °C",
+          "60_degree": "60 °C",
+          "70_degree": "70 °C",
+          "80_degree": "80 °C",
+          "90_degree": "90 °C"
+        }
+      },
+      "laundry_care_washing_machine_status_spin_speed": {
+        "name": "Spin speed",
+        "state": {
+          "no_spin": "No spin",
+          "400_rpm": "400 rpm",
+          "600_rpm": "600 rpm",
+          "800_rpm": "800 rpm",
+          "1000_rpm": "1000 rpm",
+          "1200_rpm": "1200 rpm",
+          "1400_rpm": "1400 rpm"
+        }
+      },
+      "laundry_care_washing_machine_status_delay": {
+        "name": "Delayed start"
+      },
+      "laundry_care_washing_machine_status_remaining_delay_duration": {
+        "name": "Remaining delay"
+      },
+      "laundry_care_washing_machine_status_duration": {
+        "name": "Program duration"
+      },
+      "laundry_care_washing_machine_status_remaining_duration": {
+        "name": "Remaining time"
+      },
+      "laundry_care_washing_machine_status_max_machine_spin": {
+        "name": "Max machine spin"
       }
     },
     "binary_sensor": {
@@ -586,6 +680,87 @@
       },
       "problem": {
         "name": "Problem"
+      },
+      "laundry_care_washing_machine_status_energy_off": {
+        "name": "Energy off"
+      },
+      "laundry_care_washing_machine_status_energy_on": {
+        "name": "Power on"
+      },
+      "laundry_care_washing_machine_status_door_open": {
+        "name": "Door open"
+      },
+      "laundry_care_washing_machine_status_door_closed": {
+        "name": "Door closed"
+      },
+      "laundry_care_washing_machine_status_remote_control_off": {
+        "name": "Remote control off"
+      },
+      "laundry_care_washing_machine_status_remote_control_on": {
+        "name": "Remote control"
+      },
+      "laundry_care_washing_machine_status_child_lock_off": {
+        "name": "Child lock off"
+      },
+      "laundry_care_washing_machine_status_child_lock_on": {
+        "name": "Child lock"
+      },
+      "laundry_care_washing_machine_status_standby": {
+        "name": "Standby"
+      },
+      "laundry_care_washing_machine_error_no_error": {
+        "name": "No error"
+      },
+      "laundry_care_washing_machine_error_door_error": {
+        "name": "Door error"
+      },
+      "laundry_care_washing_machine_error_lack_of_water": {
+        "name": "Lack of water"
+      },
+      "laundry_care_washing_machine_error_drain_pump_error": {
+        "name": "Drain pump error"
+      },
+      "laundry_care_washing_machine_error_overflow_error": {
+        "name": "Overflow error"
+      },
+      "laundry_care_washing_machine_error_ntc_error": {
+        "name": "Ntc error"
+      },
+      "laundry_care_washing_machine_error_motor_error": {
+        "name": "Motor error"
+      },
+      "laundry_care_washing_machine_error_motor_triac_error": {
+        "name": "Motor triac error"
+      },
+      "laundry_care_washing_machine_error_low_voltage_error": {
+        "name": "Low voltage error"
+      },
+      "laundry_care_washing_machine_error_eps_socket_not_connected": {
+        "name": "Eps socket not connected"
+      },
+      "laundry_care_washing_machine_error_dryer_communication_error": {
+        "name": "Dryer communication error"
+      },
+      "laundry_care_washing_machine_error_dryer_heater_error_in_service_autotest": {
+        "name": "Dryer heater error in service autotest"
+      },
+      "laundry_care_washing_machine_error_dryer_high_temp_error": {
+        "name": "Dryer high temp error"
+      },
+      "laundry_care_washing_machine_error_flowmeter_not_connected_error": {
+        "name": "Flowmeter not connected error"
+      },
+      "laundry_care_washing_machine_error_dryer_ntc_error": {
+        "name": "Dryer ntc error"
+      },
+      "laundry_care_washing_machine_error_bldc_motor_error": {
+        "name": "Bldc motor error"
+      },
+      "laundry_care_washing_machine_error_pyrojet_error": {
+        "name": "Pyrojet error"
+      },
+      "laundry_care_washing_machine_error_high_voltage_error": {
+        "name": "High voltage error"
       }
     },
     "switch": {
@@ -757,6 +932,150 @@
           "holiday": "Holiday",
           "eco": "Economy"
         }
+      },
+      "laundry_care_washing_machine_option_spin_speed": {
+        "name": "Spin speed",
+        "state": {
+          "no_spin": "No spin",
+          "400_rpm": "400 rpm",
+          "600_rpm": "600 rpm",
+          "800_rpm": "800 rpm",
+          "1000_rpm": "1000 rpm",
+          "1200_rpm": "1200 rpm",
+          "1400_rpm": "1400 rpm"
+        }
+      },
+      "laundry_care_washing_machine_option_dry": {
+        "name": "Drying level",
+        "state": {
+          "no_level": "No drying",
+          "level1": "Level 1",
+          "level2": "Level 2",
+          "level3": "Level 3"
+        }
+      },
+      "laundry_care_washing_machine_option_time_dry": {
+        "name": "Drying time",
+        "state": {
+          "no_time": "No timed drying",
+          "time30min": "30 min",
+          "time60min": "60 min",
+          "time90min": "90 min",
+          "time120min": "120 min"
+        }
+      },
+      "laundry_care_washing_machine_option_temperature": {
+        "name": "Temperature",
+        "state": {
+          "cold_degree": "Cold",
+          "20_degree": "20 °C",
+          "30_degree": "30 °C",
+          "40_degree": "40 °C",
+          "50_degree": "50 °C",
+          "60_degree": "60 °C",
+          "70_degree": "70 °C",
+          "80_degree": "80 °C",
+          "90_degree": "90 °C"
+        }
+      },
+      "refrigeration_fridge_cooler_setting_main_temperature": {
+        "name": "Main cooler target temperature",
+        "state": {
+          "off": "Off",
+          "1_c": "1 °C",
+          "2_c": "2 °C",
+          "3_c": "3 °C",
+          "4_c": "4 °C",
+          "5_c": "5 °C",
+          "6_c": "6 °C",
+          "7_c": "7 °C",
+          "8_c": "8 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Super cool",
+          "super_freeze": "Super freeze"
+        }
+      },
+      "refrigeration_fridge_cooler_setting_zone1_temperature": {
+        "name": "Zone 1 cooler target temperature",
+        "state": {
+          "off": "Off",
+          "1_c": "1 °C",
+          "2_c": "2 °C",
+          "3_c": "3 °C",
+          "4_c": "4 °C",
+          "5_c": "5 °C",
+          "6_c": "6 °C",
+          "7_c": "7 °C",
+          "8_c": "8 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Super cool",
+          "super_freeze": "Super freeze"
+        }
+      },
+      "refrigeration_fridge_cooler_setting_zone2_temperature": {
+        "name": "Zone 2 cooler target temperature",
+        "state": {
+          "off": "Off",
+          "1_c": "1 °C",
+          "2_c": "2 °C",
+          "3_c": "3 °C",
+          "4_c": "4 °C",
+          "5_c": "5 °C",
+          "6_c": "6 °C",
+          "7_c": "7 °C",
+          "8_c": "8 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Super cool",
+          "super_freeze": "Super freeze"
+        }
+      },
+      "refrigeration_fridge_freezer_setting_zone1_temperature": {
+        "name": "Zone 1 freezer target temperature",
+        "state": {
+          "off": "Off",
+          "m14": "−14 °C",
+          "m15": "−15 °C",
+          "m16": "−16 °C",
+          "m17": "−17 °C",
+          "m18": "−18 °C",
+          "m19": "−19 °C",
+          "m20": "−20 °C",
+          "m21": "−21 °C",
+          "m22": "−22 °C",
+          "m23": "−23 °C",
+          "m24": "−24 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Super cool",
+          "super_freeze": "Super freeze"
+        }
+      },
+      "refrigeration_fridge_freezer_setting_zone2_temperature": {
+        "name": "Zone 2 freezer target temperature",
+        "state": {
+          "off": "Off",
+          "m14": "−14 °C",
+          "m15": "−15 °C",
+          "m16": "−16 °C",
+          "m17": "−17 °C",
+          "m18": "−18 °C",
+          "m19": "−19 °C",
+          "m20": "−20 °C",
+          "m21": "−21 °C",
+          "m22": "−22 °C",
+          "m23": "−23 °C",
+          "m24": "−24 °C",
+          "vita_store": "VitaStore",
+          "super_cool": "Super cool",
+          "super_freeze": "Super freeze"
+        }
+      },
+      "refrigeration_fridge_cooler_setting_mode": {
+        "name": "Operating mode",
+        "state": {
+          "none": "Normal",
+          "eco": "Economy",
+          "holiday": "Holiday"
+        }
       }
     },
     "button": {
@@ -804,6 +1123,18 @@
       },
       "dishcare_dish_washer_command_uvon_off": {
         "name": "Turn UV off"
+      },
+      "laundry_care_washing_machine_command_start": {
+        "name": "Start"
+      },
+      "laundry_care_washing_machine_command_pause": {
+        "name": "Pause"
+      },
+      "laundry_care_washing_machine_command_in_delay": {
+        "name": "Start delay"
+      },
+      "laundry_care_washing_machine_command_selection": {
+        "name": "Return to program selection"
       }
     },
     "time": {
@@ -822,6 +1153,9 @@
         "name": "Delayed start"
       },
       "dishcare_dish_washer_option_delay_timer": {
+        "name": "Delayed start"
+      },
+      "laundry_care_washing_machine_option_delay": {
         "name": "Delayed start"
       }
     },
@@ -1112,6 +1446,9 @@
     },
     "identity_http": {
       "message": "Could not obtain live-update credentials (HTTP {http_status})."
+    },
+    "monitoring_only": {
+      "message": "This appliance family currently supports monitoring only; no command was sent."
     }
   },
   "services": {

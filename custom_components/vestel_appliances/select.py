@@ -10,6 +10,8 @@ async def async_setup_entry(hass, entry, add):
 
 
 def _entities(c, uuid, state):
+    if not state.writable:
+        return []
     entities = []
     for d in state.definitions("settings", "options"):
         if d.get("valueType") != "Enum" or state.family == "AC" and d["key"].endswith((".Mode", ".Speed")):

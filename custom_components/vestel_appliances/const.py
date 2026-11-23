@@ -1,9 +1,10 @@
 """Integration identity and language-independent discovery keys."""
 import re
+from .families import FAMILY_PROFILES
 
 DOMAIN = "vestel_appliances"
 APP_NAME = "Vestel Smart Life"
-SUPPORTED_TYPES = {"AC", "WD", "DW", "RF"}
+SUPPORTED_TYPES = frozenset(FAMILY_PROFILES)
 SCAN_SECONDS = 45
 
 LABELS = {'Cancel': 'Cancel',
@@ -232,6 +233,8 @@ TRANSLATED_ENTITY_KEYS = frozenset(['climate',
  'refrigeration_refrigerator_status_screen_saver'])
 
 
+TRANSLATED_ENTITY_KEYS |= frozenset(['laundry_care_washing_machine_command_in_delay', 'laundry_care_washing_machine_command_pause', 'laundry_care_washing_machine_command_selection', 'laundry_care_washing_machine_command_start', 'laundry_care_washing_machine_error_bldc_motor_error', 'laundry_care_washing_machine_error_door_error', 'laundry_care_washing_machine_error_drain_pump_error', 'laundry_care_washing_machine_error_dryer_communication_error', 'laundry_care_washing_machine_error_dryer_heater_error_in_service_autotest', 'laundry_care_washing_machine_error_dryer_high_temp_error', 'laundry_care_washing_machine_error_dryer_ntc_error', 'laundry_care_washing_machine_error_eps_socket_not_connected', 'laundry_care_washing_machine_error_flowmeter_not_connected_error', 'laundry_care_washing_machine_error_high_voltage_error', 'laundry_care_washing_machine_error_lack_of_water', 'laundry_care_washing_machine_error_low_voltage_error', 'laundry_care_washing_machine_error_motor_error', 'laundry_care_washing_machine_error_motor_triac_error', 'laundry_care_washing_machine_error_no_error', 'laundry_care_washing_machine_error_ntc_error', 'laundry_care_washing_machine_error_overflow_error', 'laundry_care_washing_machine_error_pyrojet_error', 'laundry_care_washing_machine_option_delay', 'laundry_care_washing_machine_option_dry', 'laundry_care_washing_machine_option_spin_speed', 'laundry_care_washing_machine_option_temperature', 'laundry_care_washing_machine_option_time_dry', 'laundry_care_washing_machine_status_child_lock_off', 'laundry_care_washing_machine_status_child_lock_on', 'laundry_care_washing_machine_status_delay', 'laundry_care_washing_machine_status_door_closed', 'laundry_care_washing_machine_status_door_open', 'laundry_care_washing_machine_status_duration', 'laundry_care_washing_machine_status_energy_off', 'laundry_care_washing_machine_status_energy_on', 'laundry_care_washing_machine_status_execution_state', 'laundry_care_washing_machine_status_max_machine_spin', 'laundry_care_washing_machine_status_remaining_delay_duration', 'laundry_care_washing_machine_status_remaining_duration', 'laundry_care_washing_machine_status_remote_control_off', 'laundry_care_washing_machine_status_remote_control_on', 'laundry_care_washing_machine_status_selected_program', 'laundry_care_washing_machine_status_spin_speed', 'laundry_care_washing_machine_status_standby', 'laundry_care_washing_machine_status_step_info', 'laundry_care_washing_machine_status_temperature', 'refrigeration_fridge_cooler_setting_main_temperature', 'refrigeration_fridge_cooler_setting_mode', 'refrigeration_fridge_cooler_setting_zone1_temperature', 'refrigeration_fridge_cooler_setting_zone2_temperature', 'refrigeration_fridge_freezer_setting_zone1_temperature', 'refrigeration_fridge_freezer_setting_zone2_temperature'])
+
 def translation_key(key):
     key = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1_\2", key)
     key = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", key)
@@ -239,6 +242,10 @@ def translation_key(key):
 
 
 def label(key):
+    if key.startswith(("Refrigeration.FridgeCooler.Setting.", "Refrigeration.FridgeFreezer.Setting.")) and key.endswith(".Temperature"):
+        section = "cooler" if ".FridgeCooler." in key else "freezer"
+        zone = key.split(".Setting.", 1)[1].split(".", 1)[0]
+        return f"{zone.replace('Zone', 'Zone ')} {section} target temperature"
     if ".Cooler.Temperature" in key:
         return "Cooler target temperature"
     if ".Freezer.Temperature" in key:
