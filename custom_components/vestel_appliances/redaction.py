@@ -25,7 +25,8 @@ class CollectionError(Exception):
 PRIVATE_KEY = re.compile(
     r"token|secret|password|email|phone|mac|serial|ssid|topic|username|"
     r"deviceid|devicename|homeid|homename|roomid|roomname|registeredby|"
-    r"ordernumber|customerid|identityid|authorization|address|latitude|longitude",
+    r"ordernumber|customerid|identityid|authorization|address|latitude|longitude|"
+    r"accesskey|apikey|cookie|credential",
     re.I,
 )
 IDENTIFIER = re.compile(
@@ -39,6 +40,12 @@ METADATA = (
     "deviceType", "deviceModel", "variant", "wifiCardType", "wifiVersion",
     "oemBrand", "connected", "isActive", "isSmart",
 )
+
+
+def metadata_view(metadata: dict) -> dict:
+    """Export only known technical fields, never arbitrary nested cloud data."""
+    return {key: metadata[key] for key in METADATA
+            if key in metadata and type(metadata[key]) in (str, int, float, bool)}
 
 
 def sanitize(value: Any, private_values: tuple[str, ...] = ()) -> Any:
@@ -70,11 +77,26 @@ def sanitize(value: Any, private_values: tuple[str, ...] = ()) -> Any:
 
 def _private_values(devices: list[dict], home_id: str) -> tuple[str, ...]:
     values = {home_id}
+
+    def visit(value, private=False):
+        if isinstance(value, dict):
+            for key, child in value.items():
+                compact = re.sub(r"[^a-z0-9]", "", str(key).lower())
+                visit(child, private or bool(PRIVATE_KEY.search(compact)))
+        elif isinstance(value, (list, tuple)):
+            for child in value:
+                visit(child, private)
+        elif isinstance(value, str):
+            if private and len(value) >= 4:
+                values.add(value)
+            if value.lstrip().startswith(("{", "[")):
+                try:
+                    visit(json.loads(value), private)
+                except (ValueError, RecursionError):
+                    pass
+
     for device in devices:
-        for key, value in device.items():
-            if PRIVATE_KEY.search(re.sub(r"[^a-z0-9]", "", key.lower())):
-                if isinstance(value, str) and len(value) >= 4:
-                    values.add(value)
+        visit(device)
     return tuple(values)
 
 
@@ -102,7 +124,7 @@ async def collect(api: ReadClient, home_id: str) -> dict:
     for index, device in enumerate(devices, 1):
         record = {
             "alias": f"device_{index}",
-            "metadata": {key: device[key] for key in METADATA if key in device},
+            "metadata": metadata_view(device),
             "discovery": None,
             "registers": None,
             "errors": {},
