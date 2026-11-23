@@ -11,13 +11,12 @@ async def async_setup_entry(hass, entry, add):
 def _entities(c, uuid, state):
     entities = []
     if state.family == "AC":
-        for name, label in (("AutoOn", "Otomatik açılma saati"), ("AutoOff", "Otomatik kapanma saati")):
+        for name in ("AutoOn", "AutoOff"):
             hour = state.find_suffix(".Setting." + name + ".Hour", "settings")
             minute = state.find_suffix(".Setting." + name + ".Minute", "settings")
             if hour and minute:
                 entity = Timer(c, uuid, hour)
                 entity.minute = minute
-                entity._attr_name = label
                 entities.append(entity)
     return entities
 

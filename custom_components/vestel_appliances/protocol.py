@@ -146,59 +146,59 @@ class Device:
     def validate(self, definition, value=None):
         key = definition["key"]
         if not self.read_ok or self.metadata.get("connected") is False:
-            raise SchemaError("Cihazın güncel durumu okunamadı.")
+            raise SchemaError('status_unavailable')
         if key.endswith((".Command.UvonOn", ".Command.UvonOff")):
             self.expected_registers([], command=key)
         if self.family in {"DW", "WD"}:
             remote = (self.status(".RemoteControlOn") if self.family == "WD"
                       else str(self.status(".RemoteControl") or "").endswith(".Open"))
             if not remote:
-                raise SchemaError("Cihaz panelinden uzaktan kontrolü etkinleştirin.")
+                raise SchemaError('remote_required')
             state = str(self.status(".ExecutionState") or "").rsplit(".", 1)[-1]
             idle = {"Selection", "PreProgram", "End", "EndMode"}
             if ".Program." in key and state not in {"Selection", "PreProgram"}:
-                raise SchemaError("Önce bitiş ekranındaki Tamam / program seçimine dön işlemini yapın.")
+                raise SchemaError('return_to_selection')
             if self.family == "WD" and self.status(".Standby") is True and (
                 ".Program." in key or ".Option." in key or key.endswith(".Command.Start")
             ):
-                raise SchemaError("Makine bekleme modunda; önce panelden veya Vestel uygulamasından uyandırın.")
+                raise SchemaError('wake_appliance')
             for field, suffix in (("supportedStates", ".ExecutionState"), ("supportedPhases", ".StepInfo")):
                 supported = definition.get(field)
                 if supported and (field != "supportedPhases" or state not in idle):
                     if self.status(suffix) not in {v.get("key") for v in supported}:
-                        raise SchemaError("Bu seçenek mevcut program aşamasında değiştirilemiyor.")
+                        raise SchemaError('unsupported_phase')
             if key.endswith(".Command.Start") and state not in idle | {"Pause", "InDelayPause"}:
-                raise SchemaError("Makine zaten çalışıyor veya başlatmaya hazır değil.")
+                raise SchemaError('not_ready_to_start')
             if key.endswith(".Command.Pause") and state not in {"Running", "Program", "InDelay"}:
-                raise SchemaError("Çalışmayan program duraklatılamaz.")
+                raise SchemaError('not_running')
         included = self.context(definition)
         if included is not None and (not included or included.get("isSelectable") is False):
-            raise SchemaError("Bu özellik seçili mod/programda kullanılamıyor.")
+            raise SchemaError('feature_unavailable')
         for statements in self.rules(definition):
             if not statements or any(s.get("isSelectable") is False for s in statements):
-                raise SchemaError("Bu seçenek başka bir ayarla uyumlu değil.")
+                raise SchemaError('incompatible_option')
         if value is None:
             return
         integer(value)
         if ".Program." in key and value != definition.get("commandValue"):
-            raise SchemaError("Program değeri keşif tanımıyla uyuşmuyor.")
+            raise SchemaError('program_value_invalid')
         if definition.get("valueType") == "Boolean" and value not in (0, definition.get("commandValue", 1)):
-            raise SchemaError("Geçersiz açık/kapalı değeri.")
+            raise SchemaError('boolean_invalid')
         if definition.get("values"):
             if value not in {v["commandValue"] for v in self.values(definition)}:
-                raise SchemaError("Bu değer seçili program/mod için desteklenmiyor.")
+                raise SchemaError('value_unavailable')
         if self.family == "WD" and value and key.endswith((".Option.Dry", ".Option.TimeDry")):
             other_suffix = ".Option.TimeDry" if key.endswith(".Option.Dry") else ".Option.Dry"
             other = self.find_suffix(other_suffix, "options")
             if other and Field(other).raw(self.registers):
-                raise SchemaError("Önce diğer kurutma türünü kapatın; seviye ve süre birlikte seçilemez.")
+                raise SchemaError('dry_conflict')
         limits = self.limits(definition)
         if limits:
             if value < limits.get("min", value) or value > limits.get("max", value):
-                raise SchemaError("İstenen değer izin verilen aralığın dışında.")
+                raise SchemaError('out_of_range')
             step = limits.get("step", 1) or 1
             if (value - limits.get("min", 0)) % step:
-                raise SchemaError("İstenen değer desteklenen adımla uyuşmuyor.")
+                raise SchemaError('invalid_step')
 
     def encode(self, definition, value):
         self.validate(definition, value)
@@ -221,7 +221,7 @@ class Device:
         for key, value in updates:
             definition = next((d for d in self.definitions("settings", "options", "programs") if d.get("key") == key), None)
             if definition is None:
-                raise SchemaError("Bu alan yazılabilir bir cihaz ayarı değil.")
+                raise SchemaError('not_writable')
             temporary = Device(self.metadata, self.discovery, working, self.read_ok)
             # Apply discovery's incompatible-setting/option rules before
             # enabling the toggle. Preserve every unrelated register bit.
@@ -239,7 +239,7 @@ class Device:
     def command(self, key):
         definition = self.find(key)
         if not definition or ".Command." not in key:
-            raise SchemaError("Desteklenmeyen işlem.")
+            raise SchemaError('command_unsupported')
         self.validate(definition)
         value = integer(definition.get("commandValue"))
         layout = Field(definition).layout()
@@ -265,7 +265,7 @@ class Device:
                           if v.get("value", "").rsplit(".", 1)[-1] == name), None)
             if (self.family != "DW" or not definition or not status or type(value) is not int
                     or definition.get("commandName") != status.get("commandName")):
-                raise SchemaError("UV komutunun sonuç durumu keşif tanımında bulunamadı.")
+                raise SchemaError('uv_result_missing')
             code = Field(status).replace_bits(self.registers, value)
             result = {code[:7]: int(code[7:])}
         return result
@@ -288,17 +288,17 @@ class Device:
             for key, value in updates or []:
                 definition = self.find(key)
                 if definition is None:
-                    raise SchemaError("Doğrulanacak alan tanımı bulunamadı.")
+                    raise SchemaError('readback_definition_missing')
                 definitions.append(definition)
                 definitions.extend(self.incompatible_booleans(definition, value))
         masks = {}
         for definition in definitions:
             if definition is None:
-                raise SchemaError("Doğrulanacak alan tanımı bulunamadı.")
+                raise SchemaError('readback_definition_missing')
             field = Field(definition)
             layout = field.layout()
             mask = ((1 << layout[1]) - 1) << layout[0] if layout else 65535
             masks[field.command] = masks.get(field.command, 0) | mask
         if set(masks) != set(values):
-            raise SchemaError("Komutun doğrulama alanları eksik.")
+            raise SchemaError('readback_fields_missing')
         return Readback(values, masks)

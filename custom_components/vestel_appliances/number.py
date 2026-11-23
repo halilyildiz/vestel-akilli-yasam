@@ -1,4 +1,5 @@
 from homeassistant.components.number import NumberEntity, NumberMode
+from .errors import user_error
 from .dynamic import setup_dynamic_entities
 from .entity import Control
 
@@ -13,7 +14,6 @@ def _entities(c, uuid, state):
         d = state.find_suffix(".Setting.QuickOffTime.Hour", "settings")
         if d and state.find_suffix(".Setting.QuickOffTime.Minute", "settings"):
             entity = QuickOff(c, uuid, d, "_duration")
-            entity._attr_name = "Hızlı kapatma süresi"
             entities.append(entity)
     return entities
 
@@ -44,9 +44,8 @@ class SettingNumber(Control, NumberEntity):
         return self.state_data.decode(self.definition)
 
     async def async_set_native_value(self, value):
-        from homeassistant.exceptions import HomeAssistantError
         if value != int(value):
-            raise HomeAssistantError("Tam sayı girin.")
+            raise user_error('whole_number_required')
         await self.write(int(value))
 
 
@@ -67,9 +66,8 @@ class QuickOff(Control, NumberEntity):
         return hour * 60 + minute if isinstance(hour, int) and isinstance(minute, int) and hour < 24 and minute < 60 else None
 
     async def async_set_native_value(self, value):
-        from homeassistant.exceptions import HomeAssistantError
         if value != int(value) or value < 0 or value > 300 or value % 30:
-            raise HomeAssistantError("0 (iptal) veya 30–300 dakika arasında 30 dakikalık adımlar kullanın.")
+            raise user_error('quick_off_range')
         s = self.state_data
         if value == 0:
             d = s.find_suffix(".Command.QuickOff.Cancel", "commands")

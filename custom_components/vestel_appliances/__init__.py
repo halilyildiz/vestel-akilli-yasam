@@ -2,11 +2,11 @@ from __future__ import annotations
 import voluptuous as vol
 from homeassistant.const import Platform
 from homeassistant.core import SupportsResponse
-from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers import device_registry as dr
 
+from .errors import user_error
 from .api import Api, ApiError
 from .const import APP_NAME, DOMAIN
 from .coordinator import Coordinator
@@ -22,11 +22,11 @@ async def async_setup(hass, config):
     def resolve(device_id):
         device = dr.async_get(hass).async_get(device_id)
         if device is None:
-            raise HomeAssistantError("Cihaz bulunamadı.")
+            raise user_error('device_not_found')
         uuid = next((identifier for domain, identifier in device.identifiers if domain == DOMAIN), None)
         coordinator = next((c for c in hass.data.get(DOMAIN, {}).values() if uuid in (c.data or {})), None)
         if coordinator is None:
-            raise HomeAssistantError("Vestel cihazı bulunamadı.")
+            raise user_error('vestel_device_not_found')
         return uuid, coordinator
 
     async def get_consumption(call):
@@ -35,7 +35,7 @@ async def async_setup(hass, config):
             return await coordinator.api.consumption(coordinator.entry.data["home_id"], uuid,
                 call.data["period"], call.data["count"])
         except ApiError as err:
-            raise HomeAssistantError(str(err)) from None
+            raise user_error(err) from None
 
     async def billing(call):
         uuid, coordinator = resolve(call.data["device_id"])
@@ -57,30 +57,30 @@ async def async_setup(hass, config):
             elif call.service == "set_energy_management":
                 result = await coordinator.api.set_billing_option(home, "energy_management", "enable" if call.data["enabled"] else "disable")
             else:
-                raise HomeAssistantError("Desteklenmeyen fatura işlemi.")
+                raise user_error('billing_action_unsupported')
             # A new reading updates sensors, never invents a successful write.
             await coordinator.energy.async_refresh_billing()
             if not result["readback_confirmed"]:
-                raise HomeAssistantError("Ayar gönderildi; geri okuma değişikliği henüz doğrulamadı. Otomatik tekrar yapılmadı.")
+                raise user_error('billing_unconfirmed')
             return result
         except ApiError as err:
-            raise HomeAssistantError(str(err)) from None
+            raise user_error(err) from None
 
     async def apply(call):
         device = dr.async_get(hass).async_get(call.data["device_id"])
         if device is None:
-            raise HomeAssistantError("Cihaz bulunamadı.")
+            raise user_error('device_not_found')
         uuid = next((identifier for domain, identifier in device.identifiers if domain == DOMAIN), None)
         coordinator = next((c for c in hass.data.get(DOMAIN, {}).values() if uuid in (c.data or {})), None)
         if coordinator is None:
-            raise HomeAssistantError("Vestel cihazı bulunamadı.")
+            raise user_error('vestel_device_not_found')
         if call.data.get("command"):
             if call.data.get("updates"):
-                raise HomeAssistantError("İşlem ve ayar değişikliği ayrı gönderilmeli.")
+                raise user_error('separate_changes')
             return await coordinator.apply(uuid, command=call.data["command"])
         updates = call.data.get("updates") or []
         if not updates:
-            raise HomeAssistantError("Ayar veya işlem seçin.")
+            raise user_error('choose_change')
         return await coordinator.apply(uuid, updates=[(v["key"], v["value"]) for v in updates])
 
     hass.services.async_register(DOMAIN, "apply", apply, supports_response=SupportsResponse.OPTIONAL,
@@ -122,7 +122,7 @@ async def async_setup(hass, config):
 
 
 async def async_setup_entry(hass, entry):
-    if entry.title in {"Vestel Cihazları", "Akıllı Yaşam"}:
+    if entry.title in {"Vestel Cihazları", "Akıllı Yaşam", "Vestel Akıllı Yaşam"}:
         hass.config_entries.async_update_entry(entry, title=APP_NAME)
     def update_token(token):
         hass.config_entries.async_update_entry(entry, data={**entry.data, "refresh_token": token})

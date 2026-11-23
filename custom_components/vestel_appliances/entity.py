@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any
 from homeassistant.helpers.entity import DeviceInfo, EntityDescription
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN, label
+from .const import DOMAIN, TRANSLATED_ENTITY_KEYS, label, translation_key
 from .entity_descriptions import control_description
 from .fields import SchemaError
 
@@ -33,10 +33,16 @@ class Base(CoordinatorEntity):
         self.uuid, self.definition = uuid, definition
         self.key = definition["key"]
         self._attr_unique_id = uuid + "_" + self.key + suffix
-        self._attr_name = label(self.key)
+        translated = translation_key(self.key + suffix)
+        if translated in TRANSLATED_ENTITY_KEYS:
+            self._attr_translation_key = translated
+        else:
+            self._attr_name = label(self.key)
         if description is not None:
             self.entity_description = description
-            if isinstance(description.name, str) or description.name is None:
+            if description.translation_key:
+                self._attr_translation_key = description.translation_key
+            elif isinstance(description.name, str) or description.name is None:
                 self._attr_name = description.name
         state = self.state_data
         self._attr_device_info = DeviceInfo(
@@ -92,7 +98,7 @@ class Control(Base):
             uuid,
             definition,
             suffix,
-            description=control_description(definition),
+            description=control_description(definition, suffix=suffix),
         )
 
     @property

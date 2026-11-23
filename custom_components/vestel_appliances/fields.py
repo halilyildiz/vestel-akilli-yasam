@@ -8,22 +8,24 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from .errors import LocalizedError
 
-class SchemaError(ValueError):
+
+class SchemaError(LocalizedError, ValueError):
     pass
 
 
 def integer(value: Any) -> int:
     if isinstance(value, bool):
-        raise SchemaError("Boolean is not a register value")
+        raise SchemaError('register_boolean')
     if isinstance(value, int):
         result = value
     elif isinstance(value, str) and value.isascii() and value.isdecimal():
         result = int(value)
     else:
-        raise SchemaError("Missing or invalid register value")
+        raise SchemaError('register_value_invalid')
     if not 0 <= result <= 65535:
-        raise SchemaError("Register is outside the 16-bit range")
+        raise SchemaError('register_range')
     return result
 
 
@@ -35,7 +37,7 @@ class Field:
     def command(self) -> str:
         command = self.definition.get("commandName", "")
         if not isinstance(command, str) or len(command) != 7 or not command.isalnum():
-            raise SchemaError("Invalid register name")
+            raise SchemaError('register_name_invalid')
         return command
 
     def layout(self) -> tuple[int, int] | None:
@@ -43,9 +45,9 @@ class Field:
         if position is None and length is None:
             return None
         if type(position) is not int or type(length) is not int:
-            raise SchemaError("Incomplete bit layout")
+            raise SchemaError('bit_layout_incomplete')
         if position < 0 or length <= 0 or position + length > 16:
-            raise SchemaError("Invalid bit layout")
+            raise SchemaError('bit_layout_invalid')
         return position, length
 
     def raw(self, registers: dict) -> int:
@@ -67,14 +69,14 @@ class Field:
         if kind == "Boolean":
             expected = self.definition.get("commandValue")
             if type(expected) is not int:
-                raise SchemaError("Boolean comparison has no definition")
+                raise SchemaError('boolean_definition_missing')
             return value == expected
         # The offset is model-defined for AC temperature only. Integer and
         # timer registers must not inherit it merely by sharing commandValue.
         if self.definition.get("key") == "Climate.AirConditioner.Setting.Temperature":
             offset = self.definition.get("commandValue")
             if type(offset) is not int:
-                raise SchemaError("Temperature offset is missing")
+                raise SchemaError('temperature_offset_missing')
             return value + offset
         return value
 
@@ -88,7 +90,7 @@ class Field:
             position, length = layout
             mask = (1 << length) - 1
             if value > mask:
-                raise SchemaError("Value does not fit: possibly a pre-shifted sentinel")
+                raise SchemaError('encoded_value_invalid')
             current = integer(registers.get(self.command))
             result = (current & ~(mask << position)) | (value << position)
         return f"{self.command}{result:05d}"

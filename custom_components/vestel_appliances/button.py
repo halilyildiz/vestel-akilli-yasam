@@ -11,12 +11,6 @@ def _entities(c, uuid, state):
     entities = []
     for d in state.definitions("commands"):
         button = Action(c, uuid, d)
-        if d["key"].endswith(".Cancel"):
-            timer = d["key"].split(".")[-2]
-            if timer != "Command":
-                button._attr_name = {"AutoOn": "Otomatik açılmayı iptal et", "AutoOff": "Otomatik kapanmayı iptal et", "QuickOff": "Hızlı kapatmayı iptal et"}.get(timer, timer + " iptal")
-        if d["key"].endswith((".PreProgram", ".Selection")):
-            button._attr_name = "Tamam / program seçimine dön"
         if d["key"].endswith((".InDelay", ".IonizerInProgress", ".UvonOn", ".UvonOff")):
             button._attr_entity_registry_enabled_default = False
         entities.append(button)

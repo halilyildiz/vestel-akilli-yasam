@@ -1,5 +1,5 @@
 from homeassistant.components.select import SelectEntity
-from homeassistant.exceptions import HomeAssistantError
+from .errors import user_error
 from .dynamic import setup_dynamic_entities
 from .entity import Control
 from .const import choice
@@ -18,7 +18,6 @@ def _entities(c, uuid, state):
     programs = [p for p in state.discovery.get("programs", []) if not p["key"].endswith(".Reset")]
     if programs:
         entity = Program(c, uuid, {"key": "program", "programs": programs})
-        entity._attr_name = "Program"
         entities.append(entity)
     return entities
 
@@ -36,12 +35,11 @@ class Setting(Control, SelectEntity):
     async def async_select_option(self, option):
         value = next((v for v in self.state_data.values(self.definition) if choice(v["value"]) == option), None)
         if value is None:
-            raise HomeAssistantError("Bu seçenek mevcut mod/programda kullanılamıyor.")
+            raise user_error('option_unavailable')
         await self.write(value["commandValue"])
 
 
 class Program(Control, SelectEntity):
-    _attr_name = "Program"
 
     @property
     def options(self):
@@ -61,5 +59,5 @@ class Program(Control, SelectEntity):
     async def async_select_option(self, option):
         program = next((p for p in self.definition["programs"] if choice(p["key"]) == option), None)
         if program is None:
-            raise HomeAssistantError("Program bulunamadı.")
+            raise user_error('program_not_found')
         await self.coordinator.apply(self.uuid, updates=[(program["key"], program["commandValue"])])

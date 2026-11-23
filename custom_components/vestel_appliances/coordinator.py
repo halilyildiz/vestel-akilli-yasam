@@ -2,11 +2,12 @@ from __future__ import annotations
 import asyncio
 from datetime import timedelta
 
-from homeassistant.exceptions import ConfigEntryAuthFailed, HomeAssistantError
+from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 import logging
 import re
 
+from .errors import user_error
 from .api import ApiError, AuthError
 from .const import DOMAIN, SCAN_SECONDS, SUPPORTED_TYPES
 from .fields import SchemaError
@@ -34,9 +35,9 @@ class Coordinator(DataUpdateCoordinator):
         try:
             devices = await self.api.devices(self.entry.data["home_id"])
         except AuthError as err:
-            raise ConfigEntryAuthFailed(str(err)) from None
+            raise user_error(err, error_type=ConfigEntryAuthFailed) from None
         except ApiError as err:
-            raise UpdateFailed(str(err)) from None
+            raise user_error(err, error_type=UpdateFailed) from None
         result = {}
         unsupported = {}
         incompatible = {}
@@ -73,7 +74,7 @@ class Coordinator(DataUpdateCoordinator):
                     self.last_commands[uuid].update(readback_confirmed=True, operation="confirmed")
                     self.pending.pop(uuid, None)
             except AuthError as err:
-                raise ConfigEntryAuthFailed(str(err)) from None
+                raise user_error(err, error_type=ConfigEntryAuthFailed) from None
             except ApiError:
                 # Transient cloud failure is not proof that a model is unsupported.
                 result[uuid] = Device(item, self.schemas.get(uuid, {}), {}, False)
@@ -111,20 +112,20 @@ class Coordinator(DataUpdateCoordinator):
         async with self.locks.setdefault(uuid, asyncio.Lock()):
             state = (self.data or {}).get(uuid)
             if state is None:
-                raise HomeAssistantError("Cihaz bulunamadı.")
+                raise user_error('device_not_found')
             try:
                 items = await self.api.devices(self.entry.data["home_id"])
                 metadata = next((d for d in items if d.get("deviceId") == uuid), None)
                 if metadata is None or metadata.get("connected") is False:
-                    raise SchemaError("Cihaz çevrimdışı.")
+                    raise SchemaError('device_offline')
                 fresh = Device(metadata, state.discovery, await self.api.status(uuid))
                 if not fresh.registers:
-                    raise SchemaError("Cihazın güncel durumu boş döndü; komut gönderilmedi.")
+                    raise SchemaError('empty_status')
                 if command and fresh.family == "DW" and command.endswith(".Command.Cancel") and str(fresh.registers.get("DWWARNS")) in {"1", "00001"}:
-                    raise SchemaError("İptal/tahliye zaten sürüyor; yeniden komut gönderilmedi.")
+                    raise SchemaError('cancel_in_progress')
                 codes = [fresh.command(command)] if command else fresh.build(updates or [])
                 if not codes:
-                    raise SchemaError("Gönderilecek değişiklik bulunamadı.")
+                    raise SchemaError('no_changes')
                 expected = fresh.expected_readback(codes, updates=updates, command=command)
                 cancelling = bool(command and fresh.family == "DW" and command.endswith(".Command.Cancel"))
                 for code in codes:
@@ -150,6 +151,6 @@ class Coordinator(DataUpdateCoordinator):
                         self.async_set_updated_data({**self.data, uuid: fresh})
                         return {"accepted": True, "readback_confirmed": True}
                     self.async_set_updated_data({**self.data, uuid: fresh})
-                raise HomeAssistantError("Komut kabul edildi; cihazdan doğrulama henüz gelmedi. Durumu kontrol edin; otomatik tekrar gönderilmedi.")
+                raise user_error('command_unconfirmed')
             except (ApiError, SchemaError) as err:
-                raise HomeAssistantError(str(err)) from None
+                raise user_error(err) from None

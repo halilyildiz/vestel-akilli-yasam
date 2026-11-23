@@ -27,10 +27,6 @@ class Toggle(Control, SwitchEntity):
 
 
 class Ultraviolet(Control, SwitchEntity):
-    def __init__(self, *args):
-        super().__init__(*args)
-        self._attr_name = "UV"
-
     @property
     def is_on(self):
         name = str(self.state_data.status(".SettingIndex") or "").rsplit(".", 1)[-1]

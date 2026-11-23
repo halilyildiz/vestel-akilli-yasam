@@ -96,7 +96,7 @@ class LiveUpdates:
     async def _connection(self, tls_context):
         topics = subscription_topics(self.coordinator.data or {})
         if not topics:
-            raise ApiError("Canlı veri için cihaz kanalı bulunamadı.")
+            raise ApiError('live_topics_missing')
         self.stats["stage"] = "credentials"
         credentials = await self.coordinator.api.iot_credentials()
         if self.client_factory is None:

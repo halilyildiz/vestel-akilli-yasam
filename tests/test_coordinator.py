@@ -17,7 +17,12 @@ for name, path in (("custom_components", ROOT / "custom_components"), ("custom_c
 for name in ("homeassistant", "homeassistant.exceptions", "homeassistant.helpers", "homeassistant.helpers.update_coordinator", "aiohttp"):
     sys.modules.setdefault(name, types.ModuleType(name))
 
-class HAError(Exception): pass
+class HAError(Exception):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args)
+        self.translation_domain = kwargs.get("translation_domain")
+        self.translation_key = kwargs.get("translation_key")
+        self.translation_placeholders = kwargs.get("translation_placeholders")
 class HAAuthError(HAError): pass
 class UpdateError(HAError): pass
 sys.modules["homeassistant.exceptions"].HomeAssistantError = HAError

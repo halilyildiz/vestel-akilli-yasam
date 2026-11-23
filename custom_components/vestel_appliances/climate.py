@@ -1,8 +1,9 @@
 from homeassistant.components.climate import ClimateEntity, ClimateEntityFeature, HVACMode
 from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
-from homeassistant.exceptions import HomeAssistantError
+from .errors import user_error
 from .dynamic import setup_dynamic_entities
 from .entity import Base
+from .const import choice
 
 MODES = {"Auto": HVACMode.AUTO, "Cooling": HVACMode.COOL, "Heating": HVACMode.HEAT,
          "Dehumidifying": HVACMode.DRY, "Ventilating": HVACMode.FAN_ONLY, "PowerOff": HVACMode.OFF}
@@ -71,18 +72,18 @@ class Climate(Base, ClimateEntity):
 
     @property
     def fan_modes(self):
-        return [v["value"].rsplit(".", 1)[-1] for v in self.state_data.values(self.field(".Fan.Speed"))] if self.field(".Fan.Speed") else []
+        return [choice(v["value"]) for v in self.state_data.values(self.field(".Fan.Speed"))] if self.field(".Fan.Speed") else []
 
     @property
     def fan_mode(self):
         value = self.state_data.decode(self.field(".Fan.Speed"))
-        return value.rsplit(".", 1)[-1] if value else None
+        return choice(value) if value else None
 
     async def async_set_hvac_mode(self, hvac_mode):
         d = self.field(".Setting.Mode")
         value = next((v["commandValue"] for v in d["values"] if MODES.get(v["value"].rsplit(".", 1)[-1]) == hvac_mode), None)
         if value is None:
-            raise HomeAssistantError("Desteklenmeyen klima modu.")
+            raise user_error('hvac_mode_unsupported')
         await self.coordinator.apply(self.uuid, updates=[(d["key"], value)])
 
     async def async_turn_off(self):
@@ -95,12 +96,12 @@ class Climate(Base, ClimateEntity):
     async def async_set_temperature(self, **kwargs):
         value = kwargs.get(ATTR_TEMPERATURE)
         if value is None or value != int(value):
-            raise HomeAssistantError("Tam derece girin.")
+            raise user_error('whole_degree_required')
         await self.coordinator.apply(self.uuid, updates=[(self.field(".Setting.Temperature")["key"], int(value))])
 
     async def async_set_fan_mode(self, fan_mode):
         d = self.field(".Fan.Speed")
-        value = next((v["commandValue"] for v in self.state_data.values(d) if v["value"].endswith("." + fan_mode)), None)
+        value = next((v["commandValue"] for v in self.state_data.values(d) if choice(v["value"]) == fan_mode), None)
         if value is None:
-            raise HomeAssistantError("Bu modda fan hızı kullanılamıyor.")
+            raise user_error('fan_unavailable')
         await self.coordinator.apply(self.uuid, updates=[(d["key"], value)])

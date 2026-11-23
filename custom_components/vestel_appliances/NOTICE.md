@@ -1,0 +1,8 @@
+# Acknowledgements and third-party material
+
+- The project began with research into [mutlutekir/Vestel_Smart_Life](https://github.com/mutlutekir/Vestel_Smart_Life).
+- This integration builds on [mehmetaktas/ha-vestel-smarthome](https://github.com/mehmetaktas/ha-vestel-smarthome), copyright (c) 2026 Mehmet Aktaş, released under the MIT License. Authentication and cloud communication were adapted from that project. This project extends the original work with additional appliance families, controls, live updates and validation. The upstream integration is not a runtime dependency, and this acknowledgement does not imply the upstream author's endorsement.
+- Mehmet Aktaş's complete copyright and MIT license notice is retained verbatim in [LICENSE](LICENSE). The installable integration includes both the project's and upstream MIT notices in [LICENSE](LICENSE), together with a [packaged notice](NOTICE.md). Keep these notices with copies or substantial portions of the software, including redistributed installation packages.
+- Protocol definitions were studied from the application's interfaces and appliance discovery descriptions. The APK, decompiled application source, personal screenshots and raw household captures are not distributed here.
+- Vestel, Akıllı Yaşam and their application artwork belong to their respective owners. The original application icon in `brand/` identifies the service this community integration connects to; it is not covered by this project's MIT grant and does not imply endorsement.
+- Public Android application client configuration embedded in the cloud transport is application configuration, not an individual user's account token. Individual credentials must never be committed.

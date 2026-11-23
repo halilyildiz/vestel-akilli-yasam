@@ -1,10 +1,9 @@
 {
-  "title": "Vestel Akıllı Yaşam",
   "config": {
     "step": {
       "user": {
         "title": "Vestel Akıllı Yaşam hesabıyla giriş yap",
-        "description": "Akıllı Yaşam uygulamasında kullandığınız e-posta ve şifreyle giriş yapın. Sonraki adımda mevcut evinizi seçin.",
+        "description": "Akıllı Yaşam / Smart Life hesabınızla giriş yapıp mevcut evinizi seçin. Bu entegrasyon Tuya Smart Life için değildir.",
         "data": {
           "email": "E-posta",
           "password": "Şifre"
@@ -44,6 +43,1213 @@
     "incompatible_devices": {
       "title": "Vestel model tanımıyla uyumluluk sorunu",
       "description": "{count} cihaz veya kontrol tanımı bu sürümle uyumlu değil. Etkilenen kontroller güvenli şekilde eklenmedi; diğer cihazlar çalışmaya devam eder. Entegrasyon menüsünden maskelenmiş tanılama indirerek model desteği geliştirmede kullanabilirsiniz."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "climate_air_conditioner_status_current_mode": {
+        "name": "Geçerli mod",
+        "state": {
+          "auto": "Otomatik",
+          "cooling": "Soğutma",
+          "dehumidifying": "Nem alma",
+          "ventilating": "Fan",
+          "heating": "Isıtma"
+        }
+      },
+      "climate_air_conditioner_status_software_info_name": {
+        "name": "Yazılım adı",
+        "state": {
+          "meltem": "Meltem",
+          "yagmur": "Yağmur"
+        }
+      },
+      "climate_air_conditioner_status_software_info_mars_version": {
+        "name": "Mars sürümü"
+      },
+      "climate_air_conditioner_status_room_temperature": {
+        "name": "Oda sıcaklığı"
+      },
+      "climate_air_conditioner_status_software_info_version": {
+        "name": "Yazılım sürümü"
+      },
+      "climate_air_conditioner_status_wifi_signal_rss": {
+        "name": "Ham sinyal seviyesi"
+      },
+      "climate_air_conditioner_status_wifi_setting": {
+        "name": "Wi-Fi durumu",
+        "state": {
+          "config_mode": "Yapılandırma modu",
+          "read_all_wifi_commands": "Wi-Fi komutlarını okuma",
+          "mcu_power_save_enabled": "MCU güç tasarrufu açık",
+          "wifi_module_power_save_enabled": "Wi-Fi güç tasarrufu açık",
+          "wifi_module_power_save_disabled": "Wi-Fi güç tasarrufu kapalı",
+          "wifi_module_connected": "Wi-Fi bağlı",
+          "wifi_module_disconnected": "Wi-Fi bağlı değil",
+          "wifi_module_config_mode": "Wi-Fi yapılandırma modunda",
+          "wifi_module_not_config_mode": "Wi-Fi yapılandırma modunda değil",
+          "start_ping_test": "Bağlantı testi başlatılıyor",
+          "successfull_ping_test": "Bağlantı testi başarılı",
+          "wifi_module_software_running": "Wi-Fi yazılımı çalışıyor",
+          "feature_type": "Özellik türü"
+        }
+      },
+      "climate_air_conditioner_status_remaining_quick_off_time_minute": {
+        "name": "Dakika"
+      },
+      "climate_air_conditioner_status_remaining_quick_off_time_hour": {
+        "name": "Saat"
+      },
+      "climate_air_conditioner_status_connection_disconnect_count": {
+        "name": "Bağlantı kesilme sayısı"
+      },
+      "climate_air_conditioner_status_connection_signal_rss": {
+        "name": "Ham sinyal seviyesi"
+      },
+      "laundry_care_washer_dryer_status_selected_program": {
+        "name": "Seçili program",
+        "state": {
+          "eco4060": "Eko 40–60",
+          "cotton": "Pamuklu",
+          "cotton20": "Pamuklu hızlı 20 °C",
+          "synthetics": "Sentetikler",
+          "wool_silk": "Yünlü",
+          "duvet": "Yorgan",
+          "rinse": "Durulama",
+          "allergy_safe": "Alerji uzmanı",
+          "spin_drain": "Sıkma / tahliye",
+          "rapid1512": "Hızlı",
+          "fast60": "Hızlı 60 dk",
+          "dry_delicate": "Hassas kurutma",
+          "dry_cotton": "Pamuklu kurutma",
+          "dry_jet_wash": "Hızlı yıka ve kurut",
+          "dry_cotton6_wash": "Pamuklu yıka ve kurut"
+        }
+      },
+      "laundry_care_washer_dryer_status_step_info": {
+        "name": "Program aşaması",
+        "state": {
+          "pre_wash": "Ön yıkama",
+          "main_wash": "Ana yıkama",
+          "program_heat": "Program ısıtması",
+          "program_wash": "Program yıkaması",
+          "cool": "Soğutma",
+          "drain": "Tahliye",
+          "first_rinse": "Birinci durulama",
+          "second_rinse": "İkinci durulama",
+          "extra_rinse": "Ekstra durulama",
+          "third_rinse": "Üçüncü durulama",
+          "fourth_rinse": "Dördüncü durulama",
+          "spin": "Sıkma",
+          "end_mode": "Bitiş",
+          "dryer_info": "Kurutucu bilgisi",
+          "drain_before_spin": "Sıkma öncesi tahliye"
+        }
+      },
+      "laundry_care_washer_dryer_status_execution_state": {
+        "name": "Çalışma durumu",
+        "state": {
+          "selection": "Program seçimi",
+          "program": "Çalışıyor",
+          "in_delay": "Gecikme",
+          "pause": "Duraklatıldı",
+          "end_mode": "Bitiş",
+          "in_delay_pause": "Gecikme duraklatıldı",
+          "service_auto_test": "Servis otomatik testi",
+          "auto_test": "Otomatik test"
+        }
+      },
+      "laundry_care_washer_dryer_status_temperature": {
+        "name": "Sıcaklık",
+        "state": {
+          "cold_degree": "Soğuk",
+          "20_degree": "20 °C",
+          "30_degree": "30 °C",
+          "40_degree": "40 °C",
+          "50_degree": "50 °C",
+          "60_degree": "60 °C",
+          "70_degree": "70 °C",
+          "80_degree": "80 °C",
+          "90_degree": "90 °C"
+        }
+      },
+      "laundry_care_washer_dryer_status_spin_speed": {
+        "name": "Sıkma hızı",
+        "state": {
+          "no_spin": "Sıkma yok",
+          "400_rpm": "400 dev/dk",
+          "600_rpm": "600 dev/dk",
+          "800_rpm": "800 dev/dk",
+          "1000_rpm": "1000 dev/dk",
+          "1200_rpm": "1200 dev/dk",
+          "1400_rpm": "1400 dev/dk"
+        }
+      },
+      "laundry_care_washer_dryer_status_delay": {
+        "name": "Gecikmeli başlatma"
+      },
+      "laundry_care_washer_dryer_status_remaining_delay_duration": {
+        "name": "Kalan gecikme"
+      },
+      "laundry_care_washer_dryer_status_duration": {
+        "name": "Program süresi"
+      },
+      "laundry_care_washer_dryer_status_remaining_duration": {
+        "name": "Kalan süre"
+      },
+      "laundry_care_washer_dryer_status_max_machine_spin": {
+        "name": "Azami sıkma hızı"
+      },
+      "dishcare_dish_washer_status_execution_state": {
+        "name": "Çalışma durumu",
+        "state": {
+          "pre_program": "Program seçimi",
+          "running": "Çalışıyor",
+          "pause": "Duraklatıldı",
+          "end": "Bitti",
+          "door_opened": "Kapak açıldı",
+          "failure_display": "Hata gösterimi",
+          "auto_door_opening": "Otomatik kapı açılıyor",
+          "ioniser_in_progress": "İyonizer çalışıyor"
+        }
+      },
+      "dishcare_dish_washer_status_selected_program": {
+        "name": "Seçili program",
+        "state": {
+          "reset": "Sıfırla",
+          "prewash": "Ön yıkama",
+          "quick30": "Hızlı 30 dk",
+          "eco50": "Eko 50 °C",
+          "super50": "Süper 50 dk",
+          "smart3050": "Cam ve bardak yıkama",
+          "smart5060": "Oto akıllı",
+          "smart6070": "Oto yoğun",
+          "easycare": "Pratik 60 °C"
+        }
+      },
+      "dishcare_dish_washer_status_warning": {
+        "name": "Uyarı",
+        "state": {
+          "no_warning": "Uyarı yok",
+          "program_reset": "Program sıfırlanıyor",
+          "program_end": "Program bitti",
+          "door_is_open": "Kapak açık"
+        }
+      },
+      "dishcare_dish_washer_status_setting_index": {
+        "name": "UV ayar durumu",
+        "state": {
+          "uvon_off": "UV kapalı",
+          "uvon_on": "UV açık"
+        }
+      },
+      "dishcare_dish_washer_status_salt_and_rinse_aid": {
+        "name": "Tuz ve parlatıcı",
+        "state": {
+          "salt_and_rinse_aid_ok": "Tuz ve parlatıcı yeterli",
+          "rinse_aid_ok": "Parlatıcı yeterli",
+          "salt_ok": "Tuz yeterli",
+          "both_lack_of_salt_and_rinse_aid": "Tuz ve parlatıcı eksik"
+        }
+      },
+      "dishcare_dish_washer_status_program_phase": {
+        "name": "Program aşaması",
+        "state": {
+          "wash": "Yıkama",
+          "rinse": "Durulama",
+          "dry": "Kurutma",
+          "dry_hot_rinse": "Kurutma / sıcak durulama"
+        }
+      },
+      "dishcare_dish_washer_status_remote_control": {
+        "name": "Uzaktan kontrol",
+        "state": {
+          "open": "Açık",
+          "close": "Kapalı"
+        }
+      },
+      "dishcare_dish_washer_status_remaining_delay_duration": {
+        "name": "Kalan gecikme"
+      },
+      "dishcare_dish_washer_status_remaining_duration": {
+        "name": "Kalan süre"
+      },
+      "dishcare_dish_washer_status_program_duration": {
+        "name": "Program süresi"
+      },
+      "dishcare_dish_washer_status_total_delay_duration": {
+        "name": "Toplam gecikme süresi"
+      },
+      "dishcare_dish_washer_status_favorite_program1": {
+        "name": "Favori program"
+      },
+      "refrigeration_refrigerator_status_door": {
+        "name": "Kapı ham kodu",
+        "state": {
+          "freezer_open": "Dondurucu kapısı açık",
+          "cooler_open": "Soğutucu kapısı açık",
+          "both_open": "İki kapı açık",
+          "both_closed": "İki kapı kapalı"
+        }
+      },
+      "refrigeration_refrigerator_status_q_drink": {
+        "name": "İçecek soğutma",
+        "state": {
+          "open": "Açık",
+          "closed": "Kapalı",
+          "finished": "Tamamlandı"
+        }
+      },
+      "refrigeration_refrigerator_status_connection_disconnect_count": {
+        "name": "Bağlantı kesilme sayısı"
+      },
+      "refrigeration_refrigerator_status_connection_signal_rss": {
+        "name": "Ham sinyal seviyesi"
+      },
+      "consumption_day_energy_amount": {
+        "name": "Günlük tahmini enerji"
+      },
+      "consumption_day_energy_cost": {
+        "name": "Günlük tahmini maliyet"
+      },
+      "consumption_day_water": {
+        "name": "Günlük tahmini su tüketimi"
+      },
+      "consumption_month_energy_amount": {
+        "name": "Aylık tahmini enerji"
+      },
+      "consumption_month_energy_cost": {
+        "name": "Aylık tahmini maliyet"
+      },
+      "consumption_month_water": {
+        "name": "Aylık tahmini su tüketimi"
+      }
+    },
+    "binary_sensor": {
+      "climate_air_conditioner_error_no_error": {
+        "name": "Hata yok"
+      },
+      "climate_air_conditioner_error_ac_info_error": {
+        "name": "Klima bilgi hatası"
+      },
+      "climate_air_conditioner_error_initial_poe_error": {
+        "name": "Başlangıç POE hatası"
+      },
+      "climate_air_conditioner_error_room_temperature_sensor_error": {
+        "name": "Room temperature sensor error"
+      },
+      "climate_air_conditioner_error_coil_temperature_sensor_error": {
+        "name": "Serpantin sıcaklık sensörü hatası"
+      },
+      "climate_air_conditioner_error_fan_motor_error": {
+        "name": "Fan motoru hatası"
+      },
+      "climate_air_conditioner_error_gas_leakage_error": {
+        "name": "Gaz kaçağı hatası"
+      },
+      "climate_air_conditioner_error_out_ambient_temperature_sensor_error": {
+        "name": "Dış ortam sıcaklık sensörü hatası"
+      },
+      "climate_air_conditioner_error_discharge_temperature_sensor_error": {
+        "name": "Çıkış sıcaklık sensörü hatası"
+      },
+      "climate_air_conditioner_error_out_pipe_temperature_error": {
+        "name": "Dış boru sıcaklık hatası"
+      },
+      "climate_air_conditioner_error_communication_error": {
+        "name": "İletişim hatası"
+      },
+      "climate_air_conditioner_error_trip_f_error": {
+        "name": "Trip F hatası"
+      },
+      "climate_air_conditioner_error_igbt_ntc_error": {
+        "name": "IGBT NTC hatası"
+      },
+      "climate_air_conditioner_error_poe_error": {
+        "name": "POE hatası"
+      },
+      "climate_air_conditioner_error_vbus_error": {
+        "name": "Vbus hatası"
+      },
+      "climate_air_conditioner_error_compressor_cable_error": {
+        "name": "Kompresör kablosu hatası"
+      },
+      "climate_air_conditioner_error_outdoor_bldc_tacho_error": {
+        "name": "Dış ünite BLDC takometre hatası"
+      },
+      "laundry_care_washer_dryer_status_energy_off": {
+        "name": "Güç kapalı"
+      },
+      "laundry_care_washer_dryer_status_energy_on": {
+        "name": "Güç açık"
+      },
+      "laundry_care_washer_dryer_status_door_open": {
+        "name": "Kapak açık"
+      },
+      "laundry_care_washer_dryer_status_door_closed": {
+        "name": "Kapak kapalı"
+      },
+      "laundry_care_washer_dryer_status_remote_control_off": {
+        "name": "Uzaktan kontrol kapalı"
+      },
+      "laundry_care_washer_dryer_status_remote_control_on": {
+        "name": "Uzaktan kontrol"
+      },
+      "laundry_care_washer_dryer_status_child_lock_off": {
+        "name": "Çocuk kilidi kapalı"
+      },
+      "laundry_care_washer_dryer_status_child_lock_on": {
+        "name": "Çocuk kilidi"
+      },
+      "laundry_care_washer_dryer_status_standby": {
+        "name": "Bekleme"
+      },
+      "laundry_care_washer_dryer_error_no_error": {
+        "name": "Hata yok"
+      },
+      "laundry_care_washer_dryer_error_door_error": {
+        "name": "Kapak hatası"
+      },
+      "laundry_care_washer_dryer_error_lack_of_water": {
+        "name": "Su yetersiz"
+      },
+      "laundry_care_washer_dryer_error_drain_pump_error": {
+        "name": "Tahliye pompası hatası"
+      },
+      "laundry_care_washer_dryer_error_overflow_error": {
+        "name": "Taşma hatası"
+      },
+      "laundry_care_washer_dryer_error_ntc_error": {
+        "name": "NTC hatası"
+      },
+      "laundry_care_washer_dryer_error_motor_error": {
+        "name": "Motor hatası"
+      },
+      "laundry_care_washer_dryer_error_motor_triac_error": {
+        "name": "Motor triyak hatası"
+      },
+      "laundry_care_washer_dryer_error_low_voltage_error": {
+        "name": "Düşük gerilim hatası"
+      },
+      "laundry_care_washer_dryer_error_eps_socket_not_connected": {
+        "name": "EPS bağlantısı yok"
+      },
+      "laundry_care_washer_dryer_error_dryer_communication_error": {
+        "name": "Kurutucu iletişim hatası"
+      },
+      "laundry_care_washer_dryer_error_dryer_heater_error_in_service_autotest": {
+        "name": "Servis testinde kurutucu ısıtıcı hatası"
+      },
+      "laundry_care_washer_dryer_error_dryer_high_temp_error": {
+        "name": "Kurutucu yüksek sıcaklık hatası"
+      },
+      "laundry_care_washer_dryer_error_flowmeter_not_connected_error": {
+        "name": "Akış ölçer bağlı değil"
+      },
+      "laundry_care_washer_dryer_error_dryer_ntc_error": {
+        "name": "Kurutucu NTC hatası"
+      },
+      "laundry_care_washer_dryer_error_bldc_motor_error": {
+        "name": "BLDC motor hatası"
+      },
+      "laundry_care_washer_dryer_error_pyrojet_error": {
+        "name": "Pyrojet hatası"
+      },
+      "laundry_care_washer_dryer_error_high_voltage_error": {
+        "name": "Yüksek gerilim hatası"
+      },
+      "dishcare_dish_washer_error_no_error": {
+        "name": "Hata yok"
+      },
+      "dishcare_dish_washer_error_overflow_error": {
+        "name": "Taşma hatası"
+      },
+      "dishcare_dish_washer_error_leakage_error": {
+        "name": "Su kaçağı hatası"
+      },
+      "dishcare_dish_washer_error_draining_time_out_error": {
+        "name": "Tahliye zaman aşımı"
+      },
+      "dishcare_dish_washer_error_presence_of_flow_meter_impulses_error": {
+        "name": "Beklenmeyen akış ölçer sinyali"
+      },
+      "dishcare_dish_washer_error_absence_of_flow_meter_error": {
+        "name": "Akış ölçer sinyali yok"
+      },
+      "dishcare_dish_washer_error_absence_of_flow_meter_empty_level_error": {
+        "name": "Boş seviyede akış ölçer sinyali yok"
+      },
+      "dishcare_dish_washer_error_rarely_flow_meter_impulses_error": {
+        "name": "Seyrek akış ölçer sinyali"
+      },
+      "dishcare_dish_washer_error_rarely_flow_meter_impulses_empty_level_error": {
+        "name": "Boş seviyede seyrek akış ölçer sinyali"
+      },
+      "dishcare_dish_washer_error_re_fill_time_out_error": {
+        "name": "Yeniden dolum zaman aşımı"
+      },
+      "dishcare_dish_washer_error_ntc_failure_error": {
+        "name": "NTC arızası"
+      },
+      "dishcare_dish_washer_error_overheating_error": {
+        "name": "Aşırı ısınma hatası"
+      },
+      "dishcare_dish_washer_error_unsuccessful_heating_error": {
+        "name": "Isıtma başarısız"
+      },
+      "dishcare_dish_washer_error_diverter_opened_error": {
+        "name": "Su yönlendirici hatası"
+      },
+      "dishcare_dish_washer_error_turbidity_sensor_error": {
+        "name": "Bulanıklık sensörü hatası"
+      },
+      "dishcare_dish_washer_error_parameter_set_salt_incorrect_error": {
+        "name": "Tuz parametresi hatası"
+      },
+      "dishcare_dish_washer_error_ck_parameter_error": {
+        "name": "CK parametre hatası"
+      },
+      "dishcare_dish_washer_error_low_voltage_error": {
+        "name": "Düşük gerilim hatası"
+      },
+      "dishcare_dish_washer_error_high_voltage_error": {
+        "name": "Yüksek gerilim hatası"
+      },
+      "dishcare_dish_washer_error_auto_door_error": {
+        "name": "Otomatik kapı hatası"
+      },
+      "dishcare_dish_washer_error_tab_closed_error": {
+        "name": "Musluk kapalı"
+      },
+      "refrigeration_refrigerator_status_screen_saver": {
+        "name": "Ekran koruyucu"
+      },
+      "refrigeration_refrigerator_status_child_lock": {
+        "name": "Çocuk kilidi"
+      },
+      "refrigeration_refrigerator_error_serpantin_defect": {
+        "name": "Serpantin arızası"
+      },
+      "refrigeration_refrigerator_error_refrigerator_defrost_heater_defect": {
+        "name": "Soğutucu defrost ısıtıcısı arızası"
+      },
+      "refrigeration_refrigerator_error_undefined": {
+        "name": "Tanımsız hata"
+      },
+      "refrigeration_refrigerator_error_freezer_sensor_error": {
+        "name": "Dondurucu sensörü hatası"
+      },
+      "refrigeration_refrigerator_error_cooler_sensor_error": {
+        "name": "Soğutucu sensörü hatası"
+      },
+      "refrigeration_refrigerator_error_defrost_sensor_error": {
+        "name": "Defrost sensörü hatası"
+      },
+      "refrigeration_refrigerator_error_ambient_sensor_error": {
+        "name": "Ortam sensörü hatası"
+      },
+      "refrigeration_refrigerator_error_compressor_defect": {
+        "name": "Kompresör arızası"
+      },
+      "refrigeration_refrigerator_error_defrost_heater_defect": {
+        "name": "Defrost ısıtıcısı arızası"
+      },
+      "refrigeration_refrigerator_error_low_voltage_detected": {
+        "name": "Düşük gerilim algılandı"
+      },
+      "refrigeration_refrigerator_error_refrigerator_defrost_sensor_error": {
+        "name": "Soğutucu defrost sensörü hatası"
+      },
+      "refrigeration_refrigerator_error_no_error": {
+        "name": "Hata yok"
+      },
+      "refrigeration_refrigerator_error_cooer_error_display_available": {
+        "name": "Hata göstergesi etkin"
+      },
+      "refrigeration_refrigerator_error_cooer_not_enough_cold_freezer": {
+        "name": "Dondurucu yeterince soğuk değil"
+      },
+      "refrigeration_refrigerator_error_cooer_warm_cooler": {
+        "name": "Soğutucu sıcak"
+      },
+      "refrigeration_refrigerator_error_cooer_cold_cooler": {
+        "name": "Soğutucu aşırı soğuk"
+      },
+      "refrigeration_refrigerator_error_cooer_no_error": {
+        "name": "Hata yok"
+      },
+      "live_connection": {
+        "name": "Canlı veri bağlantısı"
+      },
+      "door_open": {
+        "name": "Kapı açık"
+      },
+      "problem": {
+        "name": "Arıza"
+      }
+    },
+    "switch": {
+      "climate_air_conditioner_setting_fan_sleep_mode": {
+        "name": "Uyku"
+      },
+      "climate_air_conditioner_setting_fan_ionizer": {
+        "name": "İyonizer"
+      },
+      "climate_air_conditioner_setting_fan_turbo": {
+        "name": "Turbo"
+      },
+      "climate_air_conditioner_setting_fan_eco": {
+        "name": "Ekonomi"
+      },
+      "dishcare_dish_washer_option_tablet": {
+        "name": "Tablet deterjan"
+      },
+      "dishcare_dish_washer_option_upper_spray": {
+        "name": "Üst sepet"
+      },
+      "dishcare_dish_washer_option_lower_spray": {
+        "name": "Alt sepet"
+      },
+      "dishcare_dish_washer_option_extra_dry": {
+        "name": "Ekstra kurutma"
+      },
+      "dishcare_dish_washer_option_extra_hygiene": {
+        "name": "Ekstra hijyen"
+      },
+      "dishcare_dish_washer_option_extra_rinse": {
+        "name": "Ekstra durulama"
+      },
+      "dishcare_dish_washer_command_uvon_on": {
+        "name": "UV"
+      },
+      "refrigeration_refrigerator_setting_screen_saver": {
+        "name": "Ekran koruyucu"
+      },
+      "refrigeration_refrigerator_setting_child_lock": {
+        "name": "Çocuk kilidi"
+      }
+    },
+    "select": {
+      "climate_air_conditioner_setting_fan_horizontal_swing": {
+        "name": "Yatay kanat",
+        "state": {
+          "off": "Kapalı",
+          "pos1": "Konum 1",
+          "pos2": "Konum 2",
+          "pos3": "Konum 3",
+          "pos4": "Konum 4",
+          "pos5": "Konum 5",
+          "pos6": "Salınım"
+        }
+      },
+      "climate_air_conditioner_setting_fan_vertical_swing": {
+        "name": "Dikey kanat",
+        "state": {
+          "off": "Kapalı",
+          "pos1": "Konum 1",
+          "pos2": "Konum 2",
+          "pos3": "Konum 3",
+          "pos4": "Konum 4",
+          "pos5": "Konum 5",
+          "pos6": "Salınım"
+        }
+      },
+      "laundry_care_washer_dryer_option_spin_speed": {
+        "name": "Sıkma hızı",
+        "state": {
+          "no_spin": "Sıkma yok",
+          "400_rpm": "400 dev/dk",
+          "600_rpm": "600 dev/dk",
+          "800_rpm": "800 dev/dk",
+          "1000_rpm": "1000 dev/dk",
+          "1200_rpm": "1200 dev/dk",
+          "1400_rpm": "1400 dev/dk"
+        }
+      },
+      "laundry_care_washer_dryer_option_dry": {
+        "name": "Kurutma seviyesi",
+        "state": {
+          "no_level": "Kurutma yok",
+          "level1": "Seviye 1",
+          "level2": "Seviye 2",
+          "level3": "Seviye 3"
+        }
+      },
+      "laundry_care_washer_dryer_option_time_dry": {
+        "name": "Kurutma süresi",
+        "state": {
+          "no_time": "Süreli kurutma yok",
+          "time30min": "30 dk",
+          "time60min": "60 dk",
+          "time90min": "90 dk",
+          "time120min": "120 dk"
+        }
+      },
+      "laundry_care_washer_dryer_option_temperature": {
+        "name": "Sıcaklık",
+        "state": {
+          "cold_degree": "Soğuk",
+          "20_degree": "20 °C",
+          "30_degree": "30 °C",
+          "40_degree": "40 °C",
+          "50_degree": "50 °C",
+          "60_degree": "60 °C",
+          "70_degree": "70 °C",
+          "80_degree": "80 °C",
+          "90_degree": "90 °C"
+        }
+      },
+      "program": {
+        "name": "Program",
+        "state": {
+          "eco4060": "Eko 40–60",
+          "cotton": "Pamuklu",
+          "cotton20": "Pamuklu hızlı 20 °C",
+          "synthetics": "Sentetikler",
+          "wool_silk": "Yünlü",
+          "duvet": "Yorgan",
+          "rinse": "Durulama",
+          "allergy_safe": "Alerji uzmanı",
+          "spin_drain": "Sıkma / tahliye",
+          "rapid1512": "Hızlı",
+          "fast60": "Hızlı 60 dk",
+          "dry_delicate": "Hassas kurutma",
+          "dry_cotton": "Pamuklu kurutma",
+          "dry_jet_wash": "Hızlı yıka ve kurut",
+          "dry_cotton6_wash": "Pamuklu yıka ve kurut",
+          "prewash": "Ön yıkama",
+          "quick30": "Hızlı 30 dk",
+          "eco50": "Eko 50 °C",
+          "easycare": "Pratik 60 °C",
+          "super50": "Süper 50 dk",
+          "smart3050": "Cam ve bardak yıkama",
+          "smart5060": "Oto akıllı",
+          "smart6070": "Oto yoğun",
+          "favorite1": "Favori"
+        }
+      },
+      "refrigeration_refrigerator_setting_freezer_temperature": {
+        "name": "Dondurucu sıcaklık ayarı",
+        "state": {
+          "m16": "−16 °C",
+          "m18": "−18 °C",
+          "m20": "−20 °C",
+          "m22": "−22 °C",
+          "m24": "−24 °C"
+        }
+      },
+      "refrigeration_refrigerator_setting_cooler_temperature": {
+        "name": "Soğutucu sıcaklık ayarı",
+        "state": {
+          "2_c": "2 °C",
+          "4_c": "4 °C",
+          "5_c": "5 °C",
+          "6_c": "6 °C",
+          "8_c": "8 °C"
+        }
+      },
+      "refrigeration_refrigerator_setting_mode": {
+        "name": "Çalışma modu",
+        "state": {
+          "normal": "Normal",
+          "super_freeze": "Hızlı dondurma",
+          "super_cooler": "Hızlı soğutma",
+          "holiday": "Tatil",
+          "eco": "Ekonomi"
+        }
+      }
+    },
+    "button": {
+      "climate_air_conditioner_command_auto_on_cancel": {
+        "name": "Otomatik açılmayı iptal et"
+      },
+      "climate_air_conditioner_command_auto_off_cancel": {
+        "name": "Otomatik kapanmayı iptal et"
+      },
+      "climate_air_conditioner_command_quick_off_cancel": {
+        "name": "Hızlı kapatmayı iptal et"
+      },
+      "climate_air_conditioner_command_power_off": {
+        "name": "Kapat"
+      },
+      "laundry_care_washer_dryer_command_start": {
+        "name": "Başlat"
+      },
+      "laundry_care_washer_dryer_command_pause": {
+        "name": "Duraklat"
+      },
+      "laundry_care_washer_dryer_command_in_delay": {
+        "name": "Gecikmeyi başlat"
+      },
+      "laundry_care_washer_dryer_command_selection": {
+        "name": "Tamam / program seçimine dön"
+      },
+      "dishcare_dish_washer_command_cancel": {
+        "name": "İptal"
+      },
+      "dishcare_dish_washer_command_start": {
+        "name": "Başlat"
+      },
+      "dishcare_dish_washer_command_pause": {
+        "name": "Duraklat"
+      },
+      "dishcare_dish_washer_command_pre_program": {
+        "name": "Tamam / program seçimine dön"
+      },
+      "dishcare_dish_washer_command_ionizer_in_progress": {
+        "name": "İyonizeri başlat"
+      },
+      "dishcare_dish_washer_command_uvon_on": {
+        "name": "UV aç"
+      },
+      "dishcare_dish_washer_command_uvon_off": {
+        "name": "UV kapat"
+      }
+    },
+    "time": {
+      "climate_air_conditioner_setting_auto_on_hour": {
+        "name": "Otomatik açılma saati"
+      },
+      "climate_air_conditioner_setting_auto_off_hour": {
+        "name": "Otomatik kapanma saati"
+      }
+    },
+    "number": {
+      "climate_air_conditioner_setting_quick_off_time_hour_duration": {
+        "name": "Hızlı kapatma süresi"
+      },
+      "laundry_care_washer_dryer_option_delay": {
+        "name": "Gecikmeli başlatma"
+      },
+      "dishcare_dish_washer_option_delay_timer": {
+        "name": "Gecikmeli başlatma"
+      }
+    },
+    "climate": {
+      "climate": {
+        "state_attributes": {
+          "fan_mode": {
+            "state": {
+              "auto": "Otomatik",
+              "speed1": "Kademe 1",
+              "speed2": "Kademe 2",
+              "speed3": "Kademe 3",
+              "speed4": "Kademe 4",
+              "speed5": "Kademe 5"
+            }
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "device_not_found": {
+      "message": "Cihaz bulunamadı."
+    },
+    "vestel_device_not_found": {
+      "message": "Vestel cihazı bulunamadı."
+    },
+    "choose_change": {
+      "message": "Ayar veya işlem seçin."
+    },
+    "separate_changes": {
+      "message": "İşlem ve ayar değişikliği ayrı gönderilmeli."
+    },
+    "billing_action_unsupported": {
+      "message": "Desteklenmeyen fatura işlemi."
+    },
+    "billing_unconfirmed": {
+      "message": "Ayar gönderildi; geri okuma değişikliği henüz doğrulamadı. Otomatik tekrar yapılmadı."
+    },
+    "command_unconfirmed": {
+      "message": "Komut kabul edildi; cihazdan doğrulama henüz gelmedi. Durumu kontrol edin; otomatik tekrar gönderilmedi."
+    },
+    "device_offline": {
+      "message": "Cihaz çevrimdışı."
+    },
+    "empty_status": {
+      "message": "Cihazın güncel durumu boş döndü; komut gönderilmedi."
+    },
+    "cancel_in_progress": {
+      "message": "İptal/tahliye zaten sürüyor; yeniden komut gönderilmedi."
+    },
+    "no_changes": {
+      "message": "Gönderilecek değişiklik bulunamadı."
+    },
+    "status_unavailable": {
+      "message": "Cihazın güncel durumu okunamadı."
+    },
+    "remote_required": {
+      "message": "Cihaz panelinden uzaktan kontrolü etkinleştirin."
+    },
+    "return_to_selection": {
+      "message": "Önce bitiş ekranındaki Tamam / program seçimine dön işlemini yapın."
+    },
+    "wake_appliance": {
+      "message": "Makine bekleme modunda; önce panelden veya Vestel uygulamasından uyandırın."
+    },
+    "unsupported_phase": {
+      "message": "Bu seçenek mevcut program aşamasında değiştirilemiyor."
+    },
+    "not_ready_to_start": {
+      "message": "Makine zaten çalışıyor veya başlatmaya hazır değil."
+    },
+    "not_running": {
+      "message": "Çalışmayan program duraklatılamaz."
+    },
+    "feature_unavailable": {
+      "message": "Bu özellik seçili mod/programda kullanılamıyor."
+    },
+    "incompatible_option": {
+      "message": "Bu seçenek başka bir ayarla uyumlu değil."
+    },
+    "program_value_invalid": {
+      "message": "Program değeri keşif tanımıyla uyuşmuyor."
+    },
+    "boolean_invalid": {
+      "message": "Geçersiz açık/kapalı değeri."
+    },
+    "value_unavailable": {
+      "message": "Bu değer seçili program/mod için desteklenmiyor."
+    },
+    "dry_conflict": {
+      "message": "Önce diğer kurutma türünü kapatın; seviye ve süre birlikte seçilemez."
+    },
+    "out_of_range": {
+      "message": "İstenen değer izin verilen aralığın dışında."
+    },
+    "invalid_step": {
+      "message": "İstenen değer desteklenen adımla uyuşmuyor."
+    },
+    "not_writable": {
+      "message": "Bu alan yazılabilir bir cihaz ayarı değil."
+    },
+    "command_unsupported": {
+      "message": "Desteklenmeyen işlem."
+    },
+    "uv_result_missing": {
+      "message": "UV komutunun sonuç durumu keşif tanımında bulunamadı."
+    },
+    "readback_definition_missing": {
+      "message": "Doğrulanacak alan tanımı bulunamadı."
+    },
+    "readback_fields_missing": {
+      "message": "Komutun doğrulama alanları eksik."
+    },
+    "whole_number_required": {
+      "message": "Tam sayı girin."
+    },
+    "quick_off_range": {
+      "message": "0 (iptal) veya 30–300 dakika arasında 30 dakikalık adımlar kullanın."
+    },
+    "option_unavailable": {
+      "message": "Bu seçenek mevcut mod/programda kullanılamıyor."
+    },
+    "program_not_found": {
+      "message": "Program bulunamadı."
+    },
+    "hvac_mode_unsupported": {
+      "message": "Desteklenmeyen klima modu."
+    },
+    "whole_degree_required": {
+      "message": "Tam derece girin."
+    },
+    "fan_unavailable": {
+      "message": "Bu modda fan hızı kullanılamıyor."
+    },
+    "auth_server_unavailable": {
+      "message": "Vestel kimlik sunucusu geçici olarak kullanılamıyor."
+    },
+    "auth_connection_failed": {
+      "message": "Vestel kimlik sunucusuna ulaşılamadı."
+    },
+    "auth_response_invalid": {
+      "message": "Vestel kimlik yanıtının biçimi beklenenden farklı."
+    },
+    "reauth_required": {
+      "message": "Vestel hesabıyla yeniden giriş gerekiyor."
+    },
+    "auth_result_invalid": {
+      "message": "Vestel kimlik doğrulama sonucu okunamadı."
+    },
+    "auth_token_invalid": {
+      "message": "Vestel kimlik yanıtında geçerli oturum bilgisi bulunamadı."
+    },
+    "auth_expiry_invalid": {
+      "message": "Vestel oturum süresi geçersiz."
+    },
+    "refresh_token_invalid": {
+      "message": "Vestel oturum yenileme bilgisi geçersiz."
+    },
+    "session_rejected": {
+      "message": "Vestel oturumu reddedildi."
+    },
+    "cloud_response_invalid": {
+      "message": "Vestel yanıtının biçimi beklenenden farklı."
+    },
+    "cloud_connection_failed": {
+      "message": "Vestel sunucusundan yanıt alınamadı."
+    },
+    "homes_invalid": {
+      "message": "Vestel ev listesi okunamadı."
+    },
+    "home_record_invalid": {
+      "message": "Vestel ev listesinde geçersiz kayıt var."
+    },
+    "home_id_invalid": {
+      "message": "Vestel ev kimliği okunamadı."
+    },
+    "devices_invalid": {
+      "message": "Vestel cihaz listesi okunamadı."
+    },
+    "discovery_invalid": {
+      "message": "Cihazın özellik tanımı okunamadı."
+    },
+    "status_invalid": {
+      "message": "Cihaz durumu okunamadı."
+    },
+    "command_rejected": {
+      "message": "Vestel komutu kabul etmedi."
+    },
+    "consumption_range_invalid": {
+      "message": "Geçersiz tüketim sorgusu aralığı."
+    },
+    "consumption_response_invalid": {
+      "message": "Tüketim geçmişi yanıtı beklenen biçimde değil."
+    },
+    "consumption_record_invalid": {
+      "message": "Tüketim geçmişinde geçersiz kayıt var."
+    },
+    "billing_settings_invalid": {
+      "message": "Akıllı Fatura ayarları okunamadı."
+    },
+    "identity_operation_unsupported": {
+      "message": "Desteklenmeyen kimlik işlemi."
+    },
+    "identity_connection_failed": {
+      "message": "Canlı veri kimlik sunucusuna ulaşılamadı."
+    },
+    "identity_response_invalid": {
+      "message": "Canlı veri kimlik yanıtı geçersiz."
+    },
+    "identity_invalid": {
+      "message": "Canlı veri kimliği geçersiz."
+    },
+    "iot_credentials_missing": {
+      "message": "Geçici canlı veri kimlik bilgisi bulunamadı."
+    },
+    "iot_credentials_incomplete": {
+      "message": "Geçici canlı veri kimlik bilgisi eksik."
+    },
+    "iot_expiry_invalid": {
+      "message": "Geçici canlı veri kimlik bilgisinin süresi geçersiz."
+    },
+    "amount_invalid": {
+      "message": "Sıfır veya pozitif, sonlu bir tutar girin."
+    },
+    "quota_invalid": {
+      "message": "Fatura limiti 0–2147483647 aralığında tam sayı olmalı."
+    },
+    "limit_enabled_invalid": {
+      "message": "Limit durumu açık veya kapalı olmalı."
+    },
+    "quota_device_missing": {
+      "message": "Cihaz için fatura limiti ayarı bulunamadı."
+    },
+    "currency_invalid": {
+      "message": "Üç harfli para birimi kodu girin; örneğin TRY."
+    },
+    "billing_option_unsupported": {
+      "message": "Desteklenmeyen fatura ayarı."
+    },
+    "billing_value_unsupported": {
+      "message": "Desteklenmeyen fatura ayarı değeri."
+    },
+    "live_topics_missing": {
+      "message": "Canlı veri için cihaz kanalı bulunamadı."
+    },
+    "collection_failed": {
+      "message": "Vestel cihaz listesi okunamadı. Ana entegrasyonun bağlantısını kontrol edin."
+    },
+    "collection_invalid": {
+      "message": "Vestel cihaz listesi beklenmeyen biçimde döndü."
+    },
+    "register_boolean": {
+      "message": "Açık/kapalı değeri register değeri olarak kullanılamaz."
+    },
+    "register_range": {
+      "message": "Register değeri 16 bit aralığının dışında."
+    },
+    "register_value_invalid": {
+      "message": "Register değeri eksik veya geçersiz."
+    },
+    "register_name_invalid": {
+      "message": "Register adı geçersiz."
+    },
+    "bit_layout_incomplete": {
+      "message": "Bit alanı tanımı eksik."
+    },
+    "bit_layout_invalid": {
+      "message": "Bit alanı tanımı geçersiz."
+    },
+    "boolean_definition_missing": {
+      "message": "Açık/kapalı karşılaştırma tanımı eksik."
+    },
+    "temperature_offset_missing": {
+      "message": "Sıcaklık ofseti eksik."
+    },
+    "encoded_value_invalid": {
+      "message": "Değer register bit alanına sığmıyor."
+    },
+    "auth_server_http": {
+      "message": "Vestel kimlik sunucusu geçici olarak kullanılamıyor (HTTP {http_status})."
+    },
+    "auth_rejected_http": {
+      "message": "Vestel oturumu yenilenemedi (HTTP {http_status})."
+    },
+    "request_http": {
+      "message": "Vestel isteği başarısız (HTTP {http_status})."
+    },
+    "identity_http": {
+      "message": "Canlı veri kimliği alınamadı (HTTP {http_status})."
+    }
+  },
+  "services": {
+    "apply": {
+      "name": "Cihaz ayarını değiştir",
+      "description": "Cihazın keşif tanımındaki bir ayarı veya işlemi uygular. Ham komut kabul etmez.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel cihazı"
+        },
+        "command": {
+          "name": "İşlemin tam Vestel anahtarı"
+        },
+        "updates": {
+          "name": "Değiştirilecek ayarlar (key ve value)"
+        }
+      }
+    },
+    "get_consumption": {
+      "name": "Tüketim geçmişini getir",
+      "description": "Vestel uygulamasının tahmini enerji, maliyet ve su geçmişini sorgular; cihaz ayarı değiştirmez.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel cihazı"
+        },
+        "period": {
+          "name": "Dönem"
+        },
+        "count": {
+          "name": "Dönem sayısı"
+        }
+      }
+    },
+    "get_billing_settings": {
+      "name": "Akıllı Fatura ayarlarını getir",
+      "description": "Seçilen cihazın limitini ve evin tarife/birim fiyat ayarlarını okur.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel cihazı"
+        }
+      }
+    },
+    "set_bill_limit": {
+      "name": "Fatura limitini ayarla",
+      "description": "Seçilen kapsamda cihazın veya evin uygulamadaki fatura limitini değiştirir. Diğer kapsamın limiti korunur.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel cihazı"
+        },
+        "scope": {
+          "name": "Limit kapsamı"
+        },
+        "amount": {
+          "name": "Limit tutarı"
+        },
+        "enabled": {
+          "name": "Limit etkin"
+        }
+      }
+    },
+    "set_energy_price": {
+      "name": "Elektrik birim fiyatını ayarla",
+      "description": "Evin tüm Vestel tüketim hesaplarında kullanılan kWh fiyatını ve para birimini değiştirir. Elektrik tedarikçisiyle sözleşme değişikliği yapmaz.",
+      "fields": {
+        "device_id": {
+          "name": "Bu evdeki bir Vestel cihazı"
+        },
+        "price": {
+          "name": "kWh başına fiyat"
+        },
+        "currency": {
+          "name": "Para birimi (örneğin TRY)"
+        }
+      }
+    },
+    "set_subscriber_type": {
+      "name": "Abonelik türünü ayarla",
+      "description": "Evin Akıllı Fatura hesaplamasında kullanılan abonelik türünü değiştirir.",
+      "fields": {
+        "device_id": {
+          "name": "Bu evdeki bir Vestel cihazı"
+        },
+        "subscriber_type": {
+          "name": "Abonelik türü"
+        }
+      }
+    },
+    "set_tariff_type": {
+      "name": "Tarife türünü ayarla",
+      "description": "Evin Akıllı Fatura hesaplamasında kullanılan tek veya üç zamanlı tarifeyi değiştirir.",
+      "fields": {
+        "device_id": {
+          "name": "Bu evdeki bir Vestel cihazı"
+        },
+        "tariff_type": {
+          "name": "Tarife"
+        }
+      }
+    },
+    "set_energy_management": {
+      "name": "Akıllı Fatura hesaplamasını aç veya kapat",
+      "description": "Vestel uygulamasındaki ev enerji yönetimi özelliğini açar veya kapatır; cihazları çalıştırmaz veya kapatmaz.",
+      "fields": {
+        "device_id": {
+          "name": "Bu evdeki bir Vestel cihazı"
+        },
+        "enabled": {
+          "name": "Etkin"
+        }
+      }
+    }
+  },
+  "selector": {
+    "scope": {
+      "options": {
+        "device": "Seçilen cihaz",
+        "home": "Bu cihazın bulunduğu ev"
+      }
+    },
+    "subscriber_type": {
+      "options": {
+        "residential": "Mesken",
+        "business": "Ticarethane",
+        "industrial": "Sanayi"
+      }
+    },
+    "tariff_type": {
+      "options": {
+        "one-time": "Tek zamanlı",
+        "three-time": "Üç zamanlı"
+      }
+    },
+    "period": {
+      "options": {
+        "day": "Gün",
+        "week": "Hafta",
+        "month": "Ay"
+      }
     }
   }
 }

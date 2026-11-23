@@ -1,10 +1,9 @@
 {
-  "title": "Vestel Akıllı Yaşam",
   "config": {
     "step": {
       "user": {
         "title": "Sign in to Vestel Smart Life",
-        "description": "Use the email and password from your Smart Life app, then select your existing home.",
+        "description": "Use your Vestel Akıllı Yaşam / Smart Life account, then select your existing home. This is not the Tuya Smart Life app.",
         "data": {
           "email": "Email",
           "password": "Password"
@@ -44,6 +43,1213 @@
     "incompatible_devices": {
       "title": "Incompatible Vestel model description",
       "description": "{count} device or control descriptions are incompatible with this release. Affected controls were skipped; other devices continue to work. Download redacted diagnostics from the integration menu to help add model support."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "climate_air_conditioner_status_current_mode": {
+        "name": "Current mode",
+        "state": {
+          "auto": "Automatic",
+          "cooling": "Cooling",
+          "dehumidifying": "Dehumidifying",
+          "ventilating": "Fan",
+          "heating": "Heating"
+        }
+      },
+      "climate_air_conditioner_status_software_info_name": {
+        "name": "Name",
+        "state": {
+          "meltem": "Meltem",
+          "yagmur": "Yagmur"
+        }
+      },
+      "climate_air_conditioner_status_software_info_mars_version": {
+        "name": "Mars version"
+      },
+      "climate_air_conditioner_status_room_temperature": {
+        "name": "Room temperature"
+      },
+      "climate_air_conditioner_status_software_info_version": {
+        "name": "Version"
+      },
+      "climate_air_conditioner_status_wifi_signal_rss": {
+        "name": "Signal rss"
+      },
+      "climate_air_conditioner_status_wifi_setting": {
+        "name": "Wifi setting",
+        "state": {
+          "config_mode": "Config mode",
+          "read_all_wifi_commands": "Read all wifi commands",
+          "mcu_power_save_enabled": "Mcu power save enabled",
+          "wifi_module_power_save_enabled": "Wifi module power save enabled",
+          "wifi_module_power_save_disabled": "Wifi module power save disabled",
+          "wifi_module_connected": "Wifi module connected",
+          "wifi_module_disconnected": "Wifi module disconnected",
+          "wifi_module_config_mode": "Wifi module config mode",
+          "wifi_module_not_config_mode": "Wifi module not config mode",
+          "start_ping_test": "Start ping test",
+          "successfull_ping_test": "Successfull ping test",
+          "wifi_module_software_running": "Wifi module software running",
+          "feature_type": "Feature type"
+        }
+      },
+      "climate_air_conditioner_status_remaining_quick_off_time_minute": {
+        "name": "Minute"
+      },
+      "climate_air_conditioner_status_remaining_quick_off_time_hour": {
+        "name": "Hour"
+      },
+      "climate_air_conditioner_status_connection_disconnect_count": {
+        "name": "Disconnect count"
+      },
+      "climate_air_conditioner_status_connection_signal_rss": {
+        "name": "Signal rss"
+      },
+      "laundry_care_washer_dryer_status_selected_program": {
+        "name": "Selected program",
+        "state": {
+          "eco4060": "Eco 40–60",
+          "cotton": "Cotton",
+          "cotton20": "Quick cotton 20 °C",
+          "synthetics": "Synthetics",
+          "wool_silk": "Wool",
+          "duvet": "Duvet",
+          "rinse": "Rinse",
+          "allergy_safe": "Allergy safe",
+          "spin_drain": "Spin / drain",
+          "rapid1512": "Rapid",
+          "fast60": "Fast 60 min",
+          "dry_delicate": "Delicate dry",
+          "dry_cotton": "Cotton dry",
+          "dry_jet_wash": "Quick wash and dry",
+          "dry_cotton6_wash": "Cotton wash and dry"
+        }
+      },
+      "laundry_care_washer_dryer_status_step_info": {
+        "name": "Program phase",
+        "state": {
+          "pre_wash": "Pre wash",
+          "main_wash": "Main wash",
+          "program_heat": "Program heat",
+          "program_wash": "Program wash",
+          "cool": "Cool",
+          "drain": "Drain",
+          "first_rinse": "First rinse",
+          "second_rinse": "Second rinse",
+          "extra_rinse": "Extra rinse",
+          "third_rinse": "Third rinse",
+          "fourth_rinse": "Fourth rinse",
+          "spin": "Spin",
+          "end_mode": "End mode",
+          "dryer_info": "Dryer info",
+          "drain_before_spin": "Drain before spin"
+        }
+      },
+      "laundry_care_washer_dryer_status_execution_state": {
+        "name": "Operating state",
+        "state": {
+          "selection": "Selection",
+          "program": "Program",
+          "in_delay": "In delay",
+          "pause": "Pause",
+          "end_mode": "End mode",
+          "in_delay_pause": "In delay pause",
+          "service_auto_test": "Service auto test",
+          "auto_test": "Auto test"
+        }
+      },
+      "laundry_care_washer_dryer_status_temperature": {
+        "name": "Temperature",
+        "state": {
+          "cold_degree": "Cold",
+          "20_degree": "20 °C",
+          "30_degree": "30 °C",
+          "40_degree": "40 °C",
+          "50_degree": "50 °C",
+          "60_degree": "60 °C",
+          "70_degree": "70 °C",
+          "80_degree": "80 °C",
+          "90_degree": "90 °C"
+        }
+      },
+      "laundry_care_washer_dryer_status_spin_speed": {
+        "name": "Spin speed",
+        "state": {
+          "no_spin": "No spin",
+          "400_rpm": "400 rpm",
+          "600_rpm": "600 rpm",
+          "800_rpm": "800 rpm",
+          "1000_rpm": "1000 rpm",
+          "1200_rpm": "1200 rpm",
+          "1400_rpm": "1400 rpm"
+        }
+      },
+      "laundry_care_washer_dryer_status_delay": {
+        "name": "Delayed start"
+      },
+      "laundry_care_washer_dryer_status_remaining_delay_duration": {
+        "name": "Remaining delay"
+      },
+      "laundry_care_washer_dryer_status_duration": {
+        "name": "Program duration"
+      },
+      "laundry_care_washer_dryer_status_remaining_duration": {
+        "name": "Remaining time"
+      },
+      "laundry_care_washer_dryer_status_max_machine_spin": {
+        "name": "Max machine spin"
+      },
+      "dishcare_dish_washer_status_execution_state": {
+        "name": "Operating state",
+        "state": {
+          "pre_program": "Pre program",
+          "running": "Running",
+          "pause": "Pause",
+          "end": "End",
+          "door_opened": "Door opened",
+          "failure_display": "Failure display",
+          "auto_door_opening": "Auto door opening",
+          "ioniser_in_progress": "Ioniser in progress"
+        }
+      },
+      "dishcare_dish_washer_status_selected_program": {
+        "name": "Selected program",
+        "state": {
+          "reset": "Reset",
+          "prewash": "Prewash",
+          "quick30": "Quick 30 min",
+          "eco50": "Eco 50 °C",
+          "super50": "Super 50 min",
+          "smart3050": "Glassware",
+          "smart5060": "Auto smart",
+          "smart6070": "Auto intensive",
+          "easycare": "Easy care 60 °C"
+        }
+      },
+      "dishcare_dish_washer_status_warning": {
+        "name": "Warning",
+        "state": {
+          "no_warning": "No warning",
+          "program_reset": "Program reset",
+          "program_end": "Program end",
+          "door_is_open": "Door is open"
+        }
+      },
+      "dishcare_dish_washer_status_setting_index": {
+        "name": "UV setting state",
+        "state": {
+          "uvon_off": "UV off",
+          "uvon_on": "UV on"
+        }
+      },
+      "dishcare_dish_washer_status_salt_and_rinse_aid": {
+        "name": "Salt and rinse aid",
+        "state": {
+          "salt_and_rinse_aid_ok": "Salt and rinse aid ok",
+          "rinse_aid_ok": "Rinse aid ok",
+          "salt_ok": "Salt ok",
+          "both_lack_of_salt_and_rinse_aid": "Both lack of salt and rinse aid"
+        }
+      },
+      "dishcare_dish_washer_status_program_phase": {
+        "name": "Program phase",
+        "state": {
+          "wash": "Wash",
+          "rinse": "Rinse",
+          "dry": "Dry",
+          "dry_hot_rinse": "Dry hot rinse"
+        }
+      },
+      "dishcare_dish_washer_status_remote_control": {
+        "name": "Remote control",
+        "state": {
+          "open": "Open",
+          "close": "Close"
+        }
+      },
+      "dishcare_dish_washer_status_remaining_delay_duration": {
+        "name": "Remaining delay"
+      },
+      "dishcare_dish_washer_status_remaining_duration": {
+        "name": "Remaining time"
+      },
+      "dishcare_dish_washer_status_program_duration": {
+        "name": "Program duration"
+      },
+      "dishcare_dish_washer_status_total_delay_duration": {
+        "name": "Total delay duration"
+      },
+      "dishcare_dish_washer_status_favorite_program1": {
+        "name": "Favorite program1"
+      },
+      "refrigeration_refrigerator_status_door": {
+        "name": "Door",
+        "state": {
+          "freezer_open": "Freezer open",
+          "cooler_open": "Cooler open",
+          "both_open": "Both open",
+          "both_closed": "Both closed"
+        }
+      },
+      "refrigeration_refrigerator_status_q_drink": {
+        "name": "Q drink",
+        "state": {
+          "open": "Open",
+          "closed": "Closed",
+          "finished": "Finished"
+        }
+      },
+      "refrigeration_refrigerator_status_connection_disconnect_count": {
+        "name": "Disconnect count"
+      },
+      "refrigeration_refrigerator_status_connection_signal_rss": {
+        "name": "Signal rss"
+      },
+      "consumption_day_energy_amount": {
+        "name": "Daily estimated energy"
+      },
+      "consumption_day_energy_cost": {
+        "name": "Daily estimated cost"
+      },
+      "consumption_day_water": {
+        "name": "Daily estimated water consumption"
+      },
+      "consumption_month_energy_amount": {
+        "name": "Monthly estimated energy"
+      },
+      "consumption_month_energy_cost": {
+        "name": "Monthly estimated cost"
+      },
+      "consumption_month_water": {
+        "name": "Monthly estimated water consumption"
+      }
+    },
+    "binary_sensor": {
+      "climate_air_conditioner_error_no_error": {
+        "name": "No error"
+      },
+      "climate_air_conditioner_error_ac_info_error": {
+        "name": "Ac info error"
+      },
+      "climate_air_conditioner_error_initial_poe_error": {
+        "name": "Initial poe error"
+      },
+      "climate_air_conditioner_error_room_temperature_sensor_error": {
+        "name": "Room temperature sensor error"
+      },
+      "climate_air_conditioner_error_coil_temperature_sensor_error": {
+        "name": "Coil temperature sensor error"
+      },
+      "climate_air_conditioner_error_fan_motor_error": {
+        "name": "Fan motor error"
+      },
+      "climate_air_conditioner_error_gas_leakage_error": {
+        "name": "Gas leakage error"
+      },
+      "climate_air_conditioner_error_out_ambient_temperature_sensor_error": {
+        "name": "Out ambient temperature sensor error"
+      },
+      "climate_air_conditioner_error_discharge_temperature_sensor_error": {
+        "name": "Discharge temperature sensor error"
+      },
+      "climate_air_conditioner_error_out_pipe_temperature_error": {
+        "name": "Out pipe temperature error"
+      },
+      "climate_air_conditioner_error_communication_error": {
+        "name": "Communication error"
+      },
+      "climate_air_conditioner_error_trip_f_error": {
+        "name": "Trip f error"
+      },
+      "climate_air_conditioner_error_igbt_ntc_error": {
+        "name": "Igbt ntc error"
+      },
+      "climate_air_conditioner_error_poe_error": {
+        "name": "Poe error"
+      },
+      "climate_air_conditioner_error_vbus_error": {
+        "name": "Vbus error"
+      },
+      "climate_air_conditioner_error_compressor_cable_error": {
+        "name": "Compressor cable error"
+      },
+      "climate_air_conditioner_error_outdoor_bldc_tacho_error": {
+        "name": "Outdoor bldc tacho error"
+      },
+      "laundry_care_washer_dryer_status_energy_off": {
+        "name": "Energy off"
+      },
+      "laundry_care_washer_dryer_status_energy_on": {
+        "name": "Power on"
+      },
+      "laundry_care_washer_dryer_status_door_open": {
+        "name": "Door open"
+      },
+      "laundry_care_washer_dryer_status_door_closed": {
+        "name": "Door closed"
+      },
+      "laundry_care_washer_dryer_status_remote_control_off": {
+        "name": "Remote control off"
+      },
+      "laundry_care_washer_dryer_status_remote_control_on": {
+        "name": "Remote control"
+      },
+      "laundry_care_washer_dryer_status_child_lock_off": {
+        "name": "Child lock off"
+      },
+      "laundry_care_washer_dryer_status_child_lock_on": {
+        "name": "Child lock"
+      },
+      "laundry_care_washer_dryer_status_standby": {
+        "name": "Standby"
+      },
+      "laundry_care_washer_dryer_error_no_error": {
+        "name": "No error"
+      },
+      "laundry_care_washer_dryer_error_door_error": {
+        "name": "Door error"
+      },
+      "laundry_care_washer_dryer_error_lack_of_water": {
+        "name": "Lack of water"
+      },
+      "laundry_care_washer_dryer_error_drain_pump_error": {
+        "name": "Drain pump error"
+      },
+      "laundry_care_washer_dryer_error_overflow_error": {
+        "name": "Overflow error"
+      },
+      "laundry_care_washer_dryer_error_ntc_error": {
+        "name": "Ntc error"
+      },
+      "laundry_care_washer_dryer_error_motor_error": {
+        "name": "Motor error"
+      },
+      "laundry_care_washer_dryer_error_motor_triac_error": {
+        "name": "Motor triac error"
+      },
+      "laundry_care_washer_dryer_error_low_voltage_error": {
+        "name": "Low voltage error"
+      },
+      "laundry_care_washer_dryer_error_eps_socket_not_connected": {
+        "name": "Eps socket not connected"
+      },
+      "laundry_care_washer_dryer_error_dryer_communication_error": {
+        "name": "Dryer communication error"
+      },
+      "laundry_care_washer_dryer_error_dryer_heater_error_in_service_autotest": {
+        "name": "Dryer heater error in service autotest"
+      },
+      "laundry_care_washer_dryer_error_dryer_high_temp_error": {
+        "name": "Dryer high temp error"
+      },
+      "laundry_care_washer_dryer_error_flowmeter_not_connected_error": {
+        "name": "Flowmeter not connected error"
+      },
+      "laundry_care_washer_dryer_error_dryer_ntc_error": {
+        "name": "Dryer ntc error"
+      },
+      "laundry_care_washer_dryer_error_bldc_motor_error": {
+        "name": "Bldc motor error"
+      },
+      "laundry_care_washer_dryer_error_pyrojet_error": {
+        "name": "Pyrojet error"
+      },
+      "laundry_care_washer_dryer_error_high_voltage_error": {
+        "name": "High voltage error"
+      },
+      "dishcare_dish_washer_error_no_error": {
+        "name": "No error"
+      },
+      "dishcare_dish_washer_error_overflow_error": {
+        "name": "Overflow error"
+      },
+      "dishcare_dish_washer_error_leakage_error": {
+        "name": "Leakage error"
+      },
+      "dishcare_dish_washer_error_draining_time_out_error": {
+        "name": "Draining time out error"
+      },
+      "dishcare_dish_washer_error_presence_of_flow_meter_impulses_error": {
+        "name": "Presence of flow meter impulses error"
+      },
+      "dishcare_dish_washer_error_absence_of_flow_meter_error": {
+        "name": "Absence of flow meter error"
+      },
+      "dishcare_dish_washer_error_absence_of_flow_meter_empty_level_error": {
+        "name": "Absence of flow meter empty level error"
+      },
+      "dishcare_dish_washer_error_rarely_flow_meter_impulses_error": {
+        "name": "Rarely flow meter impulses error"
+      },
+      "dishcare_dish_washer_error_rarely_flow_meter_impulses_empty_level_error": {
+        "name": "Rarely flow meter impulses empty level error"
+      },
+      "dishcare_dish_washer_error_re_fill_time_out_error": {
+        "name": "Re fill time out error"
+      },
+      "dishcare_dish_washer_error_ntc_failure_error": {
+        "name": "Ntc failure error"
+      },
+      "dishcare_dish_washer_error_overheating_error": {
+        "name": "Overheating error"
+      },
+      "dishcare_dish_washer_error_unsuccessful_heating_error": {
+        "name": "Unsuccessful heating error"
+      },
+      "dishcare_dish_washer_error_diverter_opened_error": {
+        "name": "Diverter opened error"
+      },
+      "dishcare_dish_washer_error_turbidity_sensor_error": {
+        "name": "Turbidity sensor error"
+      },
+      "dishcare_dish_washer_error_parameter_set_salt_incorrect_error": {
+        "name": "Parameter set salt incorrect error"
+      },
+      "dishcare_dish_washer_error_ck_parameter_error": {
+        "name": "Ck parameter error"
+      },
+      "dishcare_dish_washer_error_low_voltage_error": {
+        "name": "Low voltage error"
+      },
+      "dishcare_dish_washer_error_high_voltage_error": {
+        "name": "High voltage error"
+      },
+      "dishcare_dish_washer_error_auto_door_error": {
+        "name": "Auto door error"
+      },
+      "dishcare_dish_washer_error_tab_closed_error": {
+        "name": "Tab closed error"
+      },
+      "refrigeration_refrigerator_status_screen_saver": {
+        "name": "Screen saver"
+      },
+      "refrigeration_refrigerator_status_child_lock": {
+        "name": "Child lock"
+      },
+      "refrigeration_refrigerator_error_serpantin_defect": {
+        "name": "Serpantin defect"
+      },
+      "refrigeration_refrigerator_error_refrigerator_defrost_heater_defect": {
+        "name": "Refrigerator defrost heater defect"
+      },
+      "refrigeration_refrigerator_error_undefined": {
+        "name": "Undefined"
+      },
+      "refrigeration_refrigerator_error_freezer_sensor_error": {
+        "name": "Freezer sensor error"
+      },
+      "refrigeration_refrigerator_error_cooler_sensor_error": {
+        "name": "Cooler sensor error"
+      },
+      "refrigeration_refrigerator_error_defrost_sensor_error": {
+        "name": "Defrost sensor error"
+      },
+      "refrigeration_refrigerator_error_ambient_sensor_error": {
+        "name": "Ambient sensor error"
+      },
+      "refrigeration_refrigerator_error_compressor_defect": {
+        "name": "Compressor defect"
+      },
+      "refrigeration_refrigerator_error_defrost_heater_defect": {
+        "name": "Defrost heater defect"
+      },
+      "refrigeration_refrigerator_error_low_voltage_detected": {
+        "name": "Low voltage detected"
+      },
+      "refrigeration_refrigerator_error_refrigerator_defrost_sensor_error": {
+        "name": "Refrigerator defrost sensor error"
+      },
+      "refrigeration_refrigerator_error_no_error": {
+        "name": "No error"
+      },
+      "refrigeration_refrigerator_error_cooer_error_display_available": {
+        "name": "Error display available"
+      },
+      "refrigeration_refrigerator_error_cooer_not_enough_cold_freezer": {
+        "name": "Not enough cold freezer"
+      },
+      "refrigeration_refrigerator_error_cooer_warm_cooler": {
+        "name": "Warm cooler"
+      },
+      "refrigeration_refrigerator_error_cooer_cold_cooler": {
+        "name": "Cold cooler"
+      },
+      "refrigeration_refrigerator_error_cooer_no_error": {
+        "name": "No error"
+      },
+      "live_connection": {
+        "name": "Live data connection"
+      },
+      "door_open": {
+        "name": "Door open"
+      },
+      "problem": {
+        "name": "Problem"
+      }
+    },
+    "switch": {
+      "climate_air_conditioner_setting_fan_sleep_mode": {
+        "name": "Sleep"
+      },
+      "climate_air_conditioner_setting_fan_ionizer": {
+        "name": "Ionizer"
+      },
+      "climate_air_conditioner_setting_fan_turbo": {
+        "name": "Turbo"
+      },
+      "climate_air_conditioner_setting_fan_eco": {
+        "name": "Economy"
+      },
+      "dishcare_dish_washer_option_tablet": {
+        "name": "Tablet detergent"
+      },
+      "dishcare_dish_washer_option_upper_spray": {
+        "name": "Upper basket"
+      },
+      "dishcare_dish_washer_option_lower_spray": {
+        "name": "Lower basket"
+      },
+      "dishcare_dish_washer_option_extra_dry": {
+        "name": "Extra dry"
+      },
+      "dishcare_dish_washer_option_extra_hygiene": {
+        "name": "Extra hygiene"
+      },
+      "dishcare_dish_washer_option_extra_rinse": {
+        "name": "Extra rinse"
+      },
+      "dishcare_dish_washer_command_uvon_on": {
+        "name": "UV"
+      },
+      "refrigeration_refrigerator_setting_screen_saver": {
+        "name": "Screen saver"
+      },
+      "refrigeration_refrigerator_setting_child_lock": {
+        "name": "Child lock"
+      }
+    },
+    "select": {
+      "climate_air_conditioner_setting_fan_horizontal_swing": {
+        "name": "Horizontal swing",
+        "state": {
+          "off": "Off",
+          "pos1": "Position 1",
+          "pos2": "Position 2",
+          "pos3": "Position 3",
+          "pos4": "Position 4",
+          "pos5": "Position 5",
+          "pos6": "Swing"
+        }
+      },
+      "climate_air_conditioner_setting_fan_vertical_swing": {
+        "name": "Vertical swing",
+        "state": {
+          "off": "Off",
+          "pos1": "Position 1",
+          "pos2": "Position 2",
+          "pos3": "Position 3",
+          "pos4": "Position 4",
+          "pos5": "Position 5",
+          "pos6": "Swing"
+        }
+      },
+      "laundry_care_washer_dryer_option_spin_speed": {
+        "name": "Spin speed",
+        "state": {
+          "no_spin": "No spin",
+          "400_rpm": "400 rpm",
+          "600_rpm": "600 rpm",
+          "800_rpm": "800 rpm",
+          "1000_rpm": "1000 rpm",
+          "1200_rpm": "1200 rpm",
+          "1400_rpm": "1400 rpm"
+        }
+      },
+      "laundry_care_washer_dryer_option_dry": {
+        "name": "Drying level",
+        "state": {
+          "no_level": "No drying",
+          "level1": "Level 1",
+          "level2": "Level 2",
+          "level3": "Level 3"
+        }
+      },
+      "laundry_care_washer_dryer_option_time_dry": {
+        "name": "Drying time",
+        "state": {
+          "no_time": "No timed drying",
+          "time30min": "30 min",
+          "time60min": "60 min",
+          "time90min": "90 min",
+          "time120min": "120 min"
+        }
+      },
+      "laundry_care_washer_dryer_option_temperature": {
+        "name": "Temperature",
+        "state": {
+          "cold_degree": "Cold",
+          "20_degree": "20 °C",
+          "30_degree": "30 °C",
+          "40_degree": "40 °C",
+          "50_degree": "50 °C",
+          "60_degree": "60 °C",
+          "70_degree": "70 °C",
+          "80_degree": "80 °C",
+          "90_degree": "90 °C"
+        }
+      },
+      "program": {
+        "name": "Program",
+        "state": {
+          "eco4060": "Eco 40–60",
+          "cotton": "Cotton",
+          "cotton20": "Quick cotton 20 °C",
+          "synthetics": "Synthetics",
+          "wool_silk": "Wool",
+          "duvet": "Duvet",
+          "rinse": "Rinse",
+          "allergy_safe": "Allergy safe",
+          "spin_drain": "Spin / drain",
+          "rapid1512": "Rapid",
+          "fast60": "Fast 60 min",
+          "dry_delicate": "Delicate dry",
+          "dry_cotton": "Cotton dry",
+          "dry_jet_wash": "Quick wash and dry",
+          "dry_cotton6_wash": "Cotton wash and dry",
+          "prewash": "Prewash",
+          "quick30": "Quick 30 min",
+          "eco50": "Eco 50 °C",
+          "easycare": "Easy care 60 °C",
+          "super50": "Super 50 min",
+          "smart3050": "Glassware",
+          "smart5060": "Auto smart",
+          "smart6070": "Auto intensive",
+          "favorite1": "Favorite"
+        }
+      },
+      "refrigeration_refrigerator_setting_freezer_temperature": {
+        "name": "Freezer target temperature",
+        "state": {
+          "m16": "−16 °C",
+          "m18": "−18 °C",
+          "m20": "−20 °C",
+          "m22": "−22 °C",
+          "m24": "−24 °C"
+        }
+      },
+      "refrigeration_refrigerator_setting_cooler_temperature": {
+        "name": "Cooler target temperature",
+        "state": {
+          "2_c": "2 °C",
+          "4_c": "4 °C",
+          "5_c": "5 °C",
+          "6_c": "6 °C",
+          "8_c": "8 °C"
+        }
+      },
+      "refrigeration_refrigerator_setting_mode": {
+        "name": "Operating mode",
+        "state": {
+          "normal": "Normal",
+          "super_freeze": "Super freeze",
+          "super_cooler": "Super cool",
+          "holiday": "Holiday",
+          "eco": "Economy"
+        }
+      }
+    },
+    "button": {
+      "climate_air_conditioner_command_auto_on_cancel": {
+        "name": "Cancel automatic turn-on"
+      },
+      "climate_air_conditioner_command_auto_off_cancel": {
+        "name": "Cancel automatic turn-off"
+      },
+      "climate_air_conditioner_command_quick_off_cancel": {
+        "name": "Cancel quick-off timer"
+      },
+      "climate_air_conditioner_command_power_off": {
+        "name": "Turn off"
+      },
+      "laundry_care_washer_dryer_command_start": {
+        "name": "Start"
+      },
+      "laundry_care_washer_dryer_command_pause": {
+        "name": "Pause"
+      },
+      "laundry_care_washer_dryer_command_in_delay": {
+        "name": "Start delay"
+      },
+      "laundry_care_washer_dryer_command_selection": {
+        "name": "Return to program selection"
+      },
+      "dishcare_dish_washer_command_cancel": {
+        "name": "Cancel"
+      },
+      "dishcare_dish_washer_command_start": {
+        "name": "Start"
+      },
+      "dishcare_dish_washer_command_pause": {
+        "name": "Pause"
+      },
+      "dishcare_dish_washer_command_pre_program": {
+        "name": "Return to program selection"
+      },
+      "dishcare_dish_washer_command_ionizer_in_progress": {
+        "name": "Start ionizer"
+      },
+      "dishcare_dish_washer_command_uvon_on": {
+        "name": "Turn UV on"
+      },
+      "dishcare_dish_washer_command_uvon_off": {
+        "name": "Turn UV off"
+      }
+    },
+    "time": {
+      "climate_air_conditioner_setting_auto_on_hour": {
+        "name": "Automatic turn-on time"
+      },
+      "climate_air_conditioner_setting_auto_off_hour": {
+        "name": "Automatic turn-off time"
+      }
+    },
+    "number": {
+      "climate_air_conditioner_setting_quick_off_time_hour_duration": {
+        "name": "Quick-off duration"
+      },
+      "laundry_care_washer_dryer_option_delay": {
+        "name": "Delayed start"
+      },
+      "dishcare_dish_washer_option_delay_timer": {
+        "name": "Delayed start"
+      }
+    },
+    "climate": {
+      "climate": {
+        "state_attributes": {
+          "fan_mode": {
+            "state": {
+              "auto": "Automatic",
+              "speed1": "Speed 1",
+              "speed2": "Speed 2",
+              "speed3": "Speed 3",
+              "speed4": "Speed 4",
+              "speed5": "Speed 5"
+            }
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "device_not_found": {
+      "message": "Device not found."
+    },
+    "vestel_device_not_found": {
+      "message": "Vestel device not found."
+    },
+    "choose_change": {
+      "message": "Choose a setting or command."
+    },
+    "separate_changes": {
+      "message": "Send commands and setting changes separately."
+    },
+    "billing_action_unsupported": {
+      "message": "Unsupported billing action."
+    },
+    "billing_unconfirmed": {
+      "message": "Setting sent, but readback has not confirmed it. It was not resent automatically."
+    },
+    "command_unconfirmed": {
+      "message": "Command accepted, but the device has not confirmed it. Check its state; it was not resent automatically."
+    },
+    "device_offline": {
+      "message": "The appliance is offline."
+    },
+    "empty_status": {
+      "message": "Fresh device status is empty; no command was sent."
+    },
+    "cancel_in_progress": {
+      "message": "Cancellation/draining is already in progress; no command was resent."
+    },
+    "no_changes": {
+      "message": "There are no changes to send."
+    },
+    "status_unavailable": {
+      "message": "Fresh appliance status could not be read."
+    },
+    "remote_required": {
+      "message": "Enable remote control on the appliance panel."
+    },
+    "return_to_selection": {
+      "message": "First return to program selection from the end screen."
+    },
+    "wake_appliance": {
+      "message": "The appliance is in standby; wake it from the panel or Vestel app."
+    },
+    "unsupported_phase": {
+      "message": "This option cannot be changed in the current program phase."
+    },
+    "not_ready_to_start": {
+      "message": "The appliance is already running or is not ready to start."
+    },
+    "not_running": {
+      "message": "A program that is not running cannot be paused."
+    },
+    "feature_unavailable": {
+      "message": "This feature is unavailable in the selected mode/program."
+    },
+    "incompatible_option": {
+      "message": "This option is incompatible with another setting."
+    },
+    "program_value_invalid": {
+      "message": "The program value does not match discovery."
+    },
+    "boolean_invalid": {
+      "message": "Invalid on/off value."
+    },
+    "value_unavailable": {
+      "message": "This value is unsupported for the selected program/mode."
+    },
+    "dry_conflict": {
+      "message": "Turn off the other drying type first; level and time cannot be selected together."
+    },
+    "out_of_range": {
+      "message": "The requested value is outside the allowed range."
+    },
+    "invalid_step": {
+      "message": "The requested value does not match the supported step."
+    },
+    "not_writable": {
+      "message": "This field is not a writable appliance setting."
+    },
+    "command_unsupported": {
+      "message": "Unsupported command."
+    },
+    "uv_result_missing": {
+      "message": "The discovery description has no result state for this UV command."
+    },
+    "readback_definition_missing": {
+      "message": "The field definition for readback is missing."
+    },
+    "readback_fields_missing": {
+      "message": "The command readback fields are incomplete."
+    },
+    "whole_number_required": {
+      "message": "Enter a whole number."
+    },
+    "quick_off_range": {
+      "message": "Use 0 to cancel or 30–300 minutes in 30-minute steps."
+    },
+    "option_unavailable": {
+      "message": "This option is unavailable in the current mode/program."
+    },
+    "program_not_found": {
+      "message": "Program not found."
+    },
+    "hvac_mode_unsupported": {
+      "message": "Unsupported air conditioner mode."
+    },
+    "whole_degree_required": {
+      "message": "Enter a whole degree."
+    },
+    "fan_unavailable": {
+      "message": "Fan speed is unavailable in this mode."
+    },
+    "auth_server_unavailable": {
+      "message": "The Vestel authentication server is temporarily unavailable."
+    },
+    "auth_connection_failed": {
+      "message": "Could not reach the Vestel authentication server."
+    },
+    "auth_response_invalid": {
+      "message": "Unexpected Vestel authentication response format."
+    },
+    "reauth_required": {
+      "message": "Sign in to your Vestel account again."
+    },
+    "auth_result_invalid": {
+      "message": "Could not read the Vestel authentication result."
+    },
+    "auth_token_invalid": {
+      "message": "The Vestel response contains no valid session token."
+    },
+    "auth_expiry_invalid": {
+      "message": "Invalid Vestel session lifetime."
+    },
+    "refresh_token_invalid": {
+      "message": "Invalid Vestel refresh token."
+    },
+    "session_rejected": {
+      "message": "The Vestel session was rejected."
+    },
+    "cloud_response_invalid": {
+      "message": "Unexpected Vestel response format."
+    },
+    "cloud_connection_failed": {
+      "message": "Could not get a response from the Vestel server."
+    },
+    "homes_invalid": {
+      "message": "Could not read the Vestel home list."
+    },
+    "home_record_invalid": {
+      "message": "The Vestel home list contains an invalid record."
+    },
+    "home_id_invalid": {
+      "message": "Could not read the Vestel home ID."
+    },
+    "devices_invalid": {
+      "message": "Could not read the Vestel appliance list."
+    },
+    "discovery_invalid": {
+      "message": "Could not read the appliance capability description."
+    },
+    "status_invalid": {
+      "message": "Could not read the appliance status."
+    },
+    "command_rejected": {
+      "message": "Vestel did not accept the command."
+    },
+    "consumption_range_invalid": {
+      "message": "Invalid consumption query range."
+    },
+    "consumption_response_invalid": {
+      "message": "Unexpected consumption history format."
+    },
+    "consumption_record_invalid": {
+      "message": "Consumption history contains an invalid record."
+    },
+    "billing_settings_invalid": {
+      "message": "Could not read billing estimate settings."
+    },
+    "identity_operation_unsupported": {
+      "message": "Unsupported identity operation."
+    },
+    "identity_connection_failed": {
+      "message": "Could not reach the live-update identity server."
+    },
+    "identity_response_invalid": {
+      "message": "Invalid live-update identity response."
+    },
+    "identity_invalid": {
+      "message": "Invalid live-update identity."
+    },
+    "iot_credentials_missing": {
+      "message": "No temporary live-update credentials were returned."
+    },
+    "iot_credentials_incomplete": {
+      "message": "Temporary live-update credentials are incomplete."
+    },
+    "iot_expiry_invalid": {
+      "message": "Invalid temporary live-update credential lifetime."
+    },
+    "amount_invalid": {
+      "message": "Enter a finite amount of zero or greater."
+    },
+    "quota_invalid": {
+      "message": "The bill limit must be a whole number from 0 to 2147483647."
+    },
+    "limit_enabled_invalid": {
+      "message": "The limit state must be on or off."
+    },
+    "quota_device_missing": {
+      "message": "No bill-limit setting was found for this appliance."
+    },
+    "currency_invalid": {
+      "message": "Enter a three-letter currency code, for example TRY."
+    },
+    "billing_option_unsupported": {
+      "message": "Unsupported billing setting."
+    },
+    "billing_value_unsupported": {
+      "message": "Unsupported billing setting value."
+    },
+    "live_topics_missing": {
+      "message": "No appliance channel was found for live updates."
+    },
+    "collection_failed": {
+      "message": "Could not read the Vestel appliance list. Check the integration connection."
+    },
+    "collection_invalid": {
+      "message": "Unexpected Vestel appliance list format."
+    },
+    "register_boolean": {
+      "message": "A boolean is not a register value."
+    },
+    "register_range": {
+      "message": "Register is outside the 16-bit range."
+    },
+    "register_value_invalid": {
+      "message": "Missing or invalid register value."
+    },
+    "register_name_invalid": {
+      "message": "Invalid register name."
+    },
+    "bit_layout_incomplete": {
+      "message": "Incomplete bit layout."
+    },
+    "bit_layout_invalid": {
+      "message": "Invalid bit layout."
+    },
+    "boolean_definition_missing": {
+      "message": "Boolean comparison has no definition."
+    },
+    "temperature_offset_missing": {
+      "message": "Temperature offset is missing."
+    },
+    "encoded_value_invalid": {
+      "message": "The value does not fit the register bit field."
+    },
+    "auth_server_http": {
+      "message": "The Vestel authentication server is temporarily unavailable (HTTP {http_status})."
+    },
+    "auth_rejected_http": {
+      "message": "The Vestel session could not be renewed (HTTP {http_status})."
+    },
+    "request_http": {
+      "message": "The Vestel request failed (HTTP {http_status})."
+    },
+    "identity_http": {
+      "message": "Could not obtain live-update credentials (HTTP {http_status})."
+    }
+  },
+  "services": {
+    "apply": {
+      "name": "Apply appliance setting",
+      "description": "Apply a discovery-defined setting or command; raw commands are not accepted.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel appliance"
+        },
+        "command": {
+          "name": "Full discovery command key"
+        },
+        "updates": {
+          "name": "Setting changes (key and value)"
+        }
+      }
+    },
+    "get_consumption": {
+      "name": "Get consumption history",
+      "description": "Read estimated energy, cost and water history without changing appliance settings.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel appliance"
+        },
+        "period": {
+          "name": "Period"
+        },
+        "count": {
+          "name": "Number of periods"
+        }
+      }
+    },
+    "get_billing_settings": {
+      "name": "Get billing estimate settings",
+      "description": "Read the device limit and home tariff and unit-price settings.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel appliance"
+        }
+      }
+    },
+    "set_bill_limit": {
+      "name": "Set bill limit",
+      "description": "Change the selected device or home estimate limit. The other scope is preserved.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel appliance"
+        },
+        "scope": {
+          "name": "Limit scope"
+        },
+        "amount": {
+          "name": "Limit amount"
+        },
+        "enabled": {
+          "name": "Enabled"
+        }
+      }
+    },
+    "set_energy_price": {
+      "name": "Set energy price",
+      "description": "Change the kWh price and currency for all estimates in this home, not the electricity supplier contract.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel appliance"
+        },
+        "price": {
+          "name": "Price per kWh"
+        },
+        "currency": {
+          "name": "Currency code (for example TRY)"
+        }
+      }
+    },
+    "set_subscriber_type": {
+      "name": "Set subscriber type",
+      "description": "Change the subscriber type used for this home’s billing estimates.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel appliance"
+        },
+        "subscriber_type": {
+          "name": "Subscriber type"
+        }
+      }
+    },
+    "set_tariff_type": {
+      "name": "Set tariff type",
+      "description": "Change this home’s estimate tariff to one-time or three-time.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel appliance"
+        },
+        "tariff_type": {
+          "name": "Tariff type"
+        }
+      }
+    },
+    "set_energy_management": {
+      "name": "Set energy management",
+      "description": "Enable or disable the home’s billing estimate feature; this does not turn appliances on or off.",
+      "fields": {
+        "device_id": {
+          "name": "Vestel appliance"
+        },
+        "enabled": {
+          "name": "Enabled"
+        }
+      }
+    }
+  },
+  "selector": {
+    "scope": {
+      "options": {
+        "device": "Selected device",
+        "home": "Entire home"
+      }
+    },
+    "subscriber_type": {
+      "options": {
+        "residential": "Residential",
+        "business": "Business",
+        "industrial": "Industrial"
+      }
+    },
+    "tariff_type": {
+      "options": {
+        "one-time": "Single rate",
+        "three-time": "Three rates"
+      }
+    },
+    "period": {
+      "options": {
+        "day": "Day",
+        "week": "Week",
+        "month": "Month"
+      }
     }
   }
 }

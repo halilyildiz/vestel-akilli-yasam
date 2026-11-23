@@ -26,6 +26,7 @@ class EntityCategory(StrEnum):
 
 
 class SensorDeviceClass(StrEnum):
+    ENUM = "enum"
     TEMPERATURE = "temperature"
     ENERGY = "energy"
     SIGNAL_STRENGTH = "signal_strength"
@@ -46,6 +47,8 @@ class EntityDescription:
     entity_registry_enabled_default: bool = True
     device_class: str | None = None
     native_unit_of_measurement: str | None = None
+    translation_key: str | None = None
+    options: list[str] | None = None
 
 
 class Entity:
@@ -236,7 +239,7 @@ class DescriptionPolicyTests(unittest.TestCase):
                 self.assertFalse(desc.entity_registry_enabled_default)
                 self.assertIsNone(desc.entity_category)
                 self.assertEqual(desc.key, f"consumption_{period}_{metric}")
-                self.assertIn("tahmini", desc.name)
+                self.assertEqual(desc.translation_key, f"consumption_{period}_{'energy_amount' if metric == 'energyAmount' else 'energy_cost' if metric == 'energyCost' else 'water'}")
 
     def test_signal_unit_is_never_invented(self) -> None:
         definition = {

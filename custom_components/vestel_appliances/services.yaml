@@ -1,42 +1,45 @@
 apply:
-  name: Cihaz ayarını değiştir
-  description: Cihazın keşif tanımındaki bir ayarı veya işlemi uygular. Ham komut kabul etmez.
+  name: Apply appliance setting
+  description: Apply a discovery-defined setting or command; raw commands are not
+    accepted.
   fields:
     device_id:
-      name: Vestel cihazı
+      name: Vestel appliance
       required: true
       selector:
         device:
           integration: vestel_appliances
     command:
-      name: İşlemin tam Vestel anahtarı
+      name: Full discovery command key
       selector:
-        text:
+        text: null
     updates:
-      name: Değiştirilecek ayarlar (key ve value)
+      name: Setting changes (key and value)
       selector:
-        object:
+        object: null
 get_consumption:
-  name: Tüketim geçmişini getir
-  description: Vestel uygulamasının tahmini enerji, maliyet ve su geçmişini sorgular; cihaz ayarı değiştirmez.
+  name: Get consumption history
+  description: Read estimated energy, cost and water history without changing appliance
+    settings.
   fields:
     device_id:
-      name: Vestel cihazı
+      name: Vestel appliance
       required: true
       selector:
         device:
           integration: vestel_appliances
     period:
-      name: Dönem
+      name: Period
       default: month
       selector:
         select:
           options:
-            - day
-            - week
-            - month
+          - day
+          - week
+          - month
+          translation_key: period
     count:
-      name: Dönem sayısı
+      name: Number of periods
       default: 12
       selector:
         number:
@@ -44,37 +47,37 @@ get_consumption:
           max: 366
           mode: box
 get_billing_settings:
-  name: Akıllı Fatura ayarlarını getir
-  description: Seçilen cihazın limitini ve evin tarife/birim fiyat ayarlarını okur.
+  name: Get billing estimate settings
+  description: Read the device limit and home tariff and unit-price settings.
   fields:
     device_id:
-      name: Vestel cihazı
+      name: Vestel appliance
       required: true
       selector:
         device:
           integration: vestel_appliances
 set_bill_limit:
-  name: Fatura limitini ayarla
-  description: Seçilen kapsamda cihazın veya evin uygulamadaki fatura limitini değiştirir. Diğer kapsamın limiti korunur.
+  name: Set bill limit
+  description: Change the selected device or home estimate limit. The other scope
+    is preserved.
   fields:
     device_id:
-      name: Vestel cihazı
+      name: Vestel appliance
       required: true
       selector:
         device:
           integration: vestel_appliances
     scope:
-      name: Limit kapsamı
+      name: Limit scope
       default: device
       selector:
         select:
           options:
-            - label: Seçilen cihaz
-              value: device
-            - label: Bu cihazın bulunduğu ev
-              value: home
+          - device
+          - home
+          translation_key: scope
     amount:
-      name: Limit tutarı
+      name: Limit amount
       required: true
       selector:
         number:
@@ -82,22 +85,23 @@ set_bill_limit:
           mode: box
           step: 1
     enabled:
-      name: Limit etkin
+      name: Enabled
       required: true
       selector:
-        boolean:
+        boolean: null
 set_energy_price:
-  name: Elektrik birim fiyatını ayarla
-  description: Evin tüm Vestel tüketim hesaplarında kullanılan kWh fiyatını ve para birimini değiştirir. Elektrik tedarikçisiyle sözleşme değişikliği yapmaz.
+  name: Set energy price
+  description: Change the kWh price and currency for all estimates in this home, not
+    the electricity supplier contract.
   fields:
     device_id:
-      name: Bu evdeki bir Vestel cihazı
+      name: Vestel appliance
       required: true
       selector:
         device:
           integration: vestel_appliances
     price:
-      name: kWh başına fiyat
+      name: Price per kWh
       required: true
       selector:
         number:
@@ -105,64 +109,62 @@ set_energy_price:
           mode: box
           step: 0.001
     currency:
-      name: Para birimi (örneğin TRY)
+      name: Currency code (for example TRY)
       required: true
       selector:
-        text:
+        text: null
 set_subscriber_type:
-  name: Abonelik türünü ayarla
-  description: Evin Akıllı Fatura hesaplamasında kullanılan abonelik türünü değiştirir.
+  name: Set subscriber type
+  description: Change the subscriber type used for this home’s billing estimates.
   fields:
     device_id:
-      name: Bu evdeki bir Vestel cihazı
+      name: Vestel appliance
       required: true
       selector:
         device:
           integration: vestel_appliances
     subscriber_type:
-      name: Abonelik türü
+      name: Subscriber type
       required: true
       selector:
         select:
           options:
-            - label: Mesken
-              value: residential
-            - label: Ticarethane
-              value: business
-            - label: Sanayi
-              value: industrial
+          - residential
+          - business
+          - industrial
+          translation_key: subscriber_type
 set_tariff_type:
-  name: Tarife türünü ayarla
-  description: Evin Akıllı Fatura hesaplamasında kullanılan tek veya üç zamanlı tarifeyi değiştirir.
+  name: Set tariff type
+  description: Change this home’s estimate tariff to one-time or three-time.
   fields:
     device_id:
-      name: Bu evdeki bir Vestel cihazı
+      name: Vestel appliance
       required: true
       selector:
         device:
           integration: vestel_appliances
     tariff_type:
-      name: Tarife
+      name: Tariff type
       required: true
       selector:
         select:
           options:
-            - label: Tek zamanlı
-              value: one-time
-            - label: Üç zamanlı
-              value: three-time
+          - one-time
+          - three-time
+          translation_key: tariff_type
 set_energy_management:
-  name: Akıllı Fatura hesaplamasını aç veya kapat
-  description: Vestel uygulamasındaki ev enerji yönetimi özelliğini açar veya kapatır; cihazları çalıştırmaz veya kapatmaz.
+  name: Set energy management
+  description: Enable or disable the home’s billing estimate feature; this does not
+    turn appliances on or off.
   fields:
     device_id:
-      name: Bu evdeki bir Vestel cihazı
+      name: Vestel appliance
       required: true
       selector:
         device:
           integration: vestel_appliances
     enabled:
-      name: Etkin
+      name: Enabled
       required: true
       selector:
-        boolean:
+        boolean: null

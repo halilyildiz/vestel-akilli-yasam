@@ -14,7 +14,7 @@ from homeassistant.components.sensor import SensorDeviceClass, SensorEntityDescr
 from homeassistant.const import EntityCategory, UnitOfTemperature
 from homeassistant.helpers.entity import EntityDescription
 
-from .const import label
+from .const import TRANSLATED_ENTITY_KEYS, label, translation_key
 
 Period = Literal["day", "month"]
 Metric = Literal["energyAmount", "energyCost", "water"]
@@ -67,6 +67,14 @@ class EntityPolicy:
     enabled_default: bool = True
 
 
+def translated_name(key: str) -> dict[str, Any]:
+    """Known fields use frontend translations; new model fields have a fallback."""
+    translated = translation_key(key)
+    if translated in TRANSLATED_ENTITY_KEYS:
+        return {"translation_key": translated}
+    return {"name": label(key)}
+
+
 def entity_policy(key: str, *, writable: bool = False) -> EntityPolicy:
     """Classify purpose, not just unit or a broad word such as 'duration'."""
     segments = frozenset(part.casefold() for part in key.split("."))
@@ -105,7 +113,6 @@ def sensor_description(definition: Mapping[str, Any]) -> SensorEntityDescription
     policy = entity_policy(key)
     unit: str | None = None
     device_class: SensorDeviceClass | None = None
-    name = "Kapı ham kodu" if key.endswith(_RAW_DOOR_SUFFIX) else label(key)
     if key.endswith((".RemainingDuration", ".Duration", ".ProgramDuration")):
         unit = "min"
     elif key.endswith(".RoomTemperature"):
@@ -118,13 +125,18 @@ def sensor_description(definition: Mapping[str, Any]) -> SensorEntityDescription
             unit, device_class = "dBm", SensorDeviceClass.SIGNAL_STRENGTH
         elif "uptime" in key.casefold() and declared_unit in {"second", "seconds", "s"}:
             unit, device_class = "s", SensorDeviceClass.DURATION
+    enum_values = definition.get("values", []) if definition.get("valueType") == "Enum" and not key.endswith(_RAW_DOOR_SUFFIX) else []
+    if enum_values:
+        device_class = SensorDeviceClass.ENUM
     return SensorEntityDescription(
         key=key,
-        name=name,
+        **translated_name(key),
         entity_category=policy.category,
         entity_registry_enabled_default=policy.enabled_default,
         native_unit_of_measurement=unit,
         device_class=device_class,
+        options=([translation_key(v["value"].rsplit(".", 1)[-1]) for v in enum_values]
+                 if enum_values else None),
     )
 
 
@@ -133,33 +145,27 @@ def binary_description(definition: Mapping[str, Any]) -> BinarySensorEntityDescr
     policy = entity_policy(key)
     return BinarySensorEntityDescription(
         key=key,
-        name=label(key),
+        **translated_name(key),
         entity_category=policy.category,
         entity_registry_enabled_default=policy.enabled_default,
     )
 
 
-def control_description(definition: Mapping[str, Any]) -> EntityDescription:
-    key = str(definition["key"])
-    policy = entity_policy(key, writable=True)
+def control_description(definition: Mapping[str, Any], *, suffix: str = "") -> EntityDescription:
+    key = str(definition["key"]) + suffix
+    policy = entity_policy(str(definition["key"]), writable=True)
     return EntityDescription(
         key=key,
-        name=label(key),
+        **translated_name(key),
         entity_category=policy.category,
         entity_registry_enabled_default=policy.enabled_default,
     )
 
 
 def consumption_description(period: Period, metric: Metric) -> SensorEntityDescription:
-    period_name = {"day": "Günlük", "month": "Aylık"}[period]
-    metric_name = {
-        "energyAmount": "tahmini enerji",
-        "energyCost": "tahmini maliyet",
-        "water": "tahmini su tüketimi",
-    }[metric]
     return SensorEntityDescription(
         key=f"consumption_{period}_{metric}",
-        name=f"{period_name} {metric_name}",
+        translation_key=translation_key(f"consumption_{period}_{metric}"),
         entity_category=None,
         entity_registry_enabled_default=False,
         device_class=SensorDeviceClass.ENERGY if metric == "energyAmount" else None,
@@ -169,21 +175,21 @@ def consumption_description(period: Period, metric: Metric) -> SensorEntityDescr
 
 LIVE_CONNECTION_DESCRIPTION: Final = BinarySensorEntityDescription(
     key="live_connection",
-    name="Canlı veri bağlantısı",
+    translation_key="live_connection",
     device_class=BinarySensorDeviceClass.CONNECTIVITY,
     entity_category=EntityCategory.DIAGNOSTIC,
     entity_registry_enabled_default=False,
 )
 DOOR_DESCRIPTION: Final = BinarySensorEntityDescription(
     key="door_open",
-    name="Kapı açık",
+    translation_key="door_open",
     device_class=BinarySensorDeviceClass.DOOR,
     entity_category=None,
     entity_registry_enabled_default=True,
 )
 PROBLEM_DESCRIPTION: Final = BinarySensorEntityDescription(
     key="problem",
-    name="Arıza",
+    translation_key="problem",
     device_class=BinarySensorDeviceClass.PROBLEM,
     entity_category=None,
     entity_registry_enabled_default=True,

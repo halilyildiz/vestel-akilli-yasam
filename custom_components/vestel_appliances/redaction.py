@@ -11,6 +11,8 @@ import re
 from datetime import datetime, timezone
 from typing import Any, Protocol
 
+from .errors import LocalizedError
+
 
 class ReadClient(Protocol):
     async def async_get_devices(self, home_id: str) -> list[dict]: ...
@@ -18,7 +20,7 @@ class ReadClient(Protocol):
     async def async_get_status(self, uuid: str) -> dict: ...
 
 
-class CollectionError(Exception):
+class CollectionError(LocalizedError):
     """A deliberately detail-free error safe to show in HA."""
 
 
@@ -115,9 +117,9 @@ async def collect(api: ReadClient, home_id: str) -> dict:
     try:
         devices = await asyncio.wait_for(api.async_get_devices(home_id), timeout=45)
     except Exception:
-        raise CollectionError("Vestel cihaz listesi okunamadı. Ana entegrasyonun bağlantısını kontrol edin.") from None
+        raise CollectionError('collection_failed') from None
     if not isinstance(devices, list) or any(not isinstance(d, dict) for d in devices):
-        raise CollectionError("Vestel cihaz listesi beklenmeyen biçimde döndü.")
+        raise CollectionError('collection_invalid')
 
     private = _private_values(devices, home_id)
     results = []

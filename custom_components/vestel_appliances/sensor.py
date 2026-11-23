@@ -69,7 +69,7 @@ class Status(Base, SensorEntity):
         attrs = super().extra_state_attributes
         attrs["register"] = self.definition.get("commandName")
         if self.key.endswith(".Status.Door"):
-            attrs["interpretation"] = "APK: 3=kapalı, 0/1/2=en az bir kapı açık"
+            attrs["interpretation"] = "3=closed; 0/1/2=at least one door open"
         return attrs
 
 
@@ -122,5 +122,5 @@ class Consumption(CoordinatorEntity, SensorEntity):
             "estimated": True,
             "period": self.period,
             "period_date": samples[0].get("date") if samples else None,
-            "source": "Vestel Akıllı Yaşam tüketim geçmişi",
+            "source": "Vestel Smart Life consumption history",
         }

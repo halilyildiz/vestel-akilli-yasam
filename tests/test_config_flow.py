@@ -63,7 +63,7 @@ class LoginTests(unittest.IsolatedAsyncioTestCase):
         self.api.devices.assert_not_called()
         result = await self.flow.async_step_home({"home_id": "home-a"})
         self.assertEqual(result["type"], "create_entry")
-        self.assertEqual(result["title"], "Vestel Akıllı Yaşam")
+        self.assertEqual(result["title"], "Vestel Smart Life")
         self.assertEqual(result["data"]["home_id"], "home-a")
         self.assertEqual(result["data"]["refresh_token"], "test-token")
         self.assertIsNone(self.flow._login_api)

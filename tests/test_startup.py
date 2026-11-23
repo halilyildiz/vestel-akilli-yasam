@@ -44,7 +44,7 @@ class StartupTests(unittest.IsolatedAsyncioTestCase):
         self.module = load_setup()
         self.tasks = []
         self.entry = types.SimpleNamespace(
-            entry_id="test-entry", title="Vestel Akıllı Yaşam", data={"home_id": "test-home"},
+            entry_id="test-entry", title="Vestel Smart Life", data={"home_id": "test-home"},
             async_create_background_task=self.create_task)
         self.hass = types.SimpleNamespace(data={}, config_entries=types.SimpleNamespace(
             async_forward_entry_setups=AsyncMock(), async_unload_platforms=AsyncMock(return_value=True)))
@@ -156,3 +156,16 @@ class StartupTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(await self.module.async_unload_entry(self.hass, self.entry))
         await self.energy.stop()
         self.assertIsNone(self.energy._initial_refresh_task)
+
+    async def test_legacy_default_title_is_updated(self):
+        self.entry.title = "Vestel Akıllı Yaşam"
+        self.hass.config_entries.async_update_entry = Mock()
+        await self.setup_entry()
+        self.hass.config_entries.async_update_entry.assert_called_once_with(
+            self.entry, title="Vestel Smart Life")
+
+    async def test_custom_entry_title_is_preserved(self):
+        self.entry.title = "My kitchen appliances"
+        self.hass.config_entries.async_update_entry = Mock()
+        await self.setup_entry()
+        self.hass.config_entries.async_update_entry.assert_not_called()
