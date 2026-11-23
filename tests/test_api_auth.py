@@ -100,3 +100,63 @@ class AuthenticationTests(unittest.IsolatedAsyncioTestCase):
         with patch.object(module, "Api", return_value=self.api):
             result = await flow.async_step_user({"email": "example@example.com", "password": "test-only"})
         self.assertEqual(result["errors"]["base"], "cannot_connect")
+
+    async def test_malformed_authentication_bodies_do_not_trigger_password_fallback(self):
+        for body in (None, [], "unexpected", {}, {"AuthenticationResult": []},
+                     {"AuthenticationResult": "unexpected"}, {"AuthenticationResult": {}}):
+            with self.subTest(body=body):
+                self.session.post.reset_mock()
+                self.session.post.return_value = self.response(200, body)
+                with self.assertRaises(ApiError) as caught:
+                    await self.api.token()
+                self.assertNotIsInstance(caught.exception, AuthError)
+                self.session.post.assert_called_once()
+
+    async def test_invalid_json_is_a_controlled_error(self):
+        context = self.response(200)
+        context.__aenter__.return_value.json.side_effect = ValueError("invalid json")
+        self.session.post.return_value = context
+        with self.assertRaises(ApiError) as caught:
+            await self.api.token()
+        self.assertNotIsInstance(caught.exception, AuthError)
+
+    async def test_invalid_tokens_do_not_change_credentials(self):
+        for field in ("IdToken", "RefreshToken"):
+            for invalid in (None, "", "  ", 123, [], {}):
+                with self.subTest(field=field, invalid=invalid):
+                    result = {"IdToken": "test-id-token", "RefreshToken": "new-refresh"}
+                    result[field] = invalid
+                    self.session.post.return_value = self.response(200, {"AuthenticationResult": result})
+                    self.api.token_callback = MagicMock()
+                    with self.assertRaises(ApiError) as caught:
+                        await self.api.token()
+                    self.assertNotIsInstance(caught.exception, AuthError)
+                    self.assertIsNone(self.api._token)
+                    self.assertEqual(self.api._expires, 0)
+                    self.assertEqual(self.api.credentials["refresh_token"], "test-refresh-token")
+                    self.api.token_callback.assert_not_called()
+
+    async def test_invalid_expiry_does_not_cache_part_of_response(self):
+        for expiry in (None, True, [], {}, "bad", "NaN", "Infinity", 0, -1, 10 ** 400):
+            with self.subTest(expiry=expiry):
+                self.session.post.return_value = self.response(200, {"AuthenticationResult": {
+                    "IdToken": "test-id-token", "RefreshToken": "new-refresh", "ExpiresIn": expiry,
+                }})
+                with self.assertRaises(ApiError) as caught:
+                    await self.api.token()
+                self.assertNotIsInstance(caught.exception, AuthError)
+                self.assertIsNone(self.api._token)
+                self.assertEqual(self.api._expires, 0)
+                self.assertEqual(self.api.credentials["refresh_token"], "test-refresh-token")
+
+    async def test_valid_refresh_response_can_omit_refresh_token(self):
+        self.session.post.return_value = self.response(200, {"AuthenticationResult": {
+            "IdToken": "test-id-token", "ExpiresIn": "3600",
+        }})
+        self.assertEqual(await self.api.token(), "test-id-token")
+        self.assertEqual(self.api.credentials["refresh_token"], "test-refresh-token")
+
+    async def test_cognito_challenge_remains_an_authentication_error(self):
+        self.session.post.return_value = self.response(200, {"ChallengeName": "NEW_PASSWORD_REQUIRED"})
+        with self.assertRaises(AuthError):
+            await self.api._auth("InitiateAuth", {})

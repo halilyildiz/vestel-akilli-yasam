@@ -67,17 +67,37 @@ class Api:
                             raise ApiError("Vestel kimlik sunucusu geçici olarak kullanılamıyor.")
                     raise AuthError(f"Vestel oturumu yenilenemedi (HTTP {response.status}).")
                 body = await response.json(content_type=None)
-        except (aiohttp.ClientError, asyncio.TimeoutError):
+        except (aiohttp.ClientError, asyncio.TimeoutError, ValueError):
             raise ApiError("Vestel kimlik sunucusuna ulaşılamadı.") from None
+        if not isinstance(body, dict):
+            raise ApiError("Vestel kimlik yanıtının biçimi beklenenden farklı.")
         result = body.get("AuthenticationResult")
-        if not result or not result.get("IdToken"):
+        if result is None and isinstance(body.get("ChallengeName"), str) and body["ChallengeName"]:
             raise AuthError("Vestel hesabıyla yeniden giriş gerekiyor.")
-        self._token = result["IdToken"]
-        self._expires = time.monotonic() + float(result.get("ExpiresIn", 3600)) - 120
-        if result.get("RefreshToken"):
-            self.credentials["refresh_token"] = result["RefreshToken"]
+        if not isinstance(result, dict):
+            raise ApiError("Vestel kimlik doğrulama sonucu okunamadı.")
+        token = result.get("IdToken")
+        if not isinstance(token, str) or not token.strip():
+            raise ApiError("Vestel kimlik yanıtında geçerli oturum bilgisi bulunamadı.")
+        duration = result.get("ExpiresIn", 3600)
+        try:
+            if isinstance(duration, bool) or not isinstance(duration, (int, float, str)):
+                raise ValueError
+            duration = float(duration)
+            if not math.isfinite(duration) or duration <= 0:
+                raise ValueError
+        except (ValueError, OverflowError):
+            raise ApiError("Vestel oturum süresi geçersiz.") from None
+        refresh = result.get("RefreshToken")
+        if "RefreshToken" in result and (not isinstance(refresh, str) or not refresh.strip()):
+            raise ApiError("Vestel oturum yenileme bilgisi geçersiz.")
+        # Validate the entire response before changing any cached credentials.
+        self._token = token
+        self._expires = time.monotonic() + duration - 120
+        if refresh is not None:
+            self.credentials["refresh_token"] = refresh
             if self.token_callback:
-                self.token_callback(result["RefreshToken"])
+                self.token_callback(refresh)
 
     async def token(self):
         async with self._auth_lock:
@@ -146,7 +166,10 @@ class Api:
 
     async def devices(self, home_id):
         body = await self.request("GET", f"/homes/{quote(home_id, safe='')}/devices")
-        items = (body.get("items") or {}).get("homeappliances")
+        container = body.get("items")
+        if not isinstance(container, dict):
+            raise ApiError("Vestel cihaz listesi okunamadı.")
+        items = container.get("homeappliances")
         if not isinstance(items, list):
             raise ApiError("Vestel cihaz listesi okunamadı.")
         return items
@@ -203,7 +226,9 @@ class Api:
     async def billing_settings(self, home_id):
         body = await self.request("GET", "/energymanagement/setting/home/" + quote(home_id, safe=""))
         data = body.get("data", body)
-        if not isinstance(data, dict) or not isinstance(data.get("home"), dict) or not isinstance(data.get("devices"), list):
+        if (not isinstance(data, dict) or not isinstance(data.get("home"), dict)
+                or not isinstance(data.get("devices"), list)
+                or any(not isinstance(device, dict) for device in data["devices"])):
             raise ApiError("Akıllı Fatura ayarları okunamadı.")
         return data
 
