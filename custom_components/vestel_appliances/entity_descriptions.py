@@ -53,6 +53,11 @@ _TECHNICAL_LEAVES: Final = frozenset(
         "supplyvoltage",
         "mainsvoltage",
         "voltage",
+        "defrostsensortemperature",
+        "defrost2sensortemperature",
+        "coolerdefrostsensortemperature",
+        "chefsessionrecipeid",
+        "chefsessionoperationindex",
     }
 )
 _RAW_DOOR_SUFFIX: Final = ".Status.Door"

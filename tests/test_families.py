@@ -158,6 +158,20 @@ class FamilyContracts(unittest.TestCase):
         temperature['valueLimits']['scale']=1
         self.assertIsNone(sensor_description(temperature).native_unit_of_measurement)
 
+    def test_internal_new_family_metrics_are_disabled_diagnostics(self):
+        from custom_components.vestel_appliances.entity_descriptions import sensor_description
+        for key in ('Refrigeration.FridgeFreezer.Status.DefrostSensorTemperature',
+                    'Cooking.Oven.Status.ChefSessionRecipeId',
+                    'Cooking.Oven.Status.ChefSessionOperationIndex'):
+            description=sensor_description({'key':key,'valueType':'Integer'})
+            self.assertEqual(description.entity_category,'diagnostic')
+            self.assertFalse(description.entity_registry_enabled_default)
+        for key in ('Cooking.Oven.Status.CurrentMeasuredTemperature',
+                    'LaundryCare.TumbleDryer.Status.RemainingTimeDry'):
+            description=sensor_description({'key':key,'valueType':'Integer'})
+            self.assertIsNone(description.entity_category)
+            self.assertTrue(description.entity_registry_enabled_default)
+
 
 class FamilyDiscovery(unittest.IsolatedAsyncioTestCase):
     async def test_new_washer_is_discovered_and_bad_family_model_is_isolated(self):
